@@ -1,10 +1,15 @@
-import React from 'react'
-import classes from './Header.module.css';
+import React from "react";
+import classes from "./Header.module.css";
 
-const Header = () => {
+const Header = (props) => {
+  
   return (
-    <div className={classes.header}></div>
-  )
-}
+    <div className={classes.header}>
+      <button className={classes.sidebarButton} onClick={props.onOpen}>
+        Menu
+      </button>
+    </div>
+  );
+};
 
-export default Header
+export default Header;

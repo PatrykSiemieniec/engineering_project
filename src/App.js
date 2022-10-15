@@ -4,17 +4,53 @@ import Delivery from "./components/Orders/Delivery";
 import OnSpot from "./components/Orders/OnSpot";
 import classes from "./App.module.css";
 import Takeaway from "./components/Orders/Takeaway";
+import Footer from "./components/Footer/Footer";
+import { useState } from "react";
 
 function App() {
+  const [isShown, setIsShown] = useState(false);
+
+  const openSidebar = () =>{
+    setIsShown(true);
+  }
+  const closeSidebar = () =>{
+    setIsShown(false);
+  }
+
+  const deliveryClasses = `${classes.delivery} ${
+    !isShown && classes.deliveryExpanded
+  }`;
+  const remainingClasses = `${classes.remaining} ${
+    !isShown && classes.remainingExpanded
+  }`;
+  const headerClasses = `${classes.header} ${
+    !isShown && classes.headerExpanded
+  }`;
+  const footerClasses = `${classes.footer} ${
+    !isShown && classes.footerExpanded
+  }`;
   return (
     <div>
-      <Header />
-      <Sidebar />
+      <div className={classes.sidebar}>
+        {isShown && <Sidebar onClose={closeSidebar}/>}
+      </div>
+      <div className={classes.headerFlex}>
+        <div className={headerClasses}>
+          <Header onOpen={openSidebar}/>
+        </div>
+      </div>
       <div className={classes.containerV}>
-        <Delivery />
-        <div className={classes.containerH}>
+        <div className={deliveryClasses}>
+          <Delivery />
+        </div>
+        <div className={remainingClasses}>
           <OnSpot />
-          <Takeaway/>
+          <Takeaway />
+        </div>
+      </div>
+      <div className={classes.footerFlex}>
+        <div className={footerClasses}>
+          <Footer />
         </div>
       </div>
     </div>

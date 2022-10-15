@@ -3,7 +3,7 @@ import classes from './OnSpot.module.css'
 
 function OnSpot() {
   return (
-    <div className={classes.onspot}>OnSpot</div>
+    <div className={classes.onspot}></div>
   )
 }
 
