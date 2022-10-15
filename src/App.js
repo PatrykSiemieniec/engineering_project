@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import Sidebar from "./components/Sidebar/Sidebar";
+import Header from "./components/Header/Header";
+import Delivery from "./components/Orders/Delivery";
+import OnSpot from "./components/Orders/OnSpot";
+import classes from "./App.module.css";
+import Takeaway from "./components/Orders/Takeaway";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      <Sidebar />
+      <div className={classes.containerV}>
+        <Delivery />
+        <div className={classes.containerH}>
+          <OnSpot />
+          <Takeaway/>
+        </div>
+      </div>
     </div>
   );
 }
