@@ -1,5 +1,6 @@
-.delivery{}
-
+.delivery{
+    background-color: rgb(53, 40, 168);
+}
 .container{
     height: 77vh;
 }

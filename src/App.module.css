@@ -1,17 +1,32 @@
-.containerV {
-  display: flex;
-  justify-content: flex-end;
+.grid {
+  display: grid;
+  grid-template-columns: 45% 41%;
+  grid-template-rows: 38.5vh 38.5vh;
+  justify-content: end;
+  grid-template-areas:
+    "delivery onspot"
+    "delivery takeaway";
 }
-.remaining {
-  display: flex;
-  flex-direction: column;
-  width: 41%;
+.gridExpanded {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 38.5vh 38.5vh;
+  grid-template-areas:
+    "delivery onspot"
+    "delivery takeaway";
 }
+
 .delivery {
-  display: flex;
-  flex-direction: column;
-  width: 45%;
-  background-color: rgb(53, 40, 168);
+  display: grid;
+  grid-area: delivery;
+}
+.onSpot {
+  display: grid;
+  grid-area: onspot;
+}
+.takeaway {
+  display: grid;
+  grid-area: takeaway;
 }
 .headerFlex {
   display: flex;
@@ -19,8 +34,8 @@
 }
 .header {
   height: 13vh;
-  background-color: rgb(43, 183, 237);
   width: 86%;
+  background-color: rgb(43, 183, 237);
 }
 .footer {
   width: 86%;
@@ -35,16 +50,50 @@
 .sidebar {
   display: flex;
 }
-
-.deliveryExpanded {
-  width: 50%;
-}
-.remainingExpanded {
-  width: 50%;
-}
 .headerExpanded {
   width: 100%;
 }
 .footerExpanded {
   width: 100%;
+}
+
+.deliveryClosed {
+  display: grid;
+  grid-template-rows: 77vh;
+  grid-auto-flow: column;
+  grid-template-areas:
+    "onspot takeaway";
+
+}
+.onSpotClosed {
+  display: grid;
+  grid-template-areas:
+    "delivery takeaway"
+    "delivery takeaway";
+}
+.takeawayClosed {
+  display: grid;
+  grid-template-areas:
+    "delivery onspot"
+    "delivery onspot";
+}
+.deliveryLeft{
+  display: grid;
+  grid-template-areas:
+    "delivery delivery"
+    "delivery delivery";
+}
+
+.onSpotLeft{
+  display: grid;
+  grid-template-areas:
+    "onspot onspot"
+    "onspot onspot";
+}
+
+.takeawayLeft{
+  display: grid;
+  grid-template-areas:
+    "takeaway takeaway"
+    "takeaway takeaway";
 }

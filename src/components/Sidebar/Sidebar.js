@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { GridContext } from "../../store/grid-context";
 import classes from "./Sidebar.module.css";
 
 const Sidebar = (props) => {
+  const gridCtx = useContext(GridContext)
+  const {handleDeliveryClosed, handleOnSpotClosed, handleTakeawayClosed } = gridCtx;
+
   const sidebarItem = (
     <div className={classes.list}>
       <p>Zamówienia</p>
-      <button className={classes.sidebarItemButton}>Na dowóz</button>
-      <button className={classes.sidebarItemButton}>Na miejscu</button>
-      <button className={classes.sidebarItemButton}>Na odbiór</button>
+      <button className={classes.sidebarItemButton} onClick={()=>{handleDeliveryClosed(false)}}>Na dowóz</button>
+      <button className={classes.sidebarItemButton} onClick={()=>{handleOnSpotClosed(false)}}>Na miejscu</button>
+      <button className={classes.sidebarItemButton} onClick={()=>{handleTakeawayClosed(false)}}>Na odbiór</button>
       <p>Panel </p>
       <button className={classes.sidebarItemButton}>Edytuj</button>
       <br />
