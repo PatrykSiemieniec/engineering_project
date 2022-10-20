@@ -1,7 +1,9 @@
 .header {
-  
+  background-color: rgb(43, 183, 237);
+  display: grid;
+  grid-area: header;
 }
-.sidebarButton {
+.menuButton {
   box-shadow: 0px 1px 0px 0px #1e9acf;
   background: linear-gradient(to bottom, #33bdef 5%, #019ad2 100%);
   background-color: #33bdef;
@@ -18,9 +20,4 @@
   text-shadow: 0px -1px 0px #5b6178;
   margin-top: 1%;
   margin-left: 1%;
-}
-
-.buttonFlex{
-
-    
 }

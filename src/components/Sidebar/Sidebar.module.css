@@ -8,14 +8,16 @@ p {
 }
 .sidebar {
   position:fixed;
-  width: 13.5vw;
+  box-sizing: border-box;
+  width: 14vw;
   height: 100vh;
   background-color: rgb(43, 183, 207);
   position: absolute;
   top: 0;
   left: 0;
   overflow: auto;
-  border-right: #057fd0 solid 3px;
+  z-index: 1;
+  border-right: 5px solid rgb(44, 164, 211);
 }
 .closeButton {
   position: relative;
@@ -62,4 +64,40 @@ p {
   font-size: 15px;
   font-weight: bold;
   
+}
+
+@media screen and (max-width: 1300px) {
+  .list {
+    left: 9%;
+    width:130px;
+  }
+  p{
+    font-size: 15px;
+  }
+  .sidebarItemButton{
+    padding: 2px 10px;
+    scale:95%;
+  }
+  
+  .text {
+    scale: 90%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .list {
+    left: 3%;
+    width:90px;
+  }
+  p{
+    font-size: 15px;
+  }
+  .sidebarItemButton{
+    padding: 2px 0px;
+    scale:90%;
+  }
+  
+  .text {
+    display: none;
+  }
 }

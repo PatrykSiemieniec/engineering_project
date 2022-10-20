@@ -1,99 +1,56 @@
 .grid {
+  z-index: 0;
   display: grid;
-  grid-template-columns: 45% 41%;
-  grid-template-rows: 38.5vh 38.5vh;
+  grid-template-columns: 43% 43%;
+  grid-template-rows: 13vh 38.5vh 38.5vh 10vh;
   justify-content: end;
   grid-template-areas:
+    "header header"
     "delivery onspot"
-    "delivery takeaway";
+    "delivery takeaway"
+    "footer footer";
 }
 .gridExpanded {
+  z-index: 0;
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-template-rows: 38.5vh 38.5vh;
+  grid-template-rows: 13vh 38.5vh 38.5vh 10vh;
   grid-template-areas:
+    "header header"
     "delivery onspot"
-    "delivery takeaway";
+    "delivery takeaway"
+    "footer footer";
 }
 
-.delivery {
-  display: grid;
-  grid-area: delivery;
-}
-.onSpot {
-  display: grid;
-  grid-area: onspot;
-}
-.takeaway {
-  display: grid;
-  grid-area: takeaway;
-}
-.headerFlex {
-  display: flex;
-  justify-content: flex-end;
-}
-.header {
-  height: 13vh;
-  width: 86%;
-  background-color: rgb(43, 183, 237);
-}
-.footer {
-  width: 86%;
-  height: 10vh;
-  background-color: rgb(43, 183, 237);
-}
-
-.footerFlex {
-  display: flex;
-  justify-content: flex-end;
-}
 .sidebar {
   display: flex;
 }
-.headerExpanded {
-  width: 100%;
-}
-.footerExpanded {
-  width: 100%;
+
+.info {
+  color: black;
+  position: absolute;
+  width: 50vw;
+  left: 25vw;
+  top: 25vh;
 }
 
-.deliveryClosed {
+.deliveryClosed{
   display: grid;
-  grid-template-rows: 77vh;
-  grid-auto-flow: column;
+  grid-template-columns: 43% 43%;
+  grid-template-rows: 13vh 77vh 10vh;
+  justify-content: end;
   grid-template-areas:
-    "onspot takeaway";
-
-}
-.onSpotClosed {
-  display: grid;
-  grid-template-areas:
-    "delivery takeaway"
-    "delivery takeaway";
-}
-.takeawayClosed {
-  display: grid;
-  grid-template-areas:
-    "delivery onspot"
-    "delivery onspot";
-}
-.deliveryLeft{
-  display: grid;
-  grid-template-areas:
-    "delivery delivery"
-    "delivery delivery";
+    "header header"
+    "onspot takeaway"
+    "footer footer";
 }
 
-.onSpotLeft{
+.deliveryClosedExpanded{
   display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 13vh 77vh 10vh;
   grid-template-areas:
-    "onspot onspot"
-    "onspot onspot";
-}
-
-.takeawayLeft{
-  display: grid;
-  grid-template-areas:
-    "takeaway takeaway"
-    "takeaway takeaway";
+    "header header"
+    "onspot takeaway"
+    "footer footer";
 }

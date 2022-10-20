@@ -20,59 +20,29 @@ function App() {
     setIsShown(false);
   };
 
-  const headerClasses = `${classes.header} ${
-    !isShown && classes.headerExpanded
-  }`;
-  const footerClasses = `${classes.footer} ${
-    !isShown && classes.footerExpanded
-  }`;
-  const gridExpanded = `${classes.grid} ${!isShown && classes.gridExpanded}`;
+  const grid = classes.grid;
+  const gridExpanded = `${grid} ${!isShown && classes.gridExpanded}`;
+  const deliveryClosed = `${classes.deliveryClosed} ${!isDeliveryClosed && classes.deliveryClosedExpanded}`;
 
-
-/*
-  let gridStyles = null;
-  if (!isDeliveryClosed) {
-    gridStyles = `${classes.grid} ${classes.deliveryClosed} ${
-      !isShown && classes.gridExpanded
-    }`;
-    return gridStyles;
-  } else if (!isOnSpotClosed) {
-    gridStyles = `${classes.grid} ${!isShown && classes.gridExpanded}`;
-    return gridStyles;
-  } else if (!isTakeawayClosed) {
-    gridStyles = `${classes.grid} ${!isShown && classes.gridExpanded}`;
-    return gridStyles;
-  } else {
-    gridStyles = `${classes.grid} ${!isShown && classes.gridExpanded}`;
-  }
-*/
+  const info = (
+    <p className={classes.info}>
+      Aby wyświetlić zamówienia udaj się do Menu -{">"} Zamówienia
+    </p>
+  );
   return (
     <div>
       <div className={classes.sidebar}>
         {isShown && <Sidebar onClose={closeSidebar} />}
       </div>
-      <div className={classes.headerFlex}>
-        <div className={headerClasses}>
-          <Header onOpen={openSidebar} />
-        </div>
-      </div>
       <div className={gridExpanded}>
-        <div className={classes.delivery}>
-          <Delivery />
-        </div>
+        <Header onOpen={openSidebar} />
+        {isDeliveryClosed && isOnSpotClosed && isTakeawayClosed && info}
+        <Delivery  />
         <div>
-          <div className={classes.onSpot}>
-            <OnSpot />
-          </div>
-          <div className={classes.takeaway}>
-            <Takeaway />
-          </div>
+          <OnSpot/>
+          <Takeaway/>
         </div>
-      </div>
-      <div className={classes.footerFlex}>
-        <div className={footerClasses}>
-          <Footer />
-        </div>
+        <Footer />
       </div>
     </div>
   );

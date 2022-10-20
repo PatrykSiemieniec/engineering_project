@@ -6,9 +6,11 @@ const Header = (props) => {
 
   return (
     <div className={classes.header}>
-      <button className={classes.sidebarButton} onClick={onOpen}>
-        Menu
-      </button>
+      <div>
+        <button className={classes.menuButton} onClick={onOpen}>
+          Menu
+        </button>
+      </div>
     </div>
   );
 };
