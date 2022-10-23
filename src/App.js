@@ -5,13 +5,21 @@ import OnSpot from "./components/Orders/OnSpot/OnSpot";
 import classes from "./App.module.css";
 import Takeaway from "./components/Orders/Takeaway/Takeaway";
 import Footer from "./components/Footer/Footer";
-import { useState, useContext } from "react";
+import { useState, useContext, Fragment } from "react";
 import { GridContext } from "./store/grid-context";
+import Cart from "./components/MenuCart/Cart";
+import EditPanel from "./components/Edit/EditPanel";
 
 function App() {
   const [isShown, setIsShown] = useState(false);
+  const [isMenuShown, setIsMenuShown] = useState(false);
   const gridCtx = useContext(GridContext);
-  const { isDeliveryClosed, isOnSpotClosed, isTakeawayClosed } = gridCtx;
+  const {
+    isDeliveryClosed,
+    isOnSpotClosed,
+    isTakeawayClosed,
+    isEditPanelShown,
+  } = gridCtx;
 
   const openSidebar = () => {
     setIsShown(true);
@@ -19,10 +27,15 @@ function App() {
   const closeSidebar = () => {
     setIsShown(false);
   };
+  const openMenu = () => {
+    setIsMenuShown(true);
+  };
+  const closeMenu = () => {
+    setIsMenuShown(false);
+  };
 
   const grid = classes.grid;
   const gridExpanded = `${grid} ${!isShown && classes.gridExpanded}`;
-  const deliveryClosed = `${classes.deliveryClosed} ${!isDeliveryClosed && classes.deliveryClosedExpanded}`;
 
   const info = (
     <p className={classes.info}>
@@ -30,21 +43,27 @@ function App() {
     </p>
   );
   return (
-    <div>
-      <div className={classes.sidebar}>
-        {isShown && <Sidebar onClose={closeSidebar} />}
-      </div>
-      <div className={gridExpanded}>
-        <Header onOpen={openSidebar} />
-        {isDeliveryClosed && isOnSpotClosed && isTakeawayClosed && info}
-        <Delivery  />
+    <Fragment>
+      {isEditPanelShown && <EditPanel></EditPanel>}
+      {!isEditPanelShown && (
         <div>
-          <OnSpot/>
-          <Takeaway/>
+          <div className={classes.sidebar}>
+            {isShown && <Sidebar onClose={closeSidebar} />}
+          </div>
+          {isMenuShown && <Cart onHideCart={closeMenu} />}
+          <div className={gridExpanded}>
+            <Header onOpen={openSidebar} onOpenMenu={openMenu} />
+            {isDeliveryClosed && isOnSpotClosed && isTakeawayClosed && info}
+            <Delivery />
+            <div>
+              <OnSpot />
+              <Takeaway />
+            </div>
+            <Footer />
+          </div>
         </div>
-        <Footer />
-      </div>
-    </div>
+      )}
+    </Fragment>
   );
 }
 

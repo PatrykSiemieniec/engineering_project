@@ -5,7 +5,7 @@ import { TbPaperBag, TbTruckDelivery, TbHome, TbEdit } from "react-icons/tb";
 
 const Sidebar = (props) => {
   const gridCtx = useContext(GridContext);
-  const { handleDeliveryClosed, handleOnSpotClosed, handleTakeawayClosed } =
+  const { handleDeliveryClosed, handleOnSpotClosed, handleTakeawayClosed, handleEditPanelShown} =
     gridCtx;
 
   const sidebarItem = (
@@ -21,7 +21,7 @@ const Sidebar = (props) => {
           style={{ color: "white", fontSize: "20px" }}
         />
         <br />
-        <text className={classes.text}>Na dowóz</text>
+        <div className={classes.text}>Na dowóz</div>
       </button>
       <button
         className={classes.sidebarItemButton}
@@ -31,7 +31,7 @@ const Sidebar = (props) => {
       >
         <TbHome style={{ color: "white", fontSize: "20px" }} />
         <br />
-        <text className={classes.text}>Na miejscu</text>
+        <div className={classes.text}>Na miejscu</div>
       </button>
       <button
         className={classes.sidebarItemButton}
@@ -41,13 +41,16 @@ const Sidebar = (props) => {
       >
         <TbPaperBag style={{ color: "white", fontSize: "20px" }} />
         <br />
-        <text className={classes.text}>Na odbiór</text>
+        <div className={classes.text}>Na odbiór</div>
       </button>
       <p>Panel </p>
-      <button className={classes.sidebarItemButton}>
+      <button className={classes.sidebarItemButton}
+      onClick={()=>{
+        handleEditPanelShown(true);
+      }}>
         <TbEdit style={{ color: "white", fontSize: "20px" }} />
         <br />
-        <text className={classes.text}>Edytuj</text>
+        <div className={classes.text}>Edytuj</div>
       </button>
 
       <br />

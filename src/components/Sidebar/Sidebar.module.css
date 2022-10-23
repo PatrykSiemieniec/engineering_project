@@ -65,7 +65,9 @@ p {
   font-weight: bold;
   
 }
-
+.sidebarItemButton:hover{
+  background-color: #1992be;
+}
 @media screen and (max-width: 1300px) {
   .list {
     left: 9%;
