@@ -2,11 +2,16 @@ import React, { useContext } from "react";
 import { GridContext } from "../../store/grid-context";
 import classes from "./Sidebar.module.css";
 import { TbPaperBag, TbTruckDelivery, TbHome, TbEdit } from "react-icons/tb";
-
+import { VscChromeClose } from "react-icons/vsc";
+import Button from "../../UI/Button";
 const Sidebar = (props) => {
   const gridCtx = useContext(GridContext);
-  const { handleDeliveryClosed, handleOnSpotClosed, handleTakeawayClosed, handleEditPanelShown} =
-    gridCtx;
+  const {
+    handleDeliveryClosed,
+    handleOnSpotClosed,
+    handleTakeawayClosed,
+    handleEditPanelShown,
+  } = gridCtx;
 
   const sidebarItem = (
     <div className={classes.list}>
@@ -17,9 +22,7 @@ const Sidebar = (props) => {
           handleDeliveryClosed(false);
         }}
       >
-        <TbTruckDelivery
-          style={{ color: "white", fontSize: "20px" }}
-        />
+        <TbTruckDelivery style={{ color: "white", fontSize: "20px" }} />
         <br />
         <div className={classes.text}>Na dowóz</div>
       </button>
@@ -44,10 +47,12 @@ const Sidebar = (props) => {
         <div className={classes.text}>Na odbiór</div>
       </button>
       <p>Panel </p>
-      <button className={classes.sidebarItemButton}
-      onClick={()=>{
-        handleEditPanelShown(true);
-      }}>
+      <button
+        className={classes.sidebarItemButton}
+        onClick={() => {
+          handleEditPanelShown(true);
+        }}
+      >
         <TbEdit style={{ color: "white", fontSize: "20px" }} />
         <br />
         <div className={classes.text}>Edytuj</div>
@@ -60,9 +65,9 @@ const Sidebar = (props) => {
   return (
     <>
       <div className={classes.sidebar}>
-        <button className={classes.closeButton} onClick={props.onClose}>
-          X
-        </button>
+        <Button class={classes.closeButton} onClick={props.onClose}>
+          <VscChromeClose style={{ color: "white", fontSize: "15px", fontWeight:"bolder", marginTop:"3px"}} />
+        </Button>
         {sidebarItem}
       </div>
     </>

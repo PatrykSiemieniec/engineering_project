@@ -1,0 +1,24 @@
+.container {
+  display: grid;
+  grid-template-columns: 85vw 15vw;
+  grid-template-rows: 100vh;
+  grid-template-areas:
+    "panel header "
+}
+.header {
+  display: grid;
+  grid-area: header;
+  background-color: black;
+}
+
+.panel {
+  display: grid;
+  grid-area: panel;
+  background-color: blue;
+}
+
+.button{
+    align-self: start;
+    justify-self: center;
+    margin-top: 20%;
+}

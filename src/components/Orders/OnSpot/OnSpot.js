@@ -3,22 +3,25 @@ import { GridContext } from "../../../store/grid-context";
 import Container from "../../../UI/Container";
 import classes from "./OnSpot.module.css";
 import OnSpotItems from "./OnSpotItems";
-
-function OnSpot(props) {
+import Button from "../../../UI/Button";
+import { VscChromeClose } from "react-icons/vsc";
+function OnSpot() {
   const gridCtx = useContext(GridContext);
   const { isOnSpotClosed, handleOnSpotClosed } = gridCtx;
+
+
   return (
     <>
       {!isOnSpotClosed && (
         <div className={classes.onspot}>
-          <button
-            className={classes.closeButton}
+          <Button
+            class={classes.closeButton}
             onClick={() => {
               handleOnSpotClosed(true);
             }}
           >
-            X
-          </button>
+            <VscChromeClose style={{ color: "white", fontSize: "15px", fontWeight:"bolder", marginTop:"3px"}} />
+          </Button>
           <Container class={classes.container}>
             <OnSpotItems />
           </Container>

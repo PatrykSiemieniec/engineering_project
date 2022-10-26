@@ -1,0 +1,52 @@
+.box {
+  margin-top: 15px;
+  display: grid;
+  font-size: 25px;
+  grid-template-columns: 40% 15% 20% 10% 10%;
+  grid-template-rows: 20% 20%;
+  grid-template-areas:
+    "name amount price add remove"
+    "size amount price add remove";
+  overflow: auto;
+}
+
+.name {
+  display: grid;
+  grid-area: name;
+  font-weight: bold;
+}
+.size {
+  display: grid;
+  grid-area: size;
+  margin-top: 20px;
+}
+.amount {
+  display: grid;
+  grid-area: amount;
+  align-content: center;
+  margin-top: 20px;
+}
+.price {
+  display: grid;
+  grid-area: price;
+  align-content: center;
+  font-style: italic;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.addButton {
+    display: grid;
+    grid-area: add;
+    align-content: center;
+    justify-self: center ;
+    width: 50%;
+    margin-left: 30%;
+  }
+  .removeButton {
+    display: grid;
+    grid-area: remove;
+    align-content: center;
+    justify-self: center ;
+    width: 50%;
+  }

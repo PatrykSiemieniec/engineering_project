@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./Header.module.css";
-
+import Button from "../../UI/Button";
 const Header = (props) => {
   const onOpen = props.onOpen;
   const onOpenMenu = props.onOpenMenu;
@@ -8,12 +8,12 @@ const Header = (props) => {
   return (
     <div className={classes.header}>
       <div>
-        <button className={classes.menuButton} onClick={onOpen}>
+        <Button class={classes.menuButton} onClick={onOpen}>
           Menu
-        </button>
-        <button className={classes.add} 
+        </Button>
+        <Button class={classes.add} 
         onClick={onOpenMenu}
-        >Dodaj zamówienie</button>
+        >Dodaj zamówienie</Button>
       </div>
     </div>
   );

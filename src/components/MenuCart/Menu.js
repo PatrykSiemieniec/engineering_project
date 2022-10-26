@@ -25,7 +25,9 @@ const Menu = () => {
           id: key,
           name: responseData[key].name,
           ingredients: responseData[key].ingredients,
-          price: responseData[key].price,
+          priceS: responseData[key].priceS,
+          priceM: responseData[key].priceM,
+          priceL: responseData[key].priceL,
         });
       }
       setMenu(loadedMenu);
@@ -59,7 +61,9 @@ const Menu = () => {
       key={menu.id}
       name={menu.name}
       ingredients={menu.ingredients}
-      price={menu.price}
+      priceS={menu.priceS}
+      priceM={menu.priceM}
+      priceL={menu.priceL}
     />
   ));
 

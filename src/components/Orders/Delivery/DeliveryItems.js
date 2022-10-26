@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-function DeliveryItems() {
-  return (
-    <div>DeliveryItems</div>
-  )
-}
+const DeliveryItems = () => {
+  return <div>DeliveryItems</div>;
+};
 
-export default DeliveryItems
+export default DeliveryItems;

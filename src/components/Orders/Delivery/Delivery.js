@@ -3,7 +3,8 @@ import { GridContext } from "../../../store/grid-context";
 import Container from "../../../UI/Container";
 import classes from "./Delivery.module.css";
 import DeliveryItems from "./DeliveryItems";
-
+import Button from "../../../UI/Button";
+import { VscChromeClose } from "react-icons/vsc";
 function Delivery() {
   const gridCtx = useContext(GridContext);
   const { isDeliveryClosed, handleDeliveryClosed } = gridCtx;
@@ -12,14 +13,21 @@ function Delivery() {
     <>
       {!isDeliveryClosed && (
         <div className={classes.delivery}>
-          <button
-            className={classes.closeButton}
+          <Button
+            class={classes.closeButton}
             onClick={() => handleDeliveryClosed(true)}
           >
-            X
-          </button>
+            <VscChromeClose
+              style={{
+                color: "white",
+                fontSize: "15px",
+                fontWeight: "bolder",
+                marginTop: "3px",
+              }}
+            />
+          </Button>
           <Container class={classes.container}>
-            <DeliveryItems />
+            <DeliveryItems></DeliveryItems>
           </Container>
         </div>
       )}
