@@ -9,14 +9,24 @@ const MenuItems = (props) => {
   const orderCtx = useContext(OrderContext);
 
   const addItemToOrderHandler = (amount, size) => {
+    let id = "";
+    let price = 0;
+    if (size === "small") {
+      id = props.id + "s";
+      price = props.priceS;
+    } else if (size === "large") {
+      id = props.id + "l";
+      price = props.priceL;
+    } else if (size === "medium") {
+      id = props.id + "m";
+      price = props.priceM;
+    }
     orderCtx.addItem({
-      id: props.id,
+      id: id,
       name: props.name,
       amount,
       size,
-      priceS: props.priceS,
-      priceM: props.priceM,
-      priceL: props.priceL,
+      price,
     });
   };
 

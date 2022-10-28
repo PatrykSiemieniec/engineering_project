@@ -15,24 +15,14 @@ const defaultOrderState = {
 
 const orderReducer = (state, action) => {
   if (action.type === "ADD") {
-    let price = 0;
-    if (action.item.size === "small") {
-      price = action.item.priceS;
-    } else if (action.item.size === "medium") {
-      price = action.item.priceM;
-    } else {
-      price = action.item.priceL;
-    }
-
-    const updatedTotalAmount = state.totalAmount + price * action.item.amount;
-
+    const updatedTotalAmount =
+      state.totalAmount + action.item.price * action.item.amount;
     const existingCartItemIndex = state.items.findIndex(
       (item) => item.id === action.item.id && item.size === action.item.size
     );
 
     const existingCartItem = state.items[existingCartItemIndex];
     let updatedItems;
-
     if (existingCartItem) {
       const updatedItem = {
         ...existingCartItem,
@@ -48,20 +38,10 @@ const orderReducer = (state, action) => {
 
   if (action.type === "REMOVE") {
     const existingCartItemIndex = state.items.findIndex(
-      (item) => item.id === action.id
+      (item) => item.id === action.id && item.size === action.size
     );
     const existingItem = state.items[existingCartItemIndex];
-    let price = 0;
-    if (existingItem.size === "small") {
-      price = existingItem.priceS;
-    } else if (existingItem.size === "medium") {
-      price = existingItem.priceM;
-    } else if (existingItem.size === "large"){
-      price = existingItem.priceL;
-    }
-
-    const updatedTotalAmount = state.totalAmount - price;
-    
+    const updatedTotalAmount = state.totalAmount - existingItem.price;
     let updatedItems;
     if (existingItem.amount === 1) {
       updatedItems = state.items.filter((item) => item.id !== action.id);
@@ -90,8 +70,8 @@ export const OrderContextProvider = ({ children }) => {
   const addItemToOrderHandler = (item) => {
     dispatchOrderAction({ type: "ADD", item: item });
   };
-  const removeItemFromOrderHandler = (id) => {
-    dispatchOrderAction({ type: "REMOVE", id: id });
+  const removeItemFromOrderHandler = (id, size) => {
+    dispatchOrderAction({ type: "REMOVE", id: id, size: size });
   };
   const contextValue = {
     items: orderState.items,
