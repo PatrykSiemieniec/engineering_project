@@ -5,10 +5,14 @@ export const GridContext = createContext({
   isOnSpotClosed: null,
   isTakeawayClosed: null,
   isEditPanelShown: false,
+  selectedFile:null,
+  isFilePicked:false,
   onClosedDelivery: (contiton) => {},
   onClosedOnSpot: (contiton) => {},
   onClosedTakeaway: (contiton) => {},
-  setIsEditPanelShown: (condition) => {}
+  setIsEditPanelShown: (condition) => {},
+  setSelectedFile: ()=>{},
+  setIsFilePicked: (condition) => {}
 });
 
 export const GridContextProvider = ({ children }) => {
@@ -16,6 +20,8 @@ export const GridContextProvider = ({ children }) => {
   const [isOnSpotClosed, setIsOnSpotClosed] = useState(false);
   const [isTakeawayClosed, setIsTakeawayClosed] = useState(false);
   const [isEditPanelShown, setIsEditPanelShown] = useState(false);
+  const [selectedFile, setSelectedFile] = useState();
+  const [isFilePicked, setIsFilePicked] = useState(false);
 
   const handleDeliveryClosed = (contition) => {
     setIsDeliveryClosed(contition);
@@ -26,7 +32,7 @@ export const GridContextProvider = ({ children }) => {
   const handleTakeawayClosed = (contition) => {
     setIsTakeawayClosed(contition);
   };
-  const handleEditPanelShown =(condition)=>{
+  const handleEditPanelShown = (condition) => {
     setIsEditPanelShown(condition);
   };
 
@@ -35,10 +41,14 @@ export const GridContextProvider = ({ children }) => {
     isOnSpotClosed,
     isTakeawayClosed,
     isEditPanelShown,
+    selectedFile,
+    isFilePicked,
     handleDeliveryClosed,
     handleOnSpotClosed,
     handleTakeawayClosed,
-    handleEditPanelShown
+    handleEditPanelShown,
+    setSelectedFile,
+    setIsFilePicked
   };
 
   return (

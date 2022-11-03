@@ -3,7 +3,6 @@ import Button from "../../../UI/Button";
 import classes from "./CartSummaryItems.module.css";
 
 const CartSummaryItems = (props) => {
- 
   const amount = props.price * props.amount;
   return (
     <>
@@ -19,7 +18,9 @@ const CartSummaryItems = (props) => {
           -
         </Button>
       </div>
-      <div>----------------------------------------------------------------------------------------------------------</div>
+      <div>
+        ---------------------------------------------------------------------------------------------------------
+      </div>
     </>
   );
 };

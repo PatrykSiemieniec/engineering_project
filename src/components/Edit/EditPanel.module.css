@@ -13,6 +13,7 @@
 
 .panel {
   display: grid;
+  
   grid-area: panel;
   background-color: blue;
 }
@@ -21,4 +22,19 @@
     align-self: start;
     justify-self: center;
     margin-top: 20%;
+}
+.panelItems{
+  box-sizing: border-box;
+  padding: 25px;
+  margin-left: 10vw;
+  margin-top: 10vh;
+  width:65vw;
+  height: 80vh;
+  background-color: red;
+  
+}
+.flex{
+  display: flex;
+  justify-content: Center;
+  gap: 10px;
 }

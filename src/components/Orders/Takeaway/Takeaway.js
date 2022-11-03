@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import { GridContext } from "../../../store/grid-context";
 import Container from "../../../UI/Container";
 import classes from "./Takeaway.module.css";
-import TakeawayItems from "./TakeawayItems";
 import Button from "../../../UI/Button";
 import { VscChromeClose } from "react-icons/vsc";
+import TakeawayItems from "./TakeawayItems";
 function Takeaway() {
   const gridCtx = useContext(GridContext);
   const { isTakeawayClosed, handleTakeawayClosed } = gridCtx;
@@ -18,10 +18,16 @@ function Takeaway() {
               handleTakeawayClosed(true);
             }}
           >
-            <VscChromeClose style={{ color: "white", fontSize: "15px", fontWeight:"bolder", marginTop:"3px"}} />
+            <VscChromeClose
+              style={{
+                color: "white",
+                fontSize: "15px",
+                fontWeight: "bolder",
+                marginTop: "3px",
+              }}
+            />
           </Button>
           <Container class={classes.container}>
-            <TakeawayItems />
           </Container>
         </div>
       )}

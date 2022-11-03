@@ -1,9 +1,10 @@
-import React from 'react'
-
-function OnSpotItems() {
+import React from "react";
+import classes from './OnSpotItems.module.css'
+function OnSpotItems(props) {
+  const {onspotItems} = props;
   return (
-    <div>OnSpotItems</div>
-  )
+    <div className={classes.flex}>{onspotItems}</div>
+  );
 }
 
-export default OnSpotItems
+export default OnSpotItems;
