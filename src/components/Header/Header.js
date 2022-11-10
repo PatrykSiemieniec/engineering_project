@@ -11,9 +11,9 @@ const Header = (props) => {
         <Button class={classes.menuButton} onClick={onOpen}>
           Menu
         </Button>
-        <Button class={classes.add} 
-        onClick={onOpenMenu}
-        >Dodaj zamówienie</Button>
+        <Button class={classes.add} onClick={onOpenMenu}>
+          Dodaj zamówienie
+        </Button>
       </div>
     </div>
   );

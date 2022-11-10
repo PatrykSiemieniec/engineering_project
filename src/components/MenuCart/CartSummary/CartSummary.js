@@ -50,6 +50,7 @@ const CartSummary = (props) => {
             orderedItems: orderCtx.items,
             orderedAmount: orderCtx.totalAmount,
           }),
+        
         }
       );
     }

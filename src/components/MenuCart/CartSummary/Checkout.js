@@ -1,10 +1,13 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import classes from "./Checkout.module.css";
+import { GridContext } from "../../../store/grid-context";
 
 const isEmpty = (value) => value.trim() === "";
 const isNineChars = (value) => value.trim().length === 9;
 
 const Checkout = (props) => {
+  const gridCtx = useContext(GridContext);
+  const { handleIsSend } = gridCtx;
   const [formInputValidity, setFormInputValidity] = useState({
     street: true,
     city: true,
@@ -14,6 +17,7 @@ const Checkout = (props) => {
   const numberInputRef = useRef();
   const cityInputRef = useRef();
   const typeSelectRef = useRef();
+  const timeRef = useRef();
 
   const confirmHandler = (event) => {
     event.preventDefault();
@@ -22,10 +26,18 @@ const Checkout = (props) => {
     const enteredNumber = numberInputRef.current.value;
     const enteredCity = cityInputRef.current.value;
     const enteredType = typeSelectRef.current.value;
-
+    const enteredTime = timeRef.current.value;
     const enteredStreetIsValid = !isEmpty(enteredStreet);
     const enteredCityIsValid = !isEmpty(enteredCity);
     const enteredNumberIsValid = isNineChars(enteredNumber);
+
+    const time = enteredTime.split(":");
+
+    const timeNow = new Date();
+    const hourNowMs = timeNow.getHours() * 3600000;
+    const minutesNowMs = timeNow.getMinutes() * 60000;
+    const timeNowMs = hourNowMs + minutesNowMs;
+    const mseconds = time[0] * 3600000 + time[1] * 60000 - timeNowMs;
 
     setFormInputValidity({
       street: enteredStreetIsValid,
@@ -44,7 +56,8 @@ const Checkout = (props) => {
       street: enteredStreet,
       city: enteredCity,
       number: enteredNumber,
-      type: enteredType
+      type: enteredType,
+      time: mseconds,
     });
   };
 
@@ -67,6 +80,10 @@ const Checkout = (props) => {
           <option value="onspot">Na miejscu</option>
           <option value="takeaway">Na odbiór</option>
         </select>
+      </div>
+      <div className={streetControlClasses}>
+        <label htmlFor="time">Czas</label>
+        <input placeholder="minutes" type="time" id="time" ref={timeRef} />
       </div>
       <div className={streetControlClasses}>
         <label htmlFor="street">Ulica</label>
@@ -102,7 +119,9 @@ const Checkout = (props) => {
       </div>
 
       <div className={classes.actions}>
-        <button className={classes.submit}>Wyślij</button>
+        <button className={classes.submit} onClick={handleIsSend}>
+          Wyślij
+        </button>
       </div>
     </form>
   );
