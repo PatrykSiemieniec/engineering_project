@@ -1,15 +1,13 @@
-import React, {useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { GridContext } from "../../../store/grid-context";
 import Container from "../../../UI/Container";
 import classes from "./Delivery.module.css";
-import Button from "../../../UI/Button";
-import { VscChromeClose } from "react-icons/vsc";
 import DeliveryItems from "./DeliveryItems";
 import axios from "axios";
-import Countdown from "react-countdown";
+
 function Delivery() {
   const gridCtx = useContext(GridContext);
-  const { isDeliveryClosed, handleDeliveryClosed} = gridCtx;
+  const { isDeliveryClosed, reload } = gridCtx;
   const [deliveryItems, setDeliveryItems] = useState("");
 
   const url =
@@ -27,96 +25,61 @@ function Delivery() {
 
   useEffect(() => {
     getDeliveryItems();
-  }, []);
+  }, [reload]);
 
   let loadedOrdersData = [];
+
   for (const key in deliveryItems) {
     for (const i in deliveryItems[key].orderedItems) {
       loadedOrdersData.push({
         id: key,
-        items: deliveryItems[key].orderedItems[i],
+        name: deliveryItems[key].orderedItems[i].name,
+        size: deliveryItems[key].orderedItems[i].size,
+        amount: deliveryItems[key].orderedItems[i].amount,
+        price: deliveryItems[key].orderedItems[i].price,
         user: deliveryItems[key].user,
         totalAmount: deliveryItems[key].orderedAmount,
       });
     }
   }
 
-  /* 
-  const [isClicked, setIsClicked] = useState(false);
-
-  const isClickedHandler = (event) => {
-    event.preventDefault();
-    setIsClicked(true);
+  const compare = (a, b) => {
+    if (a.user.time < b.user.time) {
+      return -1;
+    }
+    if (a.user.time > b.user.time) {
+      return 1;
+    }
+    return 0;
   };
-  {!isClicked ? (
-              <button type="button" className={classes.no} onClick={isClickedHandler}>
-                Check
-              </button>
-            ) : (
-              <button type="button" className={classes.yes} onClick={isClickedHandler}>
-                Check
-              </button>
-            )}*/
+  loadedOrdersData.sort(compare);
 
-   
-  const items = loadedOrdersData.map((item, index) => {
-    return (
-      <div key={index}>
-        <div className={classes.flex}>
-          <div>
-            <div className={classes.timeFlex}>
-              <div className={classes.name}>Produkt: {item.items.name}</div>
-              <div className={classes.time}>
-                Czas: {<Countdown date={Date.now() + item.user.time}></Countdown>}
-              </div>
-            </div>
-            <div className={classes.flex2}>
-              <div>
-                <div className={classes.amount}>Ilość: {item.items.amount}</div>
-                <div className={classes.price}>
-                  Cena szt.: {item.items.price}
-                </div>
-                <div className={classes.size}>Rozmiar: {item.items.size}</div>
-              </div>
-              <div>
-                <div className={classes.street}>Ulica: {item.user.street}</div>
-                <div className={classes.city}>Miasto: {item.user.city}</div>
-                <div className={classes.number}>Numer: {item.user.number}</div>
-              </div>
-            </div>
-            <div className={classes.totalAmount}>
-              Cena całkowita: {item.totalAmount}
-            </div>
-          </div>
-        </div>
-
-        <hr className={classes.hr} />
-      </div>
-    );
-  });
-  loadedOrdersData = [];
+  let items;
+  if (loadedOrdersData.length > 0) {
+    items = loadedOrdersData.map((item, index) => (
+      <DeliveryItems
+        key={index}
+        name={item.name}
+        size={item.size}
+        amount={item.amount}
+        price={item.price}
+        city={item.user.city}
+        number={item.user.number}
+        street={item.user.street}
+        totalAmount={item.totalAmount}
+        time={item.user.time}
+      />
+    ));
+  }
 
   return (
     <>
       {!isDeliveryClosed && (
         <div className={classes.delivery}>
-          <Button
-            class={classes.closeButton}
-            onClick={() => handleDeliveryClosed(true)}
-          >
-            <VscChromeClose
-              style={{
-                color: "white",
-                fontSize: "15px",
-                fontWeight: "bolder",
-                marginTop: "3px",
-              }}
-            />
-          </Button>
-          <Container class={classes.container}>
-            <div className={classes.text}>Na dowóz</div>
-            <DeliveryItems deliveryItems={items}></DeliveryItems>
-          </Container>
+          <div className={classes.title}>
+            <p>Na dowóz</p>
+          </div>
+          <Container class={classes.container}>{items}</Container>
         </div>
       )}
     </>

@@ -5,7 +5,7 @@ import OnSpot from "./components/Orders/OnSpot/OnSpot";
 import classes from "./App.module.css";
 import Takeaway from "./components/Orders/Takeaway/Takeaway";
 import Footer from "./components/Footer/Footer";
-import { useState, useContext, Fragment } from "react";
+import { useState, useContext, Fragment, useEffect } from "react";
 import { GridContext } from "./store/grid-context";
 import Cart from "./components/MenuCart/Cart";
 import EditPanel from "./components/Edit/EditPanel";
@@ -42,6 +42,17 @@ function App() {
       Aby wyświetlić zamówienia udaj się do Menu -{">"} Zamówienia
     </p>
   );
+
+  useEffect(() => {
+    const unloadCallback = (event) => {
+      event.preventDefault();
+      event.returnValue = "";
+      return "";
+    };
+
+    window.addEventListener("beforeunload", unloadCallback);
+    return () => window.removeEventListener("beforeunload", unloadCallback);
+  }, []);
   return (
     <Fragment>
       {isEditPanelShown && <EditPanel></EditPanel>}
@@ -55,10 +66,8 @@ function App() {
             <Header onOpen={openSidebar} onOpenMenu={openMenu} />
             {isDeliveryClosed && isOnSpotClosed && isTakeawayClosed && info}
             <Delivery />
-            <div>
-              <OnSpot />
-              <Takeaway />
-            </div>
+            <OnSpot />
+            <Takeaway />
             <Footer />
           </div>
         </div>

@@ -1,70 +1,14 @@
 .delivery {
-  background-color: rgb(53, 40, 168);
   display: grid;
   grid-area: delivery;
+  background-color: #84ceeb;
 }
 .container {
-  height: 77vh;
+  height: 76vh;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 15px;
 }
-.closeButton {
-  position: absolute;
-  margin-top: 10px;
-  margin-left: 10px;
-}
-.hr {
-  width: 100%;
-  background-color: black;
-  height: 3px;
-}
-.name {
-  font-size: 25px;
-}
-.size {
-  font-size: 18px;
-}
-.city {
-  color: darkblue;
-  font-weight: bold;
-  margin-left: 60%;
-}
-.price {
-  font-size: 19px;
-}
-.amount {
-  font-size: 20px;
-}
-.number {
-  color: darkblue;
-  font-weight: bold;
-  margin-left: 60%;
-}
-.street {
-  color: darkblue;
-  font-weight: bold;
-  margin-left: 60%;
-}
-.totalAmount {
-  color: rgb(32, 17, 61);
-  font-weight: bold;
-  font-size: 23px;
-}
-.flex {
-  display: grid;
-}
-.text {
-  font-size: 20px;
-  margin-left: 44%;
-  color: white;
-  font-weight: 800;
-}
-
-.timeFlex{
-  display: flex;
-  justify-content: space-between;
-}
-.time{
-  font-size: 20px;
-  font-weight: bold;
-  font-family:Georgia, 'Times New Roman', Times, serif;
-  color: rebeccapurple
+.title {
+  background-image: linear-gradient(to bottom, #83c6e0, #18a0d6);
 }

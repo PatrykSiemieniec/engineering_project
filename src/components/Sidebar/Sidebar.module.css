@@ -7,17 +7,17 @@ p {
   font-weight: bold;
 }
 .sidebar {
-  position:fixed;
+  position: fixed;
   box-sizing: border-box;
-  width: 14vw;
+  width: 13vw;
   height: 100vh;
-  background-color: rgb(43, 183, 207);
+  background-image: linear-gradient(to bottom right, #a1b4e2, #5680e9);
   position: absolute;
   top: 0;
   left: 0;
   overflow: auto;
   z-index: 1;
-  border-right: 5px solid rgb(44, 164, 211);
+  border-right: 5px solid #c1c8e4;
 }
 .closeButton {
   position: relative;
@@ -35,8 +35,8 @@ p {
   width: 150px;
 }
 .sidebarItemButton {
-  background-color: #39c0f1;
-  box-shadow: 0px 1px 0px 0px #1e9acf;
+  box-shadow: 0px 1px 0px 0px #41a4d6;
+  background-color: #5ab9ea;
   font-family: Arial;
   font-size: 15px;
   padding: 6px 24px;
@@ -49,24 +49,23 @@ p {
   font-family: Arial;
   font-size: 15px;
   font-weight: bold;
-  
 }
-.sidebarItemButton:hover{
-  background-color: #1992be;
+.sidebarItemButton:hover {
+  background-color: #7c49ac;
 }
 @media screen and (max-width: 1300px) {
   .list {
     left: 9%;
-    width:130px;
+    width: 130px;
   }
-  p{
+  p {
     font-size: 15px;
   }
-  .sidebarItemButton{
+  .sidebarItemButton {
     padding: 2px 10px;
-    scale:95%;
+    scale: 95%;
   }
-  
+
   .text {
     scale: 90%;
   }
@@ -75,16 +74,16 @@ p {
 @media screen and (max-width: 1000px) {
   .list {
     left: 3%;
-    width:90px;
+    width: 90px;
   }
-  p{
+  p {
     font-size: 15px;
   }
-  .sidebarItemButton{
+  .sidebarItemButton {
     padding: 2px 0px;
-    scale:90%;
+    scale: 90%;
   }
-  
+
   .text {
     display: none;
   }

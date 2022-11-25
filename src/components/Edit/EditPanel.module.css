@@ -38,3 +38,8 @@
   justify-content: Center;
   gap: 10px;
 }
+.container input{
+  font-size: 28px;
+  height: 30px;
+  width: 200px
+}

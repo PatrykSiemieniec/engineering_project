@@ -2,21 +2,21 @@ import React, { useContext, useRef } from "react";
 import { GridContext } from "../../store/grid-context";
 import classes from "./EditPanel.module.css";
 import Button from "../../UI/Button";
-const EditPanel = (props) => {
+const EditPanel = () => {
   const gridCtx = useContext(GridContext);
-  const { handleEditPanelShown, setSelectedFile, setIsFilePicked} = gridCtx;
+  const { handleEditPanelShown, handleName } = gridCtx;
 
+  const inputRef = useRef();
+  let nameRef;
 
-  const changeHandler =(event) =>{
-    setSelectedFile(event.target.files[0]);
-    setIsFilePicked(true);
-  }
-  const handleSubmission =() =>{}
-  /*
-  const setDane=()=>{
-    window.localStorage.setItem('name', 'dane2')
-  }
-  let dane = window.localStorage.getItem('name');*/
+  const setNameHandler = () => {
+    nameRef = inputRef.current.value;
+    handleName(nameRef);
+  };
+  const deleteNameHandler = () => {
+    handleName("");
+  };
+
   return (
     <div className={classes.container}>
       <div className={classes.header}>
@@ -31,19 +31,11 @@ const EditPanel = (props) => {
       </div>
       <div className={classes.panel}>
         <div className={classes.panelItems}>
-          <p>Logo</p>
-          <div className={classes.flex}>
-            <input type="file" accept="image/*" onChange={changeHandler}></input>
-            <Button onClick={handleSubmission}>Dodaj</Button>
-            <Button>Usuń</Button>
-            <Button>Zapisz</Button>
-          </div>
           <p>Nazwa</p>
           <div className={classes.flex}>
-            <input></input>
-            <Button>Dodaj</Button>
-            <Button>Usuń</Button>
-            <Button>Zapisz</Button>
+            <input ref={inputRef}></input>
+            <Button onClick={setNameHandler}>Dodaj</Button>
+            <Button onClick={deleteNameHandler}>Usuń</Button>
           </div>
         </div>
       </div>

@@ -1,14 +1,14 @@
 ::-webkit-scrollbar {
-  background: #888; 
+  background: #C1C8E4; 
   width: 8px;
-  border-radius: 12px;
+  border-radius: 1px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #33bdef; 
+  background: #8860D0; 
   border-radius: 12px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #1793c0;
+  background: #6b4ca5;
 }
 .backdrop {
     position: fixed;

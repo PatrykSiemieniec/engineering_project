@@ -7,7 +7,6 @@ import Checkout from "./Checkout";
 const CartSummary = (props) => {
   const orderCtx = useContext(OrderContext);
   const totalAmount = orderCtx.totalAmount.toFixed(2);
-
   const orderItemRemoveHandler = (id, size) => {
     orderCtx.removeItem(id, size);
   };
@@ -28,7 +27,7 @@ const CartSummary = (props) => {
           }),
         }
       );
-    }else if(userData.type === "onspot"){
+    } else if (userData.type === "onspot") {
       fetch(
         "https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/onspotOrders.json",
         {
@@ -40,7 +39,7 @@ const CartSummary = (props) => {
           }),
         }
       );
-    }else {
+    } else {
       fetch(
         "https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/takeawayOrders.json",
         {
@@ -50,7 +49,6 @@ const CartSummary = (props) => {
             orderedItems: orderCtx.items,
             orderedAmount: orderCtx.totalAmount,
           }),
-        
         }
       );
     }
@@ -75,7 +73,7 @@ const CartSummary = (props) => {
         Wróć do menu
       </Button>
       <div className={classes.orders}>{orderItem}</div>
-      <Checkout onConfirm={submitOrderHandler} />
+      <Checkout order={orderItem} onHideCart={props.onHideCart} onConfirm={submitOrderHandler} />
       <div className={classes.totalAmount}>
         Cena całkowita: <b>{totalAmount}</b> zł
       </div>

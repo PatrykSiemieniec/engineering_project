@@ -11,7 +11,7 @@ function Cart(props) {
   const [isEmpty, setIsEmpty] = useState(true);
   const [isSummaryClicked, setIsSummaryClicked] = useState(false);
 
-  
+
 
   const check = items.length > 0;
   useEffect(() => {
@@ -20,22 +20,22 @@ function Cart(props) {
     }
   }, [check]);
 
-  const openSummaryHandler = () =>{
+  const openSummaryHandler = () => {
     setIsSummaryClicked(true);
   }
 
-  const closeSummaryHandler = () =>{
+  const closeSummaryHandler = () => {
     setIsSummaryClicked(false);
   }
 
   return (
     <Modal onClose={props.onHideCart}>
-      {!isSummaryClicked &&<Button class={classes.button} onClick={props.onHideCart}>
+      {!isSummaryClicked && <Button class={classes.button} onClick={props.onHideCart}>
         X
       </Button>}
       {!isEmpty && <Button onClick={openSummaryHandler} class={classes.button2}>Podsumowanie</Button>}
       {!isSummaryClicked && <Menu />}
-      {isSummaryClicked && <CartSummary onClose={closeSummaryHandler}/>}
+      {isSummaryClicked && <CartSummary onHideCart={props.onHideCart} onClose={closeSummaryHandler} />}
     </Modal>
   );
 }

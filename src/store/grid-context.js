@@ -5,16 +5,16 @@ export const GridContext = createContext({
   isOnSpotClosed: null,
   isTakeawayClosed: null,
   isEditPanelShown: false,
-  selectedFile: null,
-  isFilePicked: false,
+  name: "NAZWA",
   isSend: false,
-  onClosedDelivery: (contiton) => {},
-  onClosedOnSpot: (contiton) => {},
-  onClosedTakeaway: (contiton) => {},
-  setIsEditPanelShown: (condition) => {},
-  setSelectedFile: () => {},
-  setIsFilePicked: (condition) => {},
-  setIsSend: (condition) => {},
+  reload: null,
+  onClosedDelivery: (contiton) => { },
+  onClosedOnSpot: (contiton) => { },
+  onClosedTakeaway: (contiton) => { },
+  setIsEditPanelShown: (condition) => { },
+  setName: (name) => { },
+  setIsSend: (condition) => { },
+  setReload: (condition) => { },
 });
 
 export const GridContextProvider = ({ children }) => {
@@ -22,9 +22,9 @@ export const GridContextProvider = ({ children }) => {
   const [isOnSpotClosed, setIsOnSpotClosed] = useState(false);
   const [isTakeawayClosed, setIsTakeawayClosed] = useState(false);
   const [isEditPanelShown, setIsEditPanelShown] = useState(false);
-  const [selectedFile, setSelectedFile] = useState();
-  const [isFilePicked, setIsFilePicked] = useState(false);
   const [isSend, setIsSend] = useState(false);
+  const [name, setName] = useState("NAZWA");
+  const [reload, setReload] = useState(false);
 
   const handleDeliveryClosed = (contition) => {
     setIsDeliveryClosed(contition);
@@ -38,25 +38,30 @@ export const GridContextProvider = ({ children }) => {
   const handleEditPanelShown = (condition) => {
     setIsEditPanelShown(condition);
   };
-
   const handleIsSend = (condition) => {
     setIsSend(condition);
+  };
+  const handleName = (name) => {
+    setName(name);
+  };
+  const handleReload = (condition) => {
+    setReload(condition);
   };
   const contextValue = {
     isDeliveryClosed,
     isOnSpotClosed,
     isTakeawayClosed,
     isEditPanelShown,
-    selectedFile,
-    isFilePicked,
     isSend,
+    name,
+    reload,
     handleDeliveryClosed,
     handleOnSpotClosed,
     handleTakeawayClosed,
     handleEditPanelShown,
-    setSelectedFile,
-    setIsFilePicked,
-    handleIsSend
+    handleIsSend,
+    handleName,
+    handleReload
   };
 
   return (

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { GridContext } from "../../store/grid-context";
 import classes from "./Sidebar.module.css";
-import { TbPaperBag, TbTruckDelivery, TbHome, TbEdit } from "react-icons/tb";
+import { TbPaperBag, TbTruckDelivery, TbHome, TbEdit, TbTrash } from "react-icons/tb";
 import { VscChromeClose } from "react-icons/vsc";
 import Button from "../../UI/Button";
 const Sidebar = (props) => {
@@ -19,7 +19,7 @@ const Sidebar = (props) => {
       <button
         className={classes.sidebarItemButton}
         onClick={() => {
-          handleDeliveryClosed(false);
+          handleDeliveryClosed((prev) => !prev);
         }}
       >
         <TbTruckDelivery style={{ color: "white", fontSize: "20px" }} />
@@ -29,7 +29,7 @@ const Sidebar = (props) => {
       <button
         className={classes.sidebarItemButton}
         onClick={() => {
-          handleOnSpotClosed(false);
+          handleOnSpotClosed((prev) => !prev);
         }}
       >
         <TbHome style={{ color: "white", fontSize: "20px" }} />
@@ -39,7 +39,7 @@ const Sidebar = (props) => {
       <button
         className={classes.sidebarItemButton}
         onClick={() => {
-          handleTakeawayClosed(false);
+          handleTakeawayClosed((prev) => !prev);
         }}
       >
         <TbPaperBag style={{ color: "white", fontSize: "20px" }} />
@@ -57,7 +57,16 @@ const Sidebar = (props) => {
         <br />
         <div className={classes.text}>Edytuj</div>
       </button>
-
+      <button
+        className={classes.sidebarItemButton}
+        onClick={() => {
+          handleEditPanelShown(true);
+        }}
+      >
+        <TbTrash style={{ color: "white", fontSize: "20px" }} />
+        <br />
+        <div className={classes.text}>Usuń zamówienia</div>
+      </button>
       <br />
     </div>
   );
@@ -66,7 +75,14 @@ const Sidebar = (props) => {
     <>
       <div className={classes.sidebar}>
         <Button class={classes.closeButton} onClick={props.onClose}>
-          <VscChromeClose style={{ color: "white", fontSize: "15px", fontWeight:"bolder", marginTop:"3px"}} />
+          <VscChromeClose
+            style={{
+              color: "white",
+              fontSize: "15px",
+              fontWeight: "bolder",
+              marginTop: "3px",
+            }}
+          />
         </Button>
         {sidebarItem}
       </div>

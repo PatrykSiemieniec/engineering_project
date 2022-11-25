@@ -2,14 +2,12 @@ import React, { useContext, useState, useEffect } from "react";
 import { GridContext } from "../../../store/grid-context";
 import Container from "../../../UI/Container";
 import classes from "./OnSpot.module.css";
-import Button from "../../../UI/Button";
-import { VscChromeClose } from "react-icons/vsc";
 import OnSpotItems from "./OnSpotItems";
 import axios from "axios";
 import Countdown from "react-countdown";
 function OnSpot() {
   const gridCtx = useContext(GridContext);
-  const { isOnSpotClosed, handleOnSpotClosed } = gridCtx;
+  const { isOnSpotClosed } = gridCtx;
 
   const [onspotItems, setOnspotItems] = useState("");
   const url =
@@ -49,31 +47,22 @@ function OnSpot() {
     return (
       <div key={index}>
         <div className={classes.flex}>
-          <div>
-            <div className={classes.timeFlex}>
-              <div className={classes.name}>Produkt: {item.items.name}</div>
-              <div className={classes.time}>
-                Czas: {<Countdown date={Date.now() + item.user.time}></Countdown>}
-              </div>
-            </div>
-            <div className={classes.flex2}>
-              <div>
-                <div className={classes.amount}>Ilość: {item.items.amount}</div>
-                <div className={classes.price}>
-                  Cena szt.: {item.items.price}
-                </div>
-                <div className={classes.size}>Rozmiar: {item.items.size}</div>
-              </div>
-              <div>
-                <div className={classes.street}>Ulica: {item.user.street}</div>
-                <div className={classes.city}>Miasto: {item.user.city}</div>
-                <div className={classes.number}>Numer: {item.user.number}</div>
-              </div>
-            </div>
-
-            <div className={classes.totalAmount}>
-              Cena całkowita: {item.totalAmount}
-            </div>
+          <div className={classes.name}>{item.items.name}</div>
+          <div className={classes.amount}>x{item.items.amount}</div>
+          <div className={classes.size}>{item.items.size}</div>
+          <div className={classes.price}>{item.items.price} zł/szt.</div>
+          <div className={classes.time}>
+            {<Countdown date={Date.now() + item.user.time}></Countdown>}
+          </div>
+        </div>
+        <div className={classes.flex}>
+          <div className={classes.street}>{item.user.street}</div>
+          <div className={classes.city}>{item.user.city}</div>
+        </div>
+        <div className={classes.other}>
+          <div className={classes.number}>Numer: {item.user.number}</div>
+          <div className={classes.totalAmount}>
+            Cena całkowita: {item.totalAmount}
           </div>
         </div>
 
@@ -86,24 +75,9 @@ function OnSpot() {
     <>
       {!isOnSpotClosed && (
         <div className={classes.onspot}>
-          <Button
-            class={classes.closeButton}
-            onClick={() => {
-              handleOnSpotClosed(true);
-            }}
-          >
-            <VscChromeClose
-              style={{
-                color: "white",
-                fontSize: "15px",
-                fontWeight: "bolder",
-                marginTop: "3px",
-              }}
-            />
-          </Button>
           <Container class={classes.container}>
-          <div className={classes.text}>Na miejscu</div>
-          <OnSpotItems onspotItems={items}></OnSpotItems>
+            <p>Na miejscu</p>
+            <OnSpotItems onspotItems={items}></OnSpotItems>
           </Container>
         </div>
       )}

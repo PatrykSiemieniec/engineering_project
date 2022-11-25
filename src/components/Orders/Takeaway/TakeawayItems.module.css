@@ -1,35 +1,10 @@
 .flex {
-    background-color: lightblue;
+    background-color: #C1C8E4;
     display: grid;
     border: 6px solid black;
     border-radius: 12px;
     margin-top: 5px;
     box-sizing: border-box;
     padding: 20px;
-  }
-  
-  .name {
-  
-  }
-  .size {
-      
-  }
-  .city {
-      justify-self: end;
-  
-  }
-  .price {
-  }
-  .amount {
-  }
-  .number {
-      justify-self: end;
-  
-  }
-  .street {
-      justify-self: end;
-  
-  }
-  .totalAmount {
   }
   

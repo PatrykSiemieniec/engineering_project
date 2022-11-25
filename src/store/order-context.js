@@ -4,8 +4,9 @@ import React, { useReducer, createContext } from "react";
 export const OrderContext = createContext({
   items: [],
   totalAmount: 0,
-  addItem: (item) => {},
-  removeItem: (id) => {},
+  addItem: (item) => { },
+  removeItem: (id) => { },
+  clearCart: () => { }
 });
 
 const defaultOrderState = {
@@ -58,6 +59,9 @@ const orderReducer = (state, action) => {
       totalAmount: updatedTotalAmount,
     };
   }
+  if (action.type === "CLEAR") {
+    return defaultOrderState;
+  }
   return defaultOrderState;
 };
 
@@ -73,11 +77,16 @@ export const OrderContextProvider = ({ children }) => {
   const removeItemFromOrderHandler = (id, size) => {
     dispatchOrderAction({ type: "REMOVE", id: id, size: size });
   };
+
+  const clearOrderHandler = () => {
+    dispatchOrderAction({ type: "CLEAR" });
+  };
   const contextValue = {
     items: orderState.items,
     totalAmount: orderState.totalAmount,
     addItem: addItemToOrderHandler,
     removeItem: removeItemFromOrderHandler,
+    clearCart: clearOrderHandler,
   };
 
   return (

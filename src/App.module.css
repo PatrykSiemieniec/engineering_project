@@ -1,25 +1,24 @@
 .grid {
   z-index: 0;
   display: grid;
-  grid-template-columns: 43% 43%;
-  grid-template-rows: 13vh 38.5vh 38.5vh 10vh;
+  grid-template-columns: 29% 29% 29%;
+  grid-template-rows: 13vh 77vh 10vh;
+  background-color: #8860d0;
   justify-content: end;
   grid-template-areas:
-    "header header"
-    "delivery onspot"
-    "delivery takeaway"
-    "footer footer";
+    "header header header"
+    "delivery onspot takeaway"
+    "footer footer footer";
 }
 .gridExpanded {
   z-index: 0;
   display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-rows: 13vh 38.5vh 38.5vh 10vh;
+  grid-template-columns: 33.4% 33.3% 33.3%;
+  grid-template-rows: 13vh 77vh 10vh;
   grid-template-areas:
-    "header header"
-    "delivery onspot"
-    "delivery takeaway"
-    "footer footer";
+    "header header header"
+    "delivery onspot takeaway"
+    "footer footer footer";
 }
 
 .sidebar {
@@ -34,7 +33,7 @@
   top: 25vh;
 }
 
-.deliveryClosed{
+.deliveryClosed {
   display: grid;
   grid-template-columns: 43% 43%;
   grid-template-rows: 13vh 77vh 10vh;
@@ -45,7 +44,7 @@
     "footer footer";
 }
 
-.deliveryClosedExpanded{
+.deliveryClosedExpanded {
   display: grid;
   grid-template-columns: 50% 50%;
   grid-template-rows: 13vh 77vh 10vh;

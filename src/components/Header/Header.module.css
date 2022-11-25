@@ -1,5 +1,5 @@
 .header {
-  background-color: rgb(43, 183, 237);
+  background-image: linear-gradient(to bottom right, #b7c9f1, #5680e9);
   display: grid;
   grid-area: header;
 }
@@ -9,11 +9,19 @@
   padding: 6px 24px;
 }
 
-.add{
+.add {
   margin-left: 1%;
   padding: 6px 24px;
 }
-.countdown{
+.countdown {
   color: black;
   font-size: 200;
+}
+
+.name {
+  text-align: end;
+  margin-right: 10%;
+  color: white;
+  font-weight: bold;
+  font-size: 50px;
 }

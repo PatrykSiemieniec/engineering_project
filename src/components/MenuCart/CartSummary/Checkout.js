@@ -1,13 +1,15 @@
 import { useRef, useState, useContext } from "react";
 import classes from "./Checkout.module.css";
 import { GridContext } from "../../../store/grid-context";
+import { OrderContext } from "../../../store/order-context";
 
 const isEmpty = (value) => value.trim() === "";
 const isNineChars = (value) => value.trim().length === 9;
 
 const Checkout = (props) => {
   const gridCtx = useContext(GridContext);
-  const { handleIsSend } = gridCtx;
+  const orderCtx = useContext(OrderContext);
+  const { handleReload, handleIsSend } = gridCtx;
   const [formInputValidity, setFormInputValidity] = useState({
     street: true,
     city: true,
@@ -31,14 +33,14 @@ const Checkout = (props) => {
     const enteredCityIsValid = !isEmpty(enteredCity);
     const enteredNumberIsValid = isNineChars(enteredNumber);
 
-    const time = enteredTime.split(":");
-
+    /*
+     const time = enteredTime.split(":");
     const timeNow = new Date();
     const hourNowMs = timeNow.getHours() * 3600000;
     const minutesNowMs = timeNow.getMinutes() * 60000;
     const timeNowMs = hourNowMs + minutesNowMs;
     const mseconds = time[0] * 3600000 + time[1] * 60000 - timeNowMs;
-
+*/
     setFormInputValidity({
       street: enteredStreetIsValid,
       city: enteredCityIsValid,
@@ -57,19 +59,20 @@ const Checkout = (props) => {
       city: enteredCity,
       number: enteredNumber,
       type: enteredType,
-      time: mseconds,
+      time: enteredTime,
     });
+
+    props.onHideCart();
+    handleReload(prev => !prev);
+    orderCtx.clearCart();
   };
 
-  const streetControlClasses = `${classes.control} ${
-    formInputValidity.street ? "" : classes.invalid
-  }`;
-  const numberControlClasses = `${classes.control} ${
-    formInputValidity.number ? "" : classes.invalid
-  }`;
-  const cityControlClasses = `${classes.control} ${
-    formInputValidity.city ? "" : classes.invalid
-  }`;
+  const streetControlClasses = `${classes.control} ${formInputValidity.street ? "" : classes.invalid
+    }`;
+  const numberControlClasses = `${classes.control} ${formInputValidity.number ? "" : classes.invalid
+    }`;
+  const cityControlClasses = `${classes.control} ${formInputValidity.city ? "" : classes.invalid
+    }`;
 
   return (
     <form className={classes.form} onSubmit={confirmHandler}>
@@ -117,7 +120,6 @@ const Checkout = (props) => {
           <h5>Prosze podaj poprawny numer telefonu!</h5>
         )}
       </div>
-
       <div className={classes.actions}>
         <button className={classes.submit} onClick={handleIsSend}>
           Wyślij

@@ -2,7 +2,9 @@ import React from "react";
 import Button from "../../../UI/Button";
 import classes from "./CartSummaryItems.module.css";
 
+
 const CartSummaryItems = (props) => {
+
   const amount = props.price * props.amount;
   return (
     <>

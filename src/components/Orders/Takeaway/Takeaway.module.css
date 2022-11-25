@@ -1,25 +1,19 @@
 .takeaway {
-  height: 38.5vh;
-  background-color: rgb(17, 17, 145);
   display: grid;
-  grid-area: onspot;
+  grid-area: takeaway;
+  background-color: #84ceeb;
+}
+.container {
+  height: 76vh;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 15px;
 }
 
-.container {
-  height: 38.5vh;
-}
 .closeButton {
   position: absolute;
   margin-top: 10px;
   margin-left: 10px;
-}
-
-
-.text {
-  font-size: 20px;
-  margin-left: 44%;
-  color: white;
-  font-weight: 800;
 }
 .hr {
   width: 100%;
@@ -28,48 +22,73 @@
 }
 .name {
   font-size: 25px;
+  color: white;
+  font-weight: 800;
 }
 .size {
-  font-size: 18px;
+  font-size: 20px;
+  color: white;
 }
-.city {
-  color: darkblue;
-  font-weight: bold;
-  margin-left: 50%;
-}
+
 .price {
   font-size: 19px;
 }
 .amount {
   font-size: 20px;
+  border: 1px solid black;
+  width: 30px;
+  text-align: center;
+  border-radius: 5px;
+  align-items: center;
+}
+.city {
+  font-size: 20px;
+  font-weight: 300;
+  color: white;
 }
 .number {
-  color: darkblue;
-  font-weight: bold;
-  margin-left: 50%;
+  font-weight: 600;
+  font-size: 20px;
 }
 .street {
-  color: darkblue;
-  font-weight: bold;
-  margin-left: 50%;
+  font-size: 20px;
+  font-weight: 300;
 }
 .totalAmount {
-  color: rgb(32, 17, 61);
   font-weight: bold;
   font-size: 23px;
+  color: white;
 }
 .flex {
-  display: grid;
-}
-
-
-.timeFlex{
   display: flex;
-  justify-content: space-between;
+  gap: 5px;
+  height: 40px;
+  align-items: center;
 }
-.time{
+
+.text {
+  font-size: 24px;
+  margin-left: 44%;
+  color: white;
+  text-shadow: 1px 1px purple;
+  font-weight: 800;
+}
+
+.time {
   font-size: 20px;
   font-weight: bold;
-  font-family:Georgia, 'Times New Roman', Times, serif;
-  color: rebeccapurple
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: purple;
+}
+
+@media screen and (max-width: 1300px) {
+  .flex {
+    height: auto;
+    flex-direction: column;
+  }
+  .other {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
