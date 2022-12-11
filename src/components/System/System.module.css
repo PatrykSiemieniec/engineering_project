@@ -1,0 +1,49 @@
+.grid {
+  z-index: 0;
+  display: grid;
+  grid-template-columns: 29% 29% 29%;
+  grid-template-rows: 10vh 80vh 10vh;
+  justify-content: end;
+  grid-template-areas:
+    "header header header"
+    "delivery onspot takeaway"
+    "footer footer footer";
+}
+.gridExpanded {
+  z-index: 0;
+  display: grid;
+  grid-template-columns: 33.4% 33.3% 33.3%;
+  grid-template-rows: 10vh 80vh 10vh;
+  grid-template-areas:
+    "header header header"
+    "delivery onspot takeaway"
+    "footer footer footer";
+}
+
+.sidebar {
+  display: flex;
+}
+
+.info {
+  color: black;
+  position: absolute;
+  width: 50vw;
+  left: 25vw;
+  top: 25vh;
+}
+
+@media only screen and (max-width: 400px) {
+  .grid {
+    z-index: 0;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 20vh 77vh 77vh 77vh 13vh;
+    justify-content: end;
+    grid-template-areas:
+      "header"
+      "delivery"
+      "onspot"
+      "takeaway"
+      "footer";
+  }
+}

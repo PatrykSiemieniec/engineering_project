@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import ReactDOM from "react-dom";
 import classes from "./Modal.module.css";
+import { GridContext } from "../store/grid-context";
 
 const Backdrop = (props) => {
   return <div className={classes.backdrop} onClick={props.onClose}></div>;
 };
 
 const ModalOverlay = (props) => {
+  const gridCtx = useContext(GridContext);
+  const { isNightMode } = gridCtx;
+  const modalStyles = `${classes.modal} ${isNightMode && classes.modalNight}`
   return (
-    <div className={classes.modal}>
+    <div className={modalStyles}>
       <div>{props.children}</div>
     </div>
   );

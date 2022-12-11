@@ -1,0 +1,82 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.form input {
+  width: 200px;
+  text-align: center;
+}
+::placeholder {
+  text-align: end;
+}
+.form button {
+  width: 200px;
+}
+.panel {
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.table {
+  margin-top: 4vh;
+  border: 1px solid black;
+  width: 100%;
+}
+
+.ingredients {
+  padding: 10px;
+}
+tr:nth-child(1) {
+  background-color: lightgrey;
+}
+th:nth-child(1) {
+  width: 2vw;
+}
+th:nth-child(2) {
+  width: 8vw;
+}
+
+th:nth-child(3) {
+  width: 20vw;
+}
+th:nth-child(4) {
+  width: 10vw;
+}
+th:nth-child(5) {
+  width: 10vw;
+}
+th:nth-child(6) {
+  width: 10vw;
+}
+
+p.day {
+  display: flex;
+  justify-content: center;
+  color: black;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+p.night {
+  display: flex;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.labelDay {
+  color: black;
+}
+.labelNight {
+  color: white;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}

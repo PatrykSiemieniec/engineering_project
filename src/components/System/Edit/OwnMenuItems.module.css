@@ -1,0 +1,22 @@
+.container {
+  box-sizing: border-box;
+  width: 90%;
+  margin-left: 5%;
+  background-color: lightblue;
+  overflow-wrap: break-word;
+  text-align: left;
+}
+.container li {
+  font-weight: bold;
+}
+
+.tr th {
+  text-align: left;
+}
+
+.thDay {
+}
+.thNight {
+  color: white;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}

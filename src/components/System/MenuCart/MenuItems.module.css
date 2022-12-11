@@ -1,0 +1,53 @@
+select:focus > option:checked {
+  background: #33bdef !important;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 80% 20%;
+  margin-left: 5%;
+  margin-right: 5%;
+  grid-template-areas: "orders button";
+  color: black;
+}
+.gridNight {
+  display: grid;
+  grid-template-columns: 80% 20%;
+  margin-left: 5%;
+  margin-right: 5%;
+  grid-template-areas: "orders button";
+  color: white;
+}
+.secondBox {
+  margin-left: 40%;
+  margin-top: 40%;
+}
+.button {
+  display: grid;
+  grid-area: button;
+  color: black;
+}
+.orders {
+  display: grid;
+  grid-area: orders;
+  border-bottom: 1px solid black;
+}
+.ordersNight {
+  display: grid;
+  grid-area: orders;
+  border-bottom: 1px solid white;
+}
+
+.price {
+  justify-self: end;
+  font-size: 20px;
+}
+.name {
+  margin-top: 5vh;
+  font-size: 30px;
+  font-weight: 700;
+}
+.ingredients {
+  font-size: 18px;
+  font-weight: 100;
+  font-style: italic;
+}

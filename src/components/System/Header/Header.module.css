@@ -1,0 +1,51 @@
+.header {
+  background-image: linear-gradient(to bottom right, #b7c9f1, #5680e9);
+  display: grid;
+  grid-area: header;
+}
+.headerNight {
+  background-image: linear-gradient(to bottom right, black, #5680e9);
+  display: grid;
+  grid-area: header;
+}
+.menuButton {
+  margin-top: 1%;
+  margin-left: 1%;
+  padding: 6px 24px;
+  color: black;
+  font-size: 15px;
+}
+
+.add {
+  margin-left: 1%;
+  padding: 6px 24px;
+  color: black;
+  font-size: 15px;
+}
+
+.name {
+  margin-top: -1%;
+  text-align: end;
+  margin-right: 10%;
+  color: black;
+  font-weight: bold;
+  font-size: 30px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+.nameNight {
+  margin-top: -1%;
+  text-align: end;
+  margin-right: 10%;
+  color: white;
+  font-weight: bold;
+  font-size: 40px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+@media screen and (max-height: 900px) {
+  .name {
+    display: flex;
+    font-size: 30px;
+    margin-top: 5%;
+  }
+}

@@ -1,0 +1,21 @@
+.logo {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+.png {
+  height: 90px;
+}
+
+@media screen and (max-height: 900px) {
+  .png {
+    margin-top: -2%;
+    scale: 40%;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .png {
+    height: auto;
+  }
+}

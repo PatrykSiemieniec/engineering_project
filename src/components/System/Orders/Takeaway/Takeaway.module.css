@@ -1,0 +1,45 @@
+.takeaway {
+  display: grid;
+  grid-area: takeaway;
+  background-color: white;
+  box-shadow: inset 0px 0px 0px 0.5px black;
+}
+.takeawayNight {
+  display: grid;
+  grid-area: takeaway;
+  background-color: rgb(28, 28, 58);
+  box-shadow: inset 0px 0px 0px 0.5px black;
+}
+.container {
+  height: 68vh;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 15px;
+}
+.title {
+  box-shadow: inset 0px 0px 0px 0.5px black;
+  background-image: linear-gradient(to bottom, #83c6e0, #18a0d6);
+}
+.titleNight {
+  box-shadow: inset 0px 0px 0px 0.5px black;
+  background-image: linear-gradient(to bottom, black, #18a0d6);
+}
+
+p.day {
+  display: flex;
+  justify-content: center;
+  color: black;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  height: 0px;
+}
+p.night {
+  display: flex;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  height: 0px;
+}

@@ -1,0 +1,10 @@
+.footer {
+  background-image: linear-gradient(to bottom right, #a1b4e2, #5680e9);
+  display: grid;
+  grid-area: footer;
+}
+.footerNight {
+  background-image: linear-gradient(to top right, black, #5680e9);
+  display: grid;
+  grid-area: footer;
+}
