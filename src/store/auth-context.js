@@ -41,7 +41,6 @@ export const AuthContextProvier = (props) => {
     const userIsLoggedIn = !!token;
     const [userInfo, setUserInfo] = useState("");
 
-
     const logoutHandler = useCallback(() => {
         setToken(null);
         localStorage.removeItem("token");

@@ -17,6 +17,70 @@ const CartSummary = (props) => {
   };
   const { isNightMode } = gridCtx;
   const user = localStorage.getItem("uid");
+
+  const arr = [
+    "#f5f5f5",
+    "#f0ffff",
+    "#f5fffa",
+    "#f0fff0",
+    "#f5f5dc",
+    "#fafad2",
+    "#ffffe0",
+    "#fffacd",
+    "#fdfd96",
+    "#e6e6fa",
+    "#dcdcdc",
+    "#ffe4e1",
+    "#f0e68c",
+    "#f5deb3",
+    "#ffe4c4",
+    "#eee8aa",
+    "#d8bfd8",
+    "#d3d3d3",
+    "#add8e6",
+    "#90ee90",
+    "#b0e0e6",
+    "#d9d9f3",
+    "#ffe4b5",
+    "#ffb6c1",
+    "#ffdead",
+    "#f5b041",
+    "#f8d7da",
+    "#f4a460",
+    "#f0f8ff",
+    "#f0e6ff",
+    "#f0dc82",
+    "#f08080",
+    "#e0ffff",
+    "#dcd0ff",
+    "#f4f4f4",
+    "#e0eee0",
+    "#db7093",
+    "#d2b48c",
+    "#c7c7c7",
+    "#c0c0c0",
+    "#b0c4de",
+    "#a9a9a9",
+    "#9acd32",
+    "#87cefa",
+    "#808080",
+    "#778899",
+    "#696969",
+    "#663399",
+    "#6a5acd",
+    "#32cd32",
+    "#00ced1",
+  ];
+  let prevIndex = -1;
+  function getRandomColor() {
+    let index;
+    do {
+      index = Math.floor(Math.random() * arr.length);
+    } while (index === prevIndex);
+    prevIndex = index;
+    return arr[index];
+  }
+
   const submitOrderHandler = (userData) => {
     if (userData.type === "delivery") {
       fetch(
@@ -27,6 +91,7 @@ const CartSummary = (props) => {
             user: userData,
             orderedItems: orderCtx.items,
             orderedAmount: orderCtx.totalAmount,
+            color: getRandomColor(),
           }),
         }
       );
@@ -39,6 +104,7 @@ const CartSummary = (props) => {
             user: userData,
             orderedItems: orderCtx.items,
             orderedAmount: orderCtx.totalAmount,
+            color: getRandomColor(),
           }),
         }
       );
@@ -51,6 +117,7 @@ const CartSummary = (props) => {
             user: userData,
             orderedItems: orderCtx.items,
             orderedAmount: orderCtx.totalAmount,
+            color: getRandomColor(),
           }),
         }
       );
@@ -70,14 +137,19 @@ const CartSummary = (props) => {
     />
   ));
 
-  const amountStyles = `${classes.totalAmount} ${isNightMode && classes.totalAmountNight}`
+  const amountStyles = `${classes.totalAmount} ${isNightMode && classes.totalAmountNight
+    }`;
   return (
     <div className={classes.box}>
       <Button class={classes.button} onClick={props.onClose}>
         Wróć do menu
       </Button>
       <div className={classes.orders}>{orderItem}</div>
-      <Checkout order={orderItem} onHideCart={props.onHideCart} onConfirm={submitOrderHandler} />
+      <Checkout
+        order={orderItem}
+        onHideCart={props.onHideCart}
+        onConfirm={submitOrderHandler}
+      />
       <div className={amountStyles}>
         Cena całkowita: <b>{totalAmount}</b> zł
       </div>

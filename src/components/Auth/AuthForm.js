@@ -2,7 +2,7 @@ import { useState, useRef, useContext } from "react";
 import AuthContext from "../../store/auth-context";
 import { useHistory } from "react-router-dom";
 import classes from "./AuthForm.module.css";
-
+import { TfiBackLeft } from "react-icons/tfi";
 const AuthForm = () => {
     const history = useHistory();
     const emailInputRef = useRef();
@@ -57,8 +57,8 @@ const AuthForm = () => {
                 authCtx.login(data.idToken, expirationTime.toISOString());
                 authCtx.setUserInfo({
                     email: data.email,
-                    uid: data.localId
-                })
+                    uid: data.localId,
+                });
                 history.replace("/");
             })
             .catch((err) => {
@@ -68,8 +68,15 @@ const AuthForm = () => {
 
     return (
         <div className={classes.container}>
+            <div className={classes.box}>
+                <h3>{isLogin ? "Zaloguj" : "Zarejestruj"}</h3>
+            </div>
+            <button className={classes.button} onClick={() => history.replace("/")}>
+                <TfiBackLeft style={{ color: "black", fontSize: "25px" }} />{" "}
+            </button>
             <section className={classes.auth}>
-                <h1>{isLogin ? "Zaloguj" : "Zarejestruj"}</h1>
+
+
                 <form onSubmit={submitHandler}>
                     <div className={classes.control}>
                         <label htmlFor="email">Twój E-mail</label>
@@ -91,7 +98,9 @@ const AuthForm = () => {
                             className={classes.toggle}
                             onClick={switchAuthModeHandler}
                         >
-                            {isLogin ? "Utwórz nowe konto" : "Zaloguj się poprzez istniejące konto"}
+                            {isLogin
+                                ? "Utwórz nowe konto"
+                                : "Zaloguj się poprzez istniejące konto"}
                         </button>
                     </div>
                 </form>

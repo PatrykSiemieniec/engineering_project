@@ -33,6 +33,7 @@ const Menu = () => {
           });
         }
       }
+
       setMenu(loadedMenu);
       setIsLoading(false);
     };
@@ -40,13 +41,21 @@ const Menu = () => {
     fetchMenu().catch((error) => {
       setIsLoading(false);
       setHttpError(error.message);
+
     });
   }, []);
 
+  if (menu.length === 0) {
+    return (
+      <section>
+        <p className={classes.empty}>Brak pozycji w menu. Aby dodać nowe pozycje przejdź do Panel {">"} Edytuj Menu</p>
+      </section>
+    )
+  }
   if (isLoading) {
     return (
       <section>
-        <div className={classes.loading}><h1>Ładuję menu...</h1></div>
+        <div className={classes.loading}>Ładuję menu...</div>
       </section>
     );
   }
@@ -69,6 +78,7 @@ const Menu = () => {
       priceL={menu.priceL}
     />
   ));
+
 
   return <section>{menuList}</section>;
 };

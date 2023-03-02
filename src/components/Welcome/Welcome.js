@@ -45,20 +45,63 @@ const Welcome = () => {
                         </NavLink>
                     ) : (
                         <div className={classes.flex}>
-                            <TbUser style={{ color: "black", fontSize: "30px" }}></TbUser>
-                            {localStorage.getItem("email")}
-                            <Button onClick={logoutHandler}>Wyloguj</Button>
+                            <div className={classes.flexInside}>
+                                <TbUser style={{ color: "black", fontSize: "30px" }}></TbUser>
+                                {localStorage.getItem("email")}
+                            </div>
+
+                            <button
+                                className={classes.registerButton}
+                                onClick={logoutHandler}
+                            >
+                                Wyloguj
+                            </button>
                         </div>
                     )}
                 </nav>
             </header>
             <div className={classes.welcome}>
-                <h2>Poznaj działanie naszego systemu!</h2>
-                <h3>Obejrzyj poniższy film aby dowiedzieć się jakie korzyści niesie ze sobą korzystanie z naszego serwisu dla twojej gastronomii!</h3>
-                <h3>Zarejestruj się bezpłatnie i zacznij już teraz ułatwiać sobie pracę!</h3>
+                <h1>Poznaj działanie naszego systemu!</h1>
+                <div className={classes.register}>
+                    {!authCtx.isLoggedIn && <>
+                        <h3>
+                            Zarejestruj się bezpłatnie i zacznij już teraz ułatwiać sobie
+                            pracę!
+                        </h3>
+
+                        <NavLink
+                            style={{
+                                textDecoration: "none",
+                                color: "black",
+                                padding: "10px 20px",
+                                borderRadius: "8px",
+                                border: "0.5px solid black",
+                                fontSize: "large",
+                            }}
+                            to="/auth"
+                        >
+                            Zarejestruj!
+                        </NavLink>
+                    </>
+                    }
+                    {authCtx.isLoggedIn && <>
+                        <h3>
+                            Dziękujemy że korzystasz z naszych usług, życzymy miłego dnia!
+                        </h3>
+                    </>
+                    }
+                </div>
+
+                <h3>
+                    Obejrzyj poniższy film aby dowiedzieć się jakie korzyści dla twojej
+                    gastronomii niesie ze sobą korzystanie z naszego serwisu!
+                </h3>
+
                 <iframe
-                    width="40%"
-                    height="60%"
+
+                    frameBorder="0"
+                    width="30%"
+                    height="50%"
                     src="https://www.youtube.com/embed/tgbNymZ7vqY"
                     title="tutorial"
                 ></iframe>

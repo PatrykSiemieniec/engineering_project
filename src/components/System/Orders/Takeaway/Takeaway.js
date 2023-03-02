@@ -13,7 +13,7 @@ function Takeaway() {
   const url =
     "https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/";
 
-  const getDeliveryItems = () => {
+  const getTakeawayItems = () => {
     axios
       .get(`${url}/${user}/takeawayOrders.json`)
       .then((response) => {
@@ -24,21 +24,29 @@ function Takeaway() {
   };
 
   useEffect(() => {
-    getDeliveryItems();
+    const timer = setTimeout(() => {
+      getTakeawayItems();
+    }, 200);
+    return () => clearTimeout(timer);
   }, [reload]);
 
   const loadedOrdersData = [];
   for (const key in takeawayItems) {
     for (const i in takeawayItems[key].orderedItems) {
-      loadedOrdersData.push({
-        id: key,
-        name: takeawayItems[key].orderedItems[i].name,
-        size: takeawayItems[key].orderedItems[i].size,
-        amount: takeawayItems[key].orderedItems[i].amount,
-        price: takeawayItems[key].orderedItems[i].price,
-        user: takeawayItems[key].user,
-        totalAmount: takeawayItems[key].orderedAmount,
-      });
+      if (takeawayItems[key].orderedItems[i] !== null) {
+        loadedOrdersData.push({
+          id: key,
+          index: i,
+          name: takeawayItems[key]?.orderedItems[i]?.name,
+          size: takeawayItems[key]?.orderedItems[i]?.size,
+          amount: takeawayItems[key]?.orderedItems[i]?.amount,
+          price: takeawayItems[key]?.orderedItems[i]?.price,
+          done: takeawayItems[key]?.orderedItems[i]?.done,
+          user: takeawayItems[key]?.user,
+          totalAmount: takeawayItems[key]?.orderedAmount,
+          color: takeawayItems[key]?.color,
+        });
+      }
     }
   }
 
@@ -57,7 +65,11 @@ function Takeaway() {
   if (loadedOrdersData.length > 0) {
     items = loadedOrdersData.map((item, index) => (
       <TakeawayItems
+        id={item.id}
+        index={item.index}
         key={index}
+        color={item.color}
+        done={item.done}
         name={item.name}
         size={item.size}
         amount={item.amount}
@@ -78,8 +90,9 @@ function Takeaway() {
     content = items;
   }
 
-  const takeawayStyles = `${classes.takeaway} ${isNightMode && classes.takeawayNight}`
-  const titleStyles = `${classes.title} ${isNightMode && classes.titleNight}`
+  const takeawayStyles = `${classes.takeaway} ${isNightMode && classes.takeawayNight
+    }`;
+  const titleStyles = `${classes.title} ${isNightMode && classes.titleNight}`;
   return (
     <>
       {!isTakeawayClosed && (

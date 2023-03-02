@@ -48,3 +48,10 @@ p.night {
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   height: 0px;
 }
+
+.form select option {
+  font-size: 15px;
+}
+.form select {
+  font-size: 15px;
+}

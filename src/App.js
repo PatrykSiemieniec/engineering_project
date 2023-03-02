@@ -4,7 +4,7 @@ import WelcomePage from "./pages/WelcomePage";
 import { Route, Redirect } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
 import AuthContext from "./store/auth-context";
-import SendOwnMenu from "./components/System/Edit/SendOwnMenu";
+import WorkSpace from "./components/WorkSpace/WorkSpace";
 const App = () => {
   const authCtx = useContext(AuthContext);
   return (
@@ -21,8 +21,8 @@ const App = () => {
           <SystemPage />
         </Route>
       }
-      <Route path="/ownmenu">
-        <SendOwnMenu />
+      <Route path="/workspace">
+        <WorkSpace />
       </Route>
     </div>
   );

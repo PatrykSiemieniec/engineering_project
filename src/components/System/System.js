@@ -1,6 +1,6 @@
-import { useState, useContext, Fragment, useEffect } from "react";
+import { useState, useContext, Fragment, useEffect, } from "react";
 import { GridContext } from "../../store/grid-context";
-import classes from "./System.module.css"
+import classes from "./System.module.css";
 import Sidebar from "./Sidebar/Sidebar";
 import Header from "./Header/Header";
 import Delivery from "./Orders/Delivery/Delivery";
@@ -29,34 +29,27 @@ const System = () => {
         setIsMenuShown(false);
     };
 
-    const grid = classes.grid;
-    const gridExpanded = `${grid} ${!isShown && classes.gridExpanded}`;
+    const container = classes.container;
+    const containerExpanded = `${container} ${!isShown && classes.containerExpanded
+        }`;
 
-    useEffect(() => {
-        const unloadCallback = (event) => {
-            event.preventDefault();
-            event.returnValue = "";
-            return "";
-        };
-
-        window.addEventListener("beforeunload", unloadCallback);
-        return () => window.removeEventListener("beforeunload", unloadCallback);
-    }, []);
     return (
         <Fragment>
-            {isEditPanelShown && <EditPanel></EditPanel>}
-
             <div>
-                <div className={classes.sidebar}>
-                    {isShown && <Sidebar onClose={closeSidebar} />}
-                </div>
-                {isMenuShown && <Cart onHideCart={closeMenu} />}
-                <div className={gridExpanded}>
-                    <Header onOpen={openSidebar} onOpenMenu={openMenu} />
-                    <Delivery />
-                    <OnSpot />
-                    <Takeaway />
-                    <Footer />
+                {isEditPanelShown && <EditPanel></EditPanel>}
+
+                <div>
+                    <div className={classes.sidebar}>
+                        {isShown && <Sidebar onClose={closeSidebar} />}
+                    </div>
+                    {isMenuShown && <Cart onHideCart={closeMenu} />}
+                    <div className={containerExpanded}>
+                        <Header onOpen={openSidebar} onOpenMenu={openMenu} />
+                        <Delivery />
+                        <OnSpot />
+                        <Takeaway />
+                        <Footer />
+                    </div>
                 </div>
             </div>
         </Fragment>

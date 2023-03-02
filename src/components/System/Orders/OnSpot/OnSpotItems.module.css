@@ -93,3 +93,9 @@
 .lowTime {
   color: red;
 }
+
+.delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+}

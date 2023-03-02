@@ -3,6 +3,8 @@ import classes from "./Delete.module.css";
 import Modal from "../../../UI/Modal";
 import { GridContext } from "../../../store/grid-context";
 import Button from "../../../UI/Button";
+import Popup from "reactjs-popup";
+
 const Delete = (props) => {
     const gridCtx = useContext(GridContext);
     const { isNightMode, handleSelectedType } = gridCtx;
@@ -24,14 +26,14 @@ const Delete = (props) => {
                 {!isSubmitted && (
                     <>
                         <p className={paragraphClass}>Które zamówienia chcesz usunąć?</p>
-                        <form onSubmit={submitHandler}>
+                        <form className={classes.form} onSubmit={submitHandler}>
                             <select ref={selectRef}>
                                 <option value="delivery">Na dowóz</option>
                                 <option value="onspot">Na miejscu</option>
                                 <option value="takeaway">Na wynos</option>
                                 <option value="all">Wszystkie</option>
                             </select>
-                            <button>Potwierdź</button>
+                            <Button>Potwierdź</Button>
                         </form>
                     </>
                 )}
@@ -40,8 +42,13 @@ const Delete = (props) => {
                         <p className={paragraphClass}>
                             Czy na pewno chcesz usunąć zamówienia?
                         </p>
-                        <button className={classes.deleteButton} onClick={props.delete}>Tak</button>
-                        <button className={classes.noDeleteButton} onClick={props.noDelete}>Nie</button>
+                        <button className={classes.deleteButton} onClick={props.delete}>
+                            Tak
+                        </button>
+
+                        <button className={classes.noDeleteButton} onClick={props.noDelete}>
+                            Nie
+                        </button>
                     </>
                 )}
             </div>

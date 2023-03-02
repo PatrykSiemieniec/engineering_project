@@ -1,28 +1,29 @@
 .container {
   display: flex;
+  flex-direction: column;
+  gap: 5vh;
   width: 100%;
   height: 100vh;
-  background-color: aqua;
+  background-image: linear-gradient(to bottom, #ffffff, #88a0df);
   align-items: center;
   justify-content: center;
-  background-image: url(../../assets/bg.jpg);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 20px;
 }
 .auth {
-  width: 95%;
-  max-width: 25rem;
+  max-width: 20vw;
   border-radius: 15px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   padding: 1rem;
   text-align: center;
-  border: 2px solid white;
+  border: 0.5px solid black;
   padding: 40px;
+  background-color: white;
 }
 
 .auth h1 {
   text-align: center;
-  color: white;
+  color: black;
 }
 
 .control {
@@ -31,16 +32,15 @@
 
 .control label {
   display: block;
-  color: white;
+  color: black;
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
 
 .control input {
   font: inherit;
-  color: #38015c;
   border-radius: 4px;
-  border: 1px solid white;
+  border: 0.5px solid black;
   width: 80%;
   text-align: left;
   padding: 0.25rem;
@@ -58,21 +58,66 @@
   font: inherit;
   color: black;
   border-radius: 4px;
-  padding: 0.5rem 2.5rem;
+  width: 150px;
 }
 
-.actions button:hover {
-  background-color: rgb(111, 186, 211);
+.actions button:nth-child(2) {
+  cursor: pointer;
+  font: inherit;
+  color: black;
+  border-radius: 4px;
+  width: 100%;
 }
-
 .actions .toggle {
   margin-top: 1rem;
   background-color: transparent;
-  color: white;
+  color: black;
   border: none;
   padding: 0.15rem 1.5rem;
 }
 
 .actions .toggle:hover {
   background-color: transparent;
+}
+
+.button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.box {
+  background-color: white;
+  text-align: center;
+  padding: 0 40px;
+  border-radius: 13px;
+}
+
+@media only screen and (max-width: 320px) {
+  .auth {
+    max-width: 50vw;
+  }
+}
+@media only screen and (max-width: 375px) {
+  .auth {
+    max-width: 50vw;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .auth {
+    max-width: 50vw;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .auth {
+    max-width: 50vw;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .auth {
+    max-width: 50vw;
+  }
 }

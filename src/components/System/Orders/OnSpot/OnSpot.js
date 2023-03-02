@@ -21,27 +21,33 @@ function OnSpot() {
         setOnspotItems(items);
       })
       .catch((error) => console.error(`Error: ${error}`));
-
-    // problem jest ze items sie dopisuje trzeba jakos zrobic zeby sie tworzyla nowa tablica
   };
 
   useEffect(() => {
-    getOnspotItems();
+    const timer = setTimeout(() => {
+      getOnspotItems();
+    }, 500);
+    return () => clearTimeout(timer);
   }, [reload]);
-
 
   const loadedOrdersData = [];
   for (const key in onspotItems) {
     for (const i in onspotItems[key].orderedItems) {
-      loadedOrdersData.push({
-        id: key,
-        name: onspotItems[key].orderedItems[i].name,
-        size: onspotItems[key].orderedItems[i].size,
-        amount: onspotItems[key].orderedItems[i].amount,
-        price: onspotItems[key].orderedItems[i].price,
-        user: onspotItems[key].user,
-        totalAmount: onspotItems[key].orderedAmount,
-      });
+      if (onspotItems[key].orderedItems[i] !== null) {
+        loadedOrdersData.push({
+          id: key,
+          index: i,
+          name: onspotItems[key]?.orderedItems[i]?.name,
+          size: onspotItems[key]?.orderedItems[i]?.size,
+          amount: onspotItems[key]?.orderedItems[i]?.amount,
+          price: onspotItems[key]?.orderedItems[i]?.price,
+          done: onspotItems[key]?.orderedItems[i]?.done,
+          user: onspotItems[key]?.user,
+          totalAmount: onspotItems[key]?.orderedAmount,
+          color: onspotItems[key]?.color
+        });
+      }
+
     }
   }
 
@@ -60,7 +66,11 @@ function OnSpot() {
   if (loadedOrdersData.length > 0) {
     items = loadedOrdersData.map((item, index) => (
       <OnSpotItems
+        id={item.id}
+        index={item.index}
         key={index}
+        color={item.color}
+        done={item.done}
         name={item.name}
         size={item.size}
         amount={item.amount}
@@ -81,8 +91,9 @@ function OnSpot() {
     content = items;
   }
 
-  const onSpotStyles = `${classes.onspot} ${isNightMode && classes.onspotNight}`
-  const titleStyles = `${classes.title} ${isNightMode && classes.titleNight}`
+  const onSpotStyles = `${classes.onspot} ${isNightMode && classes.onspotNight
+    }`;
+  const titleStyles = `${classes.title} ${isNightMode && classes.titleNight}`;
   return (
     <>
       {!isOnSpotClosed && (

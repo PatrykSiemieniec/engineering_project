@@ -2,7 +2,7 @@
   background-color: #c1c8e4;
   display: flex;
   flex-direction: column;
-  border: 6px solid black;
+  border: 0.5px solid black;
   border-radius: 5px;
   margin-top: 5px;
   box-sizing: border-box;
@@ -92,4 +92,10 @@
 
 .lowTime {
   color: red;
+}
+
+.delete {
+  background: none;
+  border: none;
+  cursor: pointer;
 }

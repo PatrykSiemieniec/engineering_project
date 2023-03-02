@@ -25,22 +25,33 @@ function Delivery() {
   };
 
   useEffect(() => {
-    getDeliveryItems();
+
+    const timer = setTimeout(() => {
+      getDeliveryItems()
+    }, 200);
+    return () => clearTimeout(timer);
+
   }, [reload]);
 
   let loadedOrdersData = [];
 
   for (const key in deliveryItems) {
     for (const i in deliveryItems[key].orderedItems) {
-      loadedOrdersData.push({
-        id: key,
-        name: deliveryItems[key].orderedItems[i].name,
-        size: deliveryItems[key].orderedItems[i].size,
-        amount: deliveryItems[key].orderedItems[i].amount,
-        price: deliveryItems[key].orderedItems[i].price,
-        user: deliveryItems[key].user,
-        totalAmount: deliveryItems[key].orderedAmount,
-      });
+      if (deliveryItems[key].orderedItems[i] !== null) {
+        loadedOrdersData.push({
+          id: key,
+          index: i,
+          name: deliveryItems[key]?.orderedItems[i]?.name,
+          size: deliveryItems[key]?.orderedItems[i]?.size,
+          amount: deliveryItems[key]?.orderedItems[i]?.amount,
+          price: deliveryItems[key]?.orderedItems[i]?.price,
+          done: deliveryItems[key]?.orderedItems[i]?.done,
+          user: deliveryItems[key]?.user,
+          totalAmount: deliveryItems[key]?.orderedAmount,
+          color: deliveryItems[key]?.color
+
+        });
+      }
     }
   }
   const compare = (a, b) => {
@@ -57,7 +68,11 @@ function Delivery() {
   if (loadedOrdersData.length > 0) {
     items = loadedOrdersData.map((item, index) => (
       <DeliveryItems
+        id={item.id}
+        index={item.index}
         key={index}
+        color={item.color}
+        done={item.done}
         name={item.name}
         size={item.size}
         amount={item.amount}

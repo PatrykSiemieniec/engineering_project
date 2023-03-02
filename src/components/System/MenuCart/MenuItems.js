@@ -11,6 +11,8 @@ const MenuItems = (props) => {
   const gridCtx = useContext(GridContext);
   const { isNightMode } = gridCtx;
 
+
+
   const addItemToOrderHandler = (amount, size) => {
     let id = "";
     let price = 0;
@@ -30,6 +32,7 @@ const MenuItems = (props) => {
       amount,
       size,
       price,
+      done: false,
     });
   };
 
@@ -42,7 +45,8 @@ const MenuItems = (props) => {
   };
 
   const gridStyles = `${classes.grid} ${isNightMode && classes.gridNight}`;
-  const ordersStyles = `${classes.orders} ${isNightMode && classes.ordersNight}`;
+  const ordersStyles = `${classes.orders} ${isNightMode && classes.ordersNight
+    }`;
   return (
     <div className={gridStyles}>
       <div className={ordersStyles}>

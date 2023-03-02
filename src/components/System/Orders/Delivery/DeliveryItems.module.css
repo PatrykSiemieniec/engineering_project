@@ -1,5 +1,9 @@
+:root {
+  --color: #c1c8e4;
+}
+
 .flex {
-  background-color: #c1c8e4;
+  background-color: var(--color);
   display: flex;
   flex-direction: column;
   border: 0.5px solid black;
@@ -92,4 +96,10 @@
 
 .lowTime {
   color: red;
+}
+
+.delete {
+  background: none;
+  border: none;
+  cursor: pointer;
 }

@@ -41,11 +41,3 @@
   font-size: 40px;
   font-family: Georgia, "Times New Roman", Times, serif;
 }
-
-@media screen and (max-height: 900px) {
-  .name {
-    display: flex;
-    font-size: 30px;
-    margin-top: 5%;
-  }
-}

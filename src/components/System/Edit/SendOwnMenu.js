@@ -4,10 +4,14 @@ import Modal from "../../../UI/Modal";
 import OwnMenuItems from "./OwnMenuItems";
 import { GridContext } from "../../../store/grid-context";
 
-const user = localStorage.getItem("uid");
-let id = 0;
 
+
+
+let id = 0;
 const SendOwnMenu = (props) => {
+    const [userId, setUserId] = useState('');
+
+
     const gridCtx = useContext(GridContext);
     const { isNightMode } = gridCtx;
     const [data, setData] = useState([]);
@@ -22,6 +26,8 @@ const SendOwnMenu = (props) => {
     let items = [];
 
     const formSubmitHandler = (e) => {
+        const user = localStorage.getItem("uid");
+        setUserId(user);
         e.preventDefault();
         const name = nameRef.current.value;
         const ingredients = ingredientsRef.current.value;
@@ -64,13 +70,15 @@ const SendOwnMenu = (props) => {
         ));
     }
     const handleSendUserMenu = () => {
+
         fetch(
-            `https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/${user}/menu.json`,
+            `https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/${userId}/menu.json`,
             {
                 method: "POST",
                 body: JSON.stringify(data),
             }
         );
+
     };
     const paragraphClass = `${classes.day} ${isNightMode && classes.night}`;
     const labelClass = `${classes.labelDay} ${isNightMode && classes.labelNight}`;

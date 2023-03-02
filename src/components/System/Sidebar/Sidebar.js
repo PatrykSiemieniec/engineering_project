@@ -33,7 +33,7 @@ const Sidebar = (props) => {
   };
   const backHandler = () => {
     history.replace("/");
-  }
+  };
 
   const reloadHandler = () => {
     handleReload((prev) => !prev);
@@ -44,37 +44,29 @@ const Sidebar = (props) => {
   };
   const newMenuHandler = () => {
     setToSetNewMenu(true);
-  }
+  };
   const closeDelete = () => {
     setToDelete(false);
   };
   const closeNewMenu = () => {
     setToSetNewMenu(false);
-  }
+  };
   const deleteOrdersHandler = async () => {
+    const user = localStorage.getItem("uid");
+    const url =
+      "https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/";
+
     if (selectedType === "delivery") {
-      await axios.delete(
-        "https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/deliveryOrders.json"
-      );
+      await axios.delete(`${url}/${user}/deliveryOrders.json`);
     } else if (selectedType === "onspot") {
-      await axios.delete(
-        "https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/onspotOrders.json"
-      );
+      await axios.delete(`${url}/${user}/onspotOrders.json`);
     } else if (selectedType === "takeaway") {
-      await axios.delete(
-        "https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/takeawayOrders.json"
-      );
+      await axios.delete(`${url}/${user}//takeawayOrders.json`);
     } else if (selectedType === "all") {
       console.log(selectedType);
-      await axios.delete(
-        "https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/deliveryOrders.json"
-      );
-      await axios.delete(
-        "https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/onspotOrders.json"
-      );
-      await axios.delete(
-        "https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/takeawayOrders.json"
-      );
+      await axios.delete(`${url}/${user}/deliveryOrders.json`);
+      await axios.delete(`${url}/${user}/onspotOrders.json`);
+      await axios.delete(`${url}/${user}//takeawayOrders.json`);
     }
     reloadHandler();
   };
@@ -90,7 +82,7 @@ const Sidebar = (props) => {
         ) : (
           <TbUser style={{ color: "white", fontSize: "25px" }} />
         )}
-        {localStorage.getItem('email')}
+        <div>{localStorage.getItem("email")}</div>
         <button className={classes.sidebarItemButton} onClick={logoutHandler}>
           <CgLogOut style={{ color: "black", fontSize: "20px" }} />
           <br />
@@ -98,10 +90,7 @@ const Sidebar = (props) => {
         </button>
       </div>
 
-      <button
-        className={classes.sidebarItemButton}
-        onClick={backHandler}
-      >
+      <button className={classes.sidebarItemButton} onClick={backHandler}>
         <TfiBackLeft style={{ color: "black", fontSize: "20px" }} />
         <br />
         <div className={classes.text}>Strona główna</div>
@@ -147,6 +136,7 @@ const Sidebar = (props) => {
         <br />
         <div className={classes.text}>Edytuj Menu</div>
       </button>
+
       <br />
     </div>
   );
@@ -168,9 +158,7 @@ const Sidebar = (props) => {
         {toDelete && (
           <Delete delete={deleteOrdersHandler} noDelete={closeDelete} />
         )}
-        {toSetNewMenu && (
-          <SendOwnMenu onClose={closeNewMenu} />
-        )}
+        {toSetNewMenu && <SendOwnMenu onClose={closeNewMenu} />}
       </div>
     </>
   );

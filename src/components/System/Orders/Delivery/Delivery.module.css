@@ -42,3 +42,8 @@ p.night {
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   height: 0px;
 }
+
+@media screen and (max-width: 320px) {
+  .container {
+  }
+}

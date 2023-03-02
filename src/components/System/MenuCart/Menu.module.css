@@ -1,3 +1,8 @@
-.loading{
-    color:black
+.loading {
+  color: black;
+}
+.empty {
+  text-align: center;
+  background-color: whitesmoke;
+  font-size: 25px;
 }
