@@ -1,0 +1,20 @@
+.button {
+  padding: 0.5em 3em;
+  font-size: medium;
+  border-radius: 6px;
+  border: 0.1em solid black;
+  cursor: pointer;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.button:hover {
+  background-image: linear-gradient(to bottom right, #b7c9f1, #5680e9);
+  cursor: pointer;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin-left: 20%;
+}

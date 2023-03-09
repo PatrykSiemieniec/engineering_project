@@ -1,10 +1,10 @@
 .logo {
-  display: grid;
-  justify-items: center;
+  display: flex;
   align-items: center;
+  justify-content: center;
 }
 .png {
-  height: 90px;
+  height: 80px;
 }
 
 @media screen and (max-height: 900px) {
@@ -13,12 +13,11 @@
     scale: 40%;
   }
 }
-
-@media only screen and (max-width: 400px) {
+@media screen and (max-width: 320px),
+  (max-width: 375px),
+  (max-width: 425px),
+  (max-width: 500px) {
   .logo {
-    display: flex;
-  }
-  .png {
-    height: auto;
+    display: none;
   }
 }

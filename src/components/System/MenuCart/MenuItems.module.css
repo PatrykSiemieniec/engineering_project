@@ -51,3 +51,39 @@ select:focus > option:checked {
   font-weight: 100;
   font-style: italic;
 }
+
+@media screen and (max-width: 320px) {
+  .secondBox {
+    margin-left: 10%;
+  }
+  .grid {
+    margin-left: 0;
+  }
+  .name {
+    font-size: 25px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .secondBox {
+    margin-left: 10%;
+  }
+  .grid {
+    margin-left: 0;
+  }
+  .name {
+    font-size: 25px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .secondBox {
+    margin-left: 15%;
+  }
+  .grid {
+    margin-left: 0;
+  }
+  .name {
+    font-size: 25px;
+  }
+}

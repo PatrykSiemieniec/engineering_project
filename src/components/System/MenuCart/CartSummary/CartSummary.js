@@ -50,12 +50,10 @@ const CartSummary = (props) => {
     "#f0f8ff",
     "#f0e6ff",
     "#f0dc82",
-    "#f08080",
     "#e0ffff",
     "#dcd0ff",
     "#f4f4f4",
     "#e0eee0",
-    "#db7093",
     "#d2b48c",
     "#c7c7c7",
     "#c0c0c0",
@@ -63,13 +61,10 @@ const CartSummary = (props) => {
     "#a9a9a9",
     "#9acd32",
     "#87cefa",
-    "#808080",
     "#778899",
-    "#696969",
-    "#663399",
-    "#6a5acd",
     "#32cd32",
     "#00ced1",
+
   ];
   let prevIndex = -1;
   function getRandomColor() {

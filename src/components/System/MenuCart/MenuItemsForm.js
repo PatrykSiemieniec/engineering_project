@@ -15,7 +15,7 @@ const MenuItemsForm = (props) => {
     if (
       enteredAmount.trim().length === 0 ||
       enteredAmountNumber < 1 ||
-      enteredAmountNumber > 5
+      enteredAmountNumber > 9
     ) {
       setAmountIsValid(false);
       return;
@@ -32,7 +32,7 @@ const MenuItemsForm = (props) => {
           id: "amount_" + props.id,
           type: "number",
           min: "1",
-          max: "5",
+          max: "9",
           step: "1",
           defaultValue: "1",
         }}

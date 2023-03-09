@@ -14,9 +14,14 @@
   text-align: left;
 }
 
-.thDay {
-}
 .thNight {
   color: white;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.delete {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }

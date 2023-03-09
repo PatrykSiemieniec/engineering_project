@@ -4,13 +4,9 @@ import Modal from "../../../UI/Modal";
 import OwnMenuItems from "./OwnMenuItems";
 import { GridContext } from "../../../store/grid-context";
 
-
-
-
 let id = 0;
 const SendOwnMenu = (props) => {
-    const [userId, setUserId] = useState('');
-
+    const [userId, setUserId] = useState("");
 
     const gridCtx = useContext(GridContext);
     const { isNightMode } = gridCtx;
@@ -36,7 +32,6 @@ const SendOwnMenu = (props) => {
         const priceL = +priceLargeRef.current.value;
 
         loadedData.push({
-            id,
             name,
             ingredients,
             priceS,
@@ -47,11 +42,14 @@ const SendOwnMenu = (props) => {
         e.target.reset();
         setData((prev) => [...prev, loadedData]);
         id++;
-        console.log(data)
+        console.log(data);
     };
-    const deleteItemHandler = (e) => {
-        e.preventDefault();
-        const deleteID = +deleteRef.current.value;
+    const deleteItemHandler = (index) => {
+        console.log(index)
+        const arrayToDelete = [...data];
+        arrayToDelete.splice(index, 1)
+        setData(arrayToDelete);
+
     };
 
     if (data.length === 0) {
@@ -60,44 +58,46 @@ const SendOwnMenu = (props) => {
         items = data.map((item, index) => (
             <OwnMenuItems
                 key={index}
-                id={item[0].id}
+                id={index}
                 name={item[0].name}
                 ingredients={item[0].ingredients}
                 priceS={item[0].priceS}
                 priceM={item[0].priceM}
                 priceL={item[0].priceL}
+                onDelete={deleteItemHandler.bind(null, index)}
             />
         ));
     }
     const handleSendUserMenu = () => {
 
+        const flatArray = data.flat();
         fetch(
             `https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/${userId}/menu.json`,
             {
                 method: "POST",
-                body: JSON.stringify(data),
+                body: JSON.stringify(flatArray),
             }
         );
-
     };
+
     const paragraphClass = `${classes.day} ${isNightMode && classes.night}`;
     const labelClass = `${classes.labelDay} ${isNightMode && classes.labelNight}`;
     return (
         <Modal>
-            <button onClick={props.onClose}> Anuluj </button>
+            <button className={classes.button} onClick={props.onClose}> Anuluj </button>
             <p className={paragraphClass}>DODAJ POZYCJE DO SWOJEGO MENU</p>
             <form className={classes.form} onSubmit={formSubmitHandler}>
                 <label className={labelClass}>NAZWA</label>
-                <input ref={nameRef}></input>
+                <input ref={nameRef} required></input>
                 <label className={labelClass}>SKŁADNIKI</label>
-                <input ref={ingredientsRef}></input>
+                <input ref={ingredientsRef} required></input>
                 <label className={labelClass}>CENA MAŁA PORCJA</label>
                 <input type="number" ref={priceSmallRef} placeholder="zł "></input>
                 <label className={labelClass}>CENA ŚREDNIA PORCJA</label>
                 <input type="number" ref={priceMediumRef} placeholder="zł "></input>
                 <label className={labelClass}>CENA DUŻA PORCJA</label>
                 <input type="number" ref={priceLargeRef} placeholder="zł "></input>
-                <button >Dodaj do menu</button>
+                <button className={classes.button}>Dodaj do menu</button>
             </form>
             <table className={classes.table}>
                 <tbody>
@@ -108,18 +108,16 @@ const SendOwnMenu = (props) => {
                         <th>Cena mała sztuka</th>
                         <th>Cena średnia sztuka</th>
                         <th>Cena duża sztuka</th>
+                        <th>Usuń</th>
                     </tr>
                     {items}
                 </tbody>
             </table>
             <div className={classes.panel}>
-                <label className={labelClass}>Klikając <b>Zapisz</b> wyślesz zamówienia do bazy danych</label>
-                <button onClick={handleSendUserMenu}>Zapisz </button>
-                <label className={labelClass}>Podaj ID produktu który chcesz usunąć</label>
-                <form onSubmit={deleteItemHandler}>
-                    <input type="number" ref={deleteRef} />
-                    <button>Usuń</button>
-                </form>
+                <label className={labelClass}>
+                    Klikając <b>Zapisz</b> wyślesz zamówienia do bazy danych
+                </label>
+                <button className={classes.button} onClick={handleSendUserMenu}>Zapisz </button>
             </div>
         </Modal>
     );

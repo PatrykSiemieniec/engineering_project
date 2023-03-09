@@ -77,8 +77,8 @@ const Checkout = (props) => {
   const formStyles = `${classes.form} ${isNightMode && classes.formNight}`
   return (
     <form className={formStyles} onSubmit={confirmHandler}>
-      <div>
-        <label htmlFor="type">Rodzaj zamówienia</label>
+      <div className={classes.orderType}>
+        <label htmlFor="type">Rodzaj zamówienia {' '}</label>
         <select ref={typeSelectRef}>
           <option value="delivery">Na dowóz</option>
           <option value="onspot">Na miejscu</option>
@@ -86,8 +86,8 @@ const Checkout = (props) => {
         </select>
       </div>
       <div className={streetControlClasses}>
-        <label htmlFor="time">Czas</label>
-        <input placeholder="minutes" type="time" id="time" ref={timeRef} />
+        <label htmlFor="time">Podaj godzine wydania zamówienia</label>
+        <input placeholder="minutes" type="time" id="time" ref={timeRef} min='11:00' max='22:00' required />
       </div>
       <div className={streetControlClasses}>
         <label htmlFor="street">Ulica</label>

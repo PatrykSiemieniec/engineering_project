@@ -8,3 +8,10 @@
 .button {
   color: black;
 }
+
+@media screen and (max-width: 320px), (max-width: 375px), (max-width: 425px) {
+  .form {
+    flex-direction: column;
+    gap: 5px;
+  }
+}

@@ -21,17 +21,19 @@ const Menu = () => {
       }
       const responseData = await response.json();
       const loadedMenu = [];
+
+
       for (const key in responseData) {
-        for (const i in responseData[key]) {
+        for (const i in responseData[key])
           loadedMenu.push({
-            id: responseData[key][i][0].name,
-            name: responseData[key][i][0].name,
-            ingredients: responseData[key][i][0].ingredients,
-            priceS: responseData[key][i][0].priceS,
-            priceM: responseData[key][i][0].priceM,
-            priceL: responseData[key][i][0].priceL,
+            id: responseData[key][i].name,
+            name: responseData[key][i]?.name,
+            ingredients: responseData[key][i]?.ingredients,
+            priceS: responseData[key][i]?.priceS,
+            priceM: responseData[key][i]?.priceM,
+            priceL: responseData[key][i]?.priceL,
           });
-        }
+
       }
 
       setMenu(loadedMenu);

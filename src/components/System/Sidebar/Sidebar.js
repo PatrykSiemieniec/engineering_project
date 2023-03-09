@@ -2,21 +2,26 @@ import React, { useContext, useState } from "react";
 import { GridContext } from "../../../store/grid-context";
 import classes from "./Sidebar.module.css";
 import Delete from "./Delete";
-import { TbEdit, TbTrash, TbUser } from "react-icons/tb";
+import { TbSettings, TbTrash, TbUser } from "react-icons/tb";
 import { CgSun, CgMoon, CgLogOut } from "react-icons/cg";
 import { VscChromeClose } from "react-icons/vsc";
 import { TfiBackLeft } from "react-icons/tfi";
 import { AiOutlineEdit } from "react-icons/ai";
+import { SiInstacart } from "react-icons/si";
+import { BsCartPlus } from "react-icons/bs";
+
 import Button from "../../../UI/Button";
 import axios from "axios";
 import AuthContext from "../../../store/auth-context";
 import { useHistory } from "react-router-dom";
 import SendOwnMenu from "../Edit/SendOwnMenu";
+import EditMenu from "../Edit/EditMenu";
 const Sidebar = (props) => {
   const authCtx = useContext(AuthContext);
   const { logout } = authCtx;
   const [toDelete, setToDelete] = useState(false);
   const [toSetNewMenu, setToSetNewMenu] = useState(false);
+  const [editMenu, setEditMenu] = useState(false);
   const gridCtx = useContext(GridContext);
   const {
     handleEditPanelShown,
@@ -42,15 +47,23 @@ const Sidebar = (props) => {
   const deleteHandler = () => {
     setToDelete(true);
   };
-  const newMenuHandler = () => {
-    setToSetNewMenu(true);
-  };
   const closeDelete = () => {
     setToDelete(false);
+  };
+
+  const newMenuHandler = () => {
+    setToSetNewMenu(true);
   };
   const closeNewMenu = () => {
     setToSetNewMenu(false);
   };
+
+  const openEditMenuHandler = () => {
+    setEditMenu(true);
+  }
+  const closeEditMenuHandler = () => {
+    setEditMenu(false);
+  }
   const deleteOrdersHandler = async () => {
     const user = localStorage.getItem("uid");
     const url =
@@ -92,14 +105,15 @@ const Sidebar = (props) => {
 
       <button className={classes.sidebarItemButton} onClick={backHandler}>
         <TfiBackLeft style={{ color: "black", fontSize: "20px" }} />
-        <br />
-        <div className={classes.text}>Strona główna</div>
+        <div className={classes.text}  >Strona główna</div>
       </button>
+
       <button
         className={classes.sidebarItemButton}
         onClick={() => {
           handleNightMode((prev) => !prev);
         }}
+
       >
         {isNightMode ? (
           <>
@@ -115,15 +129,16 @@ const Sidebar = (props) => {
           </>
         )}
       </button>
+
       <button
         className={classes.sidebarItemButton}
         onClick={() => {
           handleEditPanelShown(true);
         }}
       >
-        <TbEdit style={{ color: "black", fontSize: "20px" }} />
+        <TbSettings style={{ color: "black", fontSize: "20px" }} />
         <br />
-        <div className={classes.text}>Edytuj Nazwę</div>
+        <div className={classes.text}>Ustawienia</div>
       </button>
       <button className={classes.sidebarItemButton} onClick={deleteHandler}>
         <TbTrash style={{ color: "black", fontSize: "20px" }} />
@@ -132,11 +147,16 @@ const Sidebar = (props) => {
       </button>
 
       <button className={classes.sidebarItemButton} onClick={newMenuHandler}>
+        <BsCartPlus style={{ color: "black", fontSize: "20px" }} />
+        <br />
+        <div className={classes.text}>Dodaj Menu</div>
+      </button>
+
+      <button className={classes.sidebarItemButton} onClick={openEditMenuHandler}>
         <AiOutlineEdit style={{ color: "black", fontSize: "20px" }} />
         <br />
         <div className={classes.text}>Edytuj Menu</div>
       </button>
-
       <br />
     </div>
   );
@@ -159,6 +179,7 @@ const Sidebar = (props) => {
           <Delete delete={deleteOrdersHandler} noDelete={closeDelete} />
         )}
         {toSetNewMenu && <SendOwnMenu onClose={closeNewMenu} />}
+        {editMenu && <EditMenu onClose={closeEditMenuHandler} />}
       </div>
     </>
   );

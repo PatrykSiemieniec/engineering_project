@@ -35,6 +35,7 @@ function Delivery() {
 
   let loadedOrdersData = [];
 
+
   for (const key in deliveryItems) {
     for (const i in deliveryItems[key].orderedItems) {
       if (deliveryItems[key].orderedItems[i] !== null) {

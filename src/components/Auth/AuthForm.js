@@ -45,8 +45,19 @@ const AuthForm = () => {
                     return res.json();
                 } else {
                     return res.json().then((data) => {
-                        const errorMessage = "Autoryzacja nieudana";
-                        throw new Error(errorMessage);
+                        const errorMessage = data.error.message;
+                        let message;
+                        if (errorMessage === 'INVALID_PASSWORD') {
+                            message = 'Nieprawidłowe hasło'
+                        } else if (errorMessage === 'EMAIL_NOT_FOUND') {
+                            message = 'Nie znaleziono użytkownika'
+                        } else if (errorMessage === 'EMAIL_EXISTS') {
+                            message = 'Podany E-mail już istnieje'
+                        } else {
+                            message = 'Słabe hasło, powinno się składać z conajmniej 6 znaków'
+                        }
+                        throw new Error(message);
+
                     });
                 }
             })

@@ -1,10 +1,10 @@
 import React, { useContext, useRef } from "react";
 import { GridContext } from "../../../store/grid-context";
-import classes from "./EditPanel.module.css";
+import classes from "./EditName.module.css";
 import Button from "../../../UI/Button";
 import Modal from "../../../UI/Modal";
 import Popup from "reactjs-popup";
-const EditPanel = () => {
+const EditName = () => {
   const gridCtx = useContext(GridContext);
   const { handleEditPanelShown, handleName, isNightMode } = gridCtx;
   const inputRef = useRef();
@@ -46,4 +46,4 @@ const EditPanel = () => {
   );
 };
 
-export default EditPanel;
+export default EditName;

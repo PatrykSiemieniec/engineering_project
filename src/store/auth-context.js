@@ -30,6 +30,8 @@ const retrieveStoredToken = () => {
     }
     return { token: storedToken, duration: remainingTime };
 };
+
+
 export const AuthContextProvier = (props) => {
     const tokenData = retrieveStoredToken();
     let initialToken;

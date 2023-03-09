@@ -69,7 +69,7 @@ p.night {
 }
 
 .list {
-  height: 70vh;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -143,7 +143,7 @@ p.night {
   }
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 600px) {
   .sidebar {
     position: fixed;
     box-sizing: border-box;
@@ -152,13 +152,31 @@ p.night {
     background-image: linear-gradient(to bottom right, #a1b4e2, #5680e9);
     z-index: 1;
     animation: slide-right 300ms ease-out forwards;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  .sidebarNight {
+    position: fixed;
+    box-sizing: border-box;
+    width: 100vw;
+    height: 20vh;
+    background-image: linear-gradient(to bottom right, black, #5680e9);
+    z-index: 1;
+    animation: slide-right 300ms ease-out forwards;
+    padding: 1rem;
+    box-sizing: border-box;
   }
   .list {
     display: flex;
     flex-direction: row;
     height: 10vh;
+    gap: 5%;
   }
   .text {
     display: contents;
+  }
+  .sidebarItemButton {
+    width: 10rem;
+    padding: 10px;
   }
 }

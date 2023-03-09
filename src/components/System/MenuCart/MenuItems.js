@@ -34,6 +34,7 @@ const MenuItems = (props) => {
       price,
       done: false,
     });
+    setIsInputShown(false);
   };
 
   const inputShownHandler = () => {
@@ -57,7 +58,7 @@ const MenuItems = (props) => {
         </div>
       </div>
       <div className={classes.secondBox}>
-        <Button onClick={inputShownHandler} class={classes.button}>
+        <Button onClick={inputShownHandler} class={classes.button} display={isInputShown ? 'none' : null}>
           + Dodaj
         </Button>
       </div>

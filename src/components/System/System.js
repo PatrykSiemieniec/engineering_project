@@ -8,7 +8,7 @@ import OnSpot from "./Orders/OnSpot/OnSpot";
 import Takeaway from "./Orders/Takeaway/Takeaway";
 import Footer from "./Footer/Footer";
 import Cart from "./MenuCart/Cart";
-import EditPanel from "./Edit/EditPanel";
+import EditName from "./Edit/EditName";
 
 const System = () => {
     const [isShown, setIsShown] = useState(false);
@@ -36,7 +36,7 @@ const System = () => {
     return (
         <Fragment>
             <div>
-                {isEditPanelShown && <EditPanel></EditPanel>}
+                {isEditPanelShown && <EditName />}
 
                 <div>
                     <div className={classes.sidebar}>
