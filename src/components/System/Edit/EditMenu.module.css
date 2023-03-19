@@ -18,3 +18,71 @@
   width: 60%;
   margin-left: 20%;
 }
+.formNight {
+  color: white;
+}
+
+.form label {
+  font-size: 18px;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 500;
+  text-align: center;
+}
+.form label:nth-child(1) {
+  font-size: 20px;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 600;
+  text-align: center;
+}
+
+.form input {
+  font-size: 17px;
+  font-family: "Nunito Sans", sans-serif;
+  padding: 2px;
+  font-style: italic;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.deleteContainer {
+  text-align: center;
+  font-size: 25px;
+  font-family: "Nunito Sans", sans-serif;
+}
+.box {
+  overflow-x: auto;
+}
+.table {
+  margin-top: 4vh;
+  width: 100%;
+  font-size: 15px;
+  font-family: "Nunito Sans", sans-serif;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+.table tr {
+  border: 1px solid black;
+}
+
+.headers {
+  font-size: 18px;
+}
+
+p.day {
+  display: flex;
+  justify-content: center;
+  color: black;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+p.night {
+  display: flex;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}

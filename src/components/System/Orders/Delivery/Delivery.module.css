@@ -7,7 +7,7 @@
 .deliveryNight {
   display: grid;
   grid-area: delivery;
-  background-color: rgb(28, 28, 58);
+  background-color: rgb(47, 47, 59);
   box-shadow: inset 0px 0px 0px 0.5px black;
 }
 .container {
@@ -18,28 +18,28 @@
 }
 .title {
   box-shadow: inset 0px 0px 0px 0.5px black;
-  background-image: linear-gradient(to bottom, #83c6e0, #18a0d6);
+  background-image: linear-gradient(to top, #83c6e0, #18a0d6);
 }
 .titleNight {
   box-shadow: inset 0px 0px 0px 0.5px black;
-  background-image: linear-gradient(to bottom, black, #18a0d6);
+  background-image: linear-gradient(to top, black, rgb(47, 47, 59));
 }
 p.day {
   display: flex;
   justify-content: center;
   color: black;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-family: "Nunito Sans", sans-serif;
   height: 0px;
 }
 p.night {
   display: flex;
   justify-content: center;
   color: white;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-family: "Nunito Sans", sans-serif;
   height: 0px;
 }
 

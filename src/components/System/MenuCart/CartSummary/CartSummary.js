@@ -63,8 +63,6 @@ const CartSummary = (props) => {
     "#87cefa",
     "#778899",
     "#32cd32",
-    "#00ced1",
-
   ];
   let prevIndex = -1;
   function getRandomColor() {
@@ -136,18 +134,15 @@ const CartSummary = (props) => {
     }`;
   return (
     <div className={classes.box}>
-      <Button class={classes.button} onClick={props.onClose}>
-        Wróć do menu
-      </Button>
       <div className={classes.orders}>{orderItem}</div>
+      <div className={amountStyles}>
+        Cena całkowita: <b>{totalAmount}</b> zł
+      </div>
       <Checkout
         order={orderItem}
         onHideCart={props.onHideCart}
         onConfirm={submitOrderHandler}
       />
-      <div className={amountStyles}>
-        Cena całkowita: <b>{totalAmount}</b> zł
-      </div>
     </div>
   );
 };

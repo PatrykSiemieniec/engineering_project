@@ -3,7 +3,6 @@ import classes from "./Delete.module.css";
 import Modal from "../../../UI/Modal";
 import { GridContext } from "../../../store/grid-context";
 import Button from "../../../UI/Button";
-import Popup from "reactjs-popup";
 
 const Delete = (props) => {
     const gridCtx = useContext(GridContext);
@@ -21,36 +20,41 @@ const Delete = (props) => {
 
     return (
         <Modal>
-            <div className={classes.delete}>
+            <div>
                 <Button onClick={props.noDelete}>Powrót</Button>
-                {!isSubmitted && (
-                    <>
-                        <p className={paragraphClass}>Które zamówienia chcesz usunąć?</p>
-                        <form className={classes.form} onSubmit={submitHandler}>
-                            <select ref={selectRef}>
-                                <option value="delivery">Na dowóz</option>
-                                <option value="onspot">Na miejscu</option>
-                                <option value="takeaway">Na wynos</option>
-                                <option value="all">Wszystkie</option>
-                            </select>
-                            <Button>Potwierdź</Button>
-                        </form>
-                    </>
-                )}
-                {isSubmitted && (
-                    <>
-                        <p className={paragraphClass}>
-                            Czy na pewno chcesz usunąć zamówienia?
-                        </p>
-                        <button className={classes.deleteButton} onClick={props.delete}>
-                            Tak
-                        </button>
+                <div className={classes.box}>
+                    {!isSubmitted && (
+                        <>
+                            <p className={paragraphClass}>Które zamówienia chcesz usunąć?</p>
+                            <form className={classes.form} onSubmit={submitHandler}>
+                                <select ref={selectRef}>
+                                    <option value="delivery">Na dowóz</option>
+                                    <option value="onspot">Na miejscu</option>
+                                    <option value="takeaway">Na wynos</option>
+                                    <option value="all">Wszystkie</option>
+                                </select>
+                                <Button>Potwierdź</Button>
+                            </form>
+                        </>
+                    )}
+                    {isSubmitted && (
+                        <>
+                            <p className={paragraphClass}>
+                                Czy na pewno chcesz usunąć zamówienia?
+                            </p>
+                            <button className={classes.deleteButton} onClick={props.delete}>
+                                Tak
+                            </button>
 
-                        <button className={classes.noDeleteButton} onClick={props.noDelete}>
-                            Nie
-                        </button>
-                    </>
-                )}
+                            <button
+                                className={classes.noDeleteButton}
+                                onClick={props.noDelete}
+                            >
+                                Nie
+                            </button>
+                        </>
+                    )}
+                </div>
             </div>
         </Modal>
     );

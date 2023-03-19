@@ -45,12 +45,11 @@ const MenuItems = (props) => {
     setIsInputShown(false);
   };
 
-  const gridStyles = `${classes.grid} ${isNightMode && classes.gridNight}`;
-  const ordersStyles = `${classes.orders} ${isNightMode && classes.ordersNight
-    }`;
+  const boxStyles = `${classes.box} ${isNightMode && classes.boxNight}`;
+
   return (
-    <div className={gridStyles}>
-      <div className={ordersStyles}>
+    <div className={boxStyles}>
+      <div className={classes.orders}>
         <div className={classes.name}>{props.name}</div>
         <div className={classes.ingredients}>{props.ingredients}</div>
         <div className={classes.price}>

@@ -32,7 +32,7 @@ const retrieveStoredToken = () => {
 };
 
 
-export const AuthContextProvier = (props) => {
+export const AuthContextProvider = (props) => {
     const tokenData = retrieveStoredToken();
     let initialToken;
     if (tokenData) {
@@ -68,6 +68,7 @@ export const AuthContextProvier = (props) => {
     useEffect(() => {
         if (tokenData) {
             logoutTimer = setTimeout(logoutHandler, tokenData.duration);
+            console.log(tokenData.duration)
         }
     }, [tokenData, logoutHandler]);
 

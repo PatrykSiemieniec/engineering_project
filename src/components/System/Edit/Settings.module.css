@@ -1,0 +1,79 @@
+.flex {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 15px;
+}
+.settings {
+  width: 100%;
+}
+.flex input {
+  width: 200px;
+  height: 40px;
+  font-size: 18px;
+}
+p.day {
+  display: flex;
+  justify-content: center;
+  color: black;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+p.night {
+  display: flex;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.time {
+  font-size: 18px;
+}
+.time input {
+  width: 50px;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  font-size: 20px;
+}
+.changePasswordForm {
+  margin-top: 4vh;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin-left: 30%;
+  gap: 10px;
+}
+.changePasswordForm input {
+  height: 40px;
+}
+
+.label {
+  color: black;
+  font-weight: 900;
+  font-family: "Nunito Sans", sans-serif;
+}
+.labelNight {
+  color: white;
+  font-weight: 900;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+@media only screen and (max-width: 320px),
+  (max-width: 375px),
+  (max-width: 425px),
+  (max-width: 768px) {
+  .flex {
+    flex-direction: column;
+    align-items: center;
+  }
+  .changePasswordForm {
+    width: 80%;
+    margin-left: 10%;
+  }
+}

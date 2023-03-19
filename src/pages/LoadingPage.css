@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+.spinner {
+  height: 10%;
+  width: 10%;
+}
+
+.path {
+  stroke: #3d9be9;
+  stroke-dasharray: 150;
+  stroke-dashoffset: -15;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: -15;
+  }
+  50% {
+    stroke-dashoffset: 150;
+  }
+  100% {
+    stroke-dashoffset: -15;
+  }
+}

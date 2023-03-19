@@ -1,0 +1,46 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  height: 100vh;
+  margin-left: 20%;
+}
+
+.top h1 {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 100px;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.info {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 40px;
+  font-weight: 100;
+}
+
+.notfound {
+  font-family: "Nunito Sans", sans-serif;
+  display: flex;
+  align-items: center;
+  font-size: 25px;
+  color: grey;
+}
+
+@media only screen and (max-width: 320px),
+  (max-width: 375px),
+  (max-width: 425px),
+  (max-width: 768px) {
+  .top {
+    flex-direction: column;
+  }
+  .info {
+    text-align: center;
+    font-size: 25px;
+  }
+}

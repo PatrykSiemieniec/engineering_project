@@ -1,37 +1,44 @@
 import React, { useContext, useState } from "react";
-import { GridContext } from "../../../store/grid-context";
+import { useHistory } from "react-router-dom";
 import classes from "./Sidebar.module.css";
-import Delete from "./Delete";
+import axios from "axios";
+import { GridContext } from "../../../store/grid-context";
+import AuthContext from "../../../store/auth-context";
+import { LanguageContext } from "../../../store/language-context";
+
 import { TbSettings, TbTrash, TbUser } from "react-icons/tb";
 import { CgSun, CgMoon, CgLogOut } from "react-icons/cg";
 import { VscChromeClose } from "react-icons/vsc";
 import { TfiBackLeft } from "react-icons/tfi";
 import { AiOutlineEdit } from "react-icons/ai";
-import { SiInstacart } from "react-icons/si";
 import { BsCartPlus } from "react-icons/bs";
 
-import Button from "../../../UI/Button";
-import axios from "axios";
-import AuthContext from "../../../store/auth-context";
-import { useHistory } from "react-router-dom";
 import SendOwnMenu from "../Edit/SendOwnMenu";
 import EditMenu from "../Edit/EditMenu";
+import Delete from "./Delete";
+
+import lang from "../../../translation/lang.json";
+
 const Sidebar = (props) => {
-  const authCtx = useContext(AuthContext);
-  const { logout } = authCtx;
   const [toDelete, setToDelete] = useState(false);
   const [toSetNewMenu, setToSetNewMenu] = useState(false);
   const [editMenu, setEditMenu] = useState(false);
-  const gridCtx = useContext(GridContext);
+
+  const { logout } = useContext(AuthContext);
+
   const {
-    handleEditPanelShown,
+    handleSettingsShown,
     handleReload,
     handleNightMode,
     isNightMode,
     selectedType,
-  } = gridCtx;
+  } = useContext(GridContext);
+
+  const { choosenLanguage } = useContext(LanguageContext);
+  const language = lang[choosenLanguage].system.sidebar;
 
   const history = useHistory();
+
   const logoutHandler = () => {
     logout();
     history.replace("/");
@@ -60,10 +67,10 @@ const Sidebar = (props) => {
 
   const openEditMenuHandler = () => {
     setEditMenu(true);
-  }
+  };
   const closeEditMenuHandler = () => {
     setEditMenu(false);
-  }
+  };
   const deleteOrdersHandler = async () => {
     const user = localStorage.getItem("uid");
     const url =
@@ -84,78 +91,126 @@ const Sidebar = (props) => {
     reloadHandler();
   };
 
+  const email = localStorage.getItem("email");
+  const splitEmail = email.split("@");
+
   const paragraphClass = `${classes.day} ${isNightMode && classes.night}`;
   const userClass = `${classes.user} ${isNightMode && classes.userNight}`;
+  const sidebarButtonClass = `${classes.sidebarItemButton} ${isNightMode && classes.sidebarItemButtonNight
+    }`;
   const sidebarItem = (
     <div className={classes.list}>
-      <p className={paragraphClass}>Panel </p>
-      <div className={userClass}>
+      <button onClick={props.onClose} className={sidebarButtonClass}>
+
         {!isNightMode ? (
-          <TbUser style={{ color: "black", fontSize: "25px" }} />
+          <VscChromeClose style={{ color: "black", fontSize: "15px" }} />
         ) : (
-          <TbUser style={{ color: "white", fontSize: "25px" }} />
+          <VscChromeClose style={{ color: "white", fontSize: "15px" }} />
         )}
-        <div>{localStorage.getItem("email")}</div>
-        <button className={classes.sidebarItemButton} onClick={logoutHandler}>
-          <CgLogOut style={{ color: "black", fontSize: "20px" }} />
+      </button>
+      <p className={paragraphClass}>{language.panel} </p>
+      <div className={userClass}>
+        <div className={classes.email}>
+          {!isNightMode ? (
+            <TbUser style={{ color: "black", fontSize: "25px" }} />
+          ) : (
+            <TbUser style={{ color: "white", fontSize: "25px" }} />
+          )}
+
+          <div>{splitEmail[0]}</div>
+          <div>{"@" + splitEmail[1]}</div>
+        </div>
+        <button className={sidebarButtonClass} onClick={logoutHandler}>
+          {!isNightMode ? (
+            <CgLogOut style={{ color: "black", fontSize: "20px" }} />
+          ) : (
+            <CgLogOut style={{ color: "white", fontSize: "20px" }} />
+          )}
           <br />
-          <div className={classes.text}>Wyloguj</div>
+          <div className={classes.text}>{language.logout}</div>
         </button>
       </div>
 
-      <button className={classes.sidebarItemButton} onClick={backHandler}>
-        <TfiBackLeft style={{ color: "black", fontSize: "20px" }} />
-        <div className={classes.text}  >Strona główna</div>
+      <button className={sidebarButtonClass} onClick={backHandler}>
+        {!isNightMode ? (
+          <TfiBackLeft style={{ color: "black", fontSize: "20px" }} />
+        ) : (
+          <TfiBackLeft style={{ color: "white", fontSize: "20px" }} />
+        )}
+        <div className={classes.text}>{language.mainPage}</div>
       </button>
 
       <button
-        className={classes.sidebarItemButton}
+        className={sidebarButtonClass}
         onClick={() => {
           handleNightMode((prev) => !prev);
         }}
-
       >
         {isNightMode ? (
           <>
-            <CgSun style={{ color: "black", fontSize: "20px" }} />
+            {!isNightMode ? (
+              <CgSun style={{ color: "black", fontSize: "20px" }} />
+            ) : (
+              <CgSun style={{ color: "white", fontSize: "20px" }} />
+            )}
             <br />
-            <div className={classes.text}>Tryb dzienny</div>
+            <div className={classes.text}>{language.dayMode}</div>
           </>
         ) : (
           <>
-            <CgMoon style={{ color: "black", fontSize: "20px" }} />
+            {!isNightMode ? (
+              <CgMoon style={{ color: "black", fontSize: "20px" }} />
+            ) : (
+              <CgMoon style={{ color: "white", fontSize: "20px" }} />
+            )}
             <br />
-            <div className={classes.text}>Tryb nocny</div>
+            <div className={classes.text}>{language.nightMode}</div>
           </>
         )}
       </button>
 
       <button
-        className={classes.sidebarItemButton}
+        className={sidebarButtonClass}
         onClick={() => {
-          handleEditPanelShown(true);
+          handleSettingsShown(true);
         }}
       >
-        <TbSettings style={{ color: "black", fontSize: "20px" }} />
+        {!isNightMode ? (
+          <TbSettings style={{ color: "black", fontSize: "20px" }} />
+        ) : (
+          <TbSettings style={{ color: "white", fontSize: "20px" }} />
+        )}
         <br />
-        <div className={classes.text}>Ustawienia</div>
+        <div className={classes.text}>{language.settings}</div>
       </button>
-      <button className={classes.sidebarItemButton} onClick={deleteHandler}>
-        <TbTrash style={{ color: "black", fontSize: "20px" }} />
+      <button className={sidebarButtonClass} onClick={deleteHandler}>
+        {!isNightMode ? (
+          <TbTrash style={{ color: "black", fontSize: "20px" }} />
+        ) : (
+          <TbTrash style={{ color: "white", fontSize: "20px" }} />
+        )}
         <br />
-        <div className={classes.text}>Usuń zamówienia</div>
+        <div className={classes.text}>{language.delete}</div>
       </button>
 
-      <button className={classes.sidebarItemButton} onClick={newMenuHandler}>
-        <BsCartPlus style={{ color: "black", fontSize: "20px" }} />
+      <button className={sidebarButtonClass} onClick={newMenuHandler}>
+        {!isNightMode ? (
+          <BsCartPlus style={{ color: "black", fontSize: "20px" }} />
+        ) : (
+          <BsCartPlus style={{ color: "white", fontSize: "20px" }} />
+        )}
         <br />
-        <div className={classes.text}>Dodaj Menu</div>
+        <div className={classes.text}>{language.add}</div>
       </button>
 
-      <button className={classes.sidebarItemButton} onClick={openEditMenuHandler}>
-        <AiOutlineEdit style={{ color: "black", fontSize: "20px" }} />
+      <button className={sidebarButtonClass} onClick={openEditMenuHandler}>
+        {!isNightMode ? (
+          <AiOutlineEdit style={{ color: "black", fontSize: "20px" }} />
+        ) : (
+          <AiOutlineEdit style={{ color: "white", fontSize: "20px" }} />
+        )}
         <br />
-        <div className={classes.text}>Edytuj Menu</div>
+        <div className={classes.text}>{language.edit}</div>
       </button>
       <br />
     </div>
@@ -164,16 +219,6 @@ const Sidebar = (props) => {
   return (
     <>
       <div className={!isNightMode ? classes.sidebar : classes.sidebarNight}>
-        <Button class={classes.closeButton} onClick={props.onClose}>
-          <VscChromeClose
-            style={{
-              color: "black",
-              fontSize: "15px",
-              fontWeight: "bolder",
-              marginTop: "3px",
-            }}
-          />
-        </Button>
         {sidebarItem}
         {toDelete && (
           <Delete delete={deleteOrdersHandler} noDelete={closeDelete} />

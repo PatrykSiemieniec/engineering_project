@@ -16,15 +16,15 @@ export const GridContext = createContext({
 });
 
 export const GridContextProvider = ({ children }) => {
-  const [isEditPanelShown, setIsEditPanelShown] = useState(false);
+  const [isSettingsShown, setIsSettingsShown] = useState(false);
   const [isSend, setIsSend] = useState(false);
   const [name, setName] = useState("NAZWA");
   const [reload, setReload] = useState(false);
   const [isNightMode, setIsNightMode] = useState(false);
   const [selectedType, setSelectedType] = useState('')
 
-  const handleEditPanelShown = (condition) => {
-    setIsEditPanelShown(condition);
+  const handleSettingsShown = (condition) => {
+    setIsSettingsShown(condition);
   };
   const handleIsSend = (condition) => {
     setIsSend(condition => !condition);
@@ -43,13 +43,13 @@ export const GridContextProvider = ({ children }) => {
     setSelectedType(type);
   }
   const contextValue = {
-    isEditPanelShown,
+    isSettingsShown,
     isSend,
     name,
     reload,
     isNightMode,
     selectedType,
-    handleEditPanelShown,
+    handleSettingsShown,
     handleIsSend,
     handleName,
     handleReload,

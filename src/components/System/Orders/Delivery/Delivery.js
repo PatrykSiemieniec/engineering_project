@@ -28,7 +28,7 @@ function Delivery() {
 
     const timer = setTimeout(() => {
       getDeliveryItems()
-    }, 200);
+    }, 500);
     return () => clearTimeout(timer);
 
   }, [reload]);

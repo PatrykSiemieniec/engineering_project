@@ -2,24 +2,40 @@ import React, { useRef, useState, useContext } from "react";
 import classes from "./SendOwnMenu.module.css";
 import Modal from "../../../UI/Modal";
 import OwnMenuItems from "./OwnMenuItems";
+import Button from "../../../UI/Button";
 import { GridContext } from "../../../store/grid-context";
+import { LanguageContext } from "../../../store/language-context";
+import lang from './../../../translation/lang.json'
 
-let id = 0;
 const SendOwnMenu = (props) => {
-    const [userId, setUserId] = useState("");
+    const { isNightMode } = useContext(GridContext);
 
-    const gridCtx = useContext(GridContext);
-    const { isNightMode } = gridCtx;
+    const { choosenLanguage } = useContext(LanguageContext)
+    const language = lang[choosenLanguage].system.edit.editMenu;
+
+    const [userId, setUserId] = useState("");
     const [data, setData] = useState([]);
+
     const nameRef = useRef();
     const ingredientsRef = useRef();
     const priceSmallRef = useRef();
     const priceMediumRef = useRef();
     const priceLargeRef = useRef();
-    const deleteRef = useRef();
 
     let loadedData = [];
     let items = [];
+
+    const generateID = () => {
+        const characters =
+            `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_-+={}[]|:;"'<>,.?/~`;
+        let result = "";
+        for (let i = 0; i < 6; i++) {
+            result += characters.charAt(
+                Math.floor(Math.random() * characters.length)
+            );
+        }
+        return result;
+    };
 
     const formSubmitHandler = (e) => {
         const user = localStorage.getItem("uid");
@@ -31,7 +47,11 @@ const SendOwnMenu = (props) => {
         const priceM = +priceMediumRef.current.value;
         const priceL = +priceLargeRef.current.value;
 
+        const result = generateID();
+
+        console.log(result)
         loadedData.push({
+            id: result,
             name,
             ingredients,
             priceS,
@@ -41,15 +61,13 @@ const SendOwnMenu = (props) => {
 
         e.target.reset();
         setData((prev) => [...prev, loadedData]);
-        id++;
         console.log(data);
     };
     const deleteItemHandler = (index) => {
-        console.log(index)
+        console.log(index);
         const arrayToDelete = [...data];
-        arrayToDelete.splice(index, 1)
+        arrayToDelete.splice(index, 1);
         setData(arrayToDelete);
-
     };
 
     if (data.length === 0) {
@@ -59,6 +77,7 @@ const SendOwnMenu = (props) => {
             <OwnMenuItems
                 key={index}
                 id={index}
+                ID={item[0].ID}
                 name={item[0].name}
                 ingredients={item[0].ingredients}
                 priceS={item[0].priceS}
@@ -69,7 +88,6 @@ const SendOwnMenu = (props) => {
         ));
     }
     const handleSendUserMenu = () => {
-
         const flatArray = data.flat();
         fetch(
             `https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/${userId}/menu.json`,
@@ -78,46 +96,53 @@ const SendOwnMenu = (props) => {
                 body: JSON.stringify(flatArray),
             }
         );
+        props.onClose();
     };
 
     const paragraphClass = `${classes.day} ${isNightMode && classes.night}`;
     const labelClass = `${classes.labelDay} ${isNightMode && classes.labelNight}`;
     return (
         <Modal>
-            <button className={classes.button} onClick={props.onClose}> Anuluj </button>
-            <p className={paragraphClass}>DODAJ POZYCJE DO SWOJEGO MENU</p>
+            <Button onClick={props.onClose}>
+                {language.cancel}
+            </Button>
+            <p className={paragraphClass}>{language.addPosition}</p>
             <form className={classes.form} onSubmit={formSubmitHandler}>
-                <label className={labelClass}>NAZWA</label>
+                <label className={labelClass}>{language.formName}</label>
                 <input ref={nameRef} required></input>
-                <label className={labelClass}>SKŁADNIKI</label>
+                <label className={labelClass}>{language.formIngredients}</label>
                 <input ref={ingredientsRef} required></input>
-                <label className={labelClass}>CENA MAŁA PORCJA</label>
+                <label className={labelClass}>{language.formPriceS}</label>
                 <input type="number" ref={priceSmallRef} placeholder="zł "></input>
-                <label className={labelClass}>CENA ŚREDNIA PORCJA</label>
+                <label className={labelClass}>{language.formPriceM}</label>
                 <input type="number" ref={priceMediumRef} placeholder="zł "></input>
-                <label className={labelClass}>CENA DUŻA PORCJA</label>
+                <label className={labelClass}>{language.formPriceL}</label>
                 <input type="number" ref={priceLargeRef} placeholder="zł "></input>
-                <button className={classes.button}>Dodaj do menu</button>
+                <Button>{language.add}</Button>
             </form>
-            <table className={classes.table}>
-                <tbody>
-                    <tr>
-                        <th>#</th>
-                        <th>Nazwa</th>
-                        <th className={classes.ingredients}>Składniki</th>
-                        <th>Cena mała sztuka</th>
-                        <th>Cena średnia sztuka</th>
-                        <th>Cena duża sztuka</th>
-                        <th>Usuń</th>
-                    </tr>
-                    {items}
-                </tbody>
-            </table>
+            <div className={classes.box}>
+                <table className={classes.table}>
+                    <tbody>
+                        <tr className={classes.headers}>
+                            <th>#</th>
+                            <th>{language.tableName}</th>
+                            <th className={classes.ingredients}>{language.tableIngredients}</th>
+                            <th>{language.tablePriceS}</th>
+                            <th>{language.tablePriceM}</th>
+                            <th>{language.tablePriceL}</th>
+                            <th>{language.action}</th>
+                        </tr>
+                        {items}
+                    </tbody>
+                </table>
+            </div>
             <div className={classes.panel}>
                 <label className={labelClass}>
-                    Klikając <b>Zapisz</b> wyślesz zamówienia do bazy danych
+                    {language.submitInfo}
                 </label>
-                <button className={classes.button} onClick={handleSendUserMenu}>Zapisz </button>
+                <Button onClick={handleSendUserMenu}>
+                    {language.save}
+                </Button>
             </div>
         </Modal>
     );

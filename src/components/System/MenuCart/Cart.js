@@ -11,31 +11,50 @@ function Cart(props) {
   const [isEmpty, setIsEmpty] = useState(true);
   const [isSummaryClicked, setIsSummaryClicked] = useState(false);
 
-
-
   const check = items.length > 0;
+  console.log(check);
   useEffect(() => {
     if (check) {
       setIsEmpty(false);
+    } else {
+      setIsEmpty(true);
+      setIsSummaryClicked(false);
     }
   }, [check]);
 
   const openSummaryHandler = () => {
     setIsSummaryClicked(true);
-  }
+  };
 
   const closeSummaryHandler = () => {
     setIsSummaryClicked(false);
-  }
+  };
 
   return (
     <Modal onClose={props.onHideCart}>
-      {!isSummaryClicked && <Button class={classes.button} onClick={props.onHideCart}>
-        X
-      </Button>}
-      {!isEmpty && <Button onClick={openSummaryHandler} class={classes.button2}>Podsumowanie</Button>}
+      <div className={classes.buttons}>
+        {!isSummaryClicked && (
+          <Button class={classes.closeButton} onClick={props.onHideCart}>
+            X
+          </Button>
+        )}
+        {isSummaryClicked && (
+          <Button class={classes.backButton} onClick={closeSummaryHandler}>
+            Wróć do menu
+          </Button>
+        )}
+        {!isEmpty && !isSummaryClicked && (
+          <Button onClick={openSummaryHandler} class={classes.summaryButton}>
+            Podsumowanie
+          </Button>
+        )}
+      </div>
       {!isSummaryClicked && <Menu />}
-      {isSummaryClicked && <CartSummary onHideCart={props.onHideCart} onClose={closeSummaryHandler} />}
+      {isSummaryClicked && (
+        <CartSummary
+          onHideCart={props.onHideCart}
+        />
+      )}
     </Modal>
   );
 }

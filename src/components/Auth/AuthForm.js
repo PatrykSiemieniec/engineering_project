@@ -3,10 +3,17 @@ import AuthContext from "../../store/auth-context";
 import { useHistory } from "react-router-dom";
 import classes from "./AuthForm.module.css";
 import { TfiBackLeft } from "react-icons/tfi";
+import Button from "../../UI/Button";
+import lang from '../../translation/lang.json';
+import { LanguageContext } from "../../store/language-context";
 const AuthForm = () => {
     const history = useHistory();
     const emailInputRef = useRef();
     const passwordInputRef = useRef();
+
+    const { choosenLanguage } = useContext(LanguageContext);
+
+    const language = lang[choosenLanguage].login;
 
     const authCtx = useContext(AuthContext);
     const [isLogin, setIsLogin] = useState(true);
@@ -48,13 +55,13 @@ const AuthForm = () => {
                         const errorMessage = data.error.message;
                         let message;
                         if (errorMessage === 'INVALID_PASSWORD') {
-                            message = 'Nieprawidłowe hasło'
+                            message = language.errorMessage.invalid;
                         } else if (errorMessage === 'EMAIL_NOT_FOUND') {
-                            message = 'Nie znaleziono użytkownika'
+                            message = language.errorMessage.not_found;
                         } else if (errorMessage === 'EMAIL_EXISTS') {
-                            message = 'Podany E-mail już istnieje'
+                            message = language.errorMessage.exist;
                         } else {
-                            message = 'Słabe hasło, powinno się składać z conajmniej 6 znaków'
+                            message = language.errorMessage.weak;
                         }
                         throw new Error(message);
 
@@ -80,7 +87,7 @@ const AuthForm = () => {
     return (
         <div className={classes.container}>
             <div className={classes.box}>
-                <h3>{isLogin ? "Zaloguj" : "Zarejestruj"}</h3>
+                <h3>{isLogin ? language.login : language.register}</h3>
             </div>
             <button className={classes.button} onClick={() => history.replace("/")}>
                 <TfiBackLeft style={{ color: "black", fontSize: "25px" }} />{" "}
@@ -90,11 +97,11 @@ const AuthForm = () => {
 
                 <form onSubmit={submitHandler}>
                     <div className={classes.control}>
-                        <label htmlFor="email">Twój E-mail</label>
+                        <label htmlFor="email">{language.email}</label>
                         <input type="email" id="email" ref={emailInputRef} required />
                     </div>
                     <div className={classes.control}>
-                        <label htmlFor="password">Twoje Hasło</label>
+                        <label htmlFor="password">{language.password}</label>
                         <input
                             type="password"
                             id="password"
@@ -103,15 +110,15 @@ const AuthForm = () => {
                         />
                     </div>
                     <div className={classes.actions}>
-                        <button>{isLogin ? "Zaloguj" : "Załóż Konto"}</button>
+                        <Button>{isLogin ? language.login : language.register}</Button>
                         <button
                             type="button"
                             className={classes.toggle}
                             onClick={switchAuthModeHandler}
                         >
                             {isLogin
-                                ? "Utwórz nowe konto"
-                                : "Zaloguj się poprzez istniejące konto"}
+                                ? language.registerInfo
+                                : language.loginInfo}
                         </button>
                     </div>
                 </form>

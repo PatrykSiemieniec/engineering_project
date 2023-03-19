@@ -4,7 +4,7 @@
   grid-area: footer;
 }
 .footerNight {
-  background-image: linear-gradient(to top right, black, #5680e9);
+  background-image: linear-gradient(to left top, black, rgb(47, 47, 59));
   display: grid;
   grid-area: footer;
 }

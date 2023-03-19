@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import classes from "./Menu.module.css";
 import MenuItems from "./MenuItems";
+import { GridContext } from "../../../store/grid-context";
 
 const Menu = () => {
   const [menu, setMenu] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState();
+
+  const { isNightMode } = useContext(GridContext)
 
   const user = localStorage.getItem("uid");
 
@@ -25,14 +28,16 @@ const Menu = () => {
 
       for (const key in responseData) {
         for (const i in responseData[key])
-          loadedMenu.push({
-            id: responseData[key][i].name,
-            name: responseData[key][i]?.name,
-            ingredients: responseData[key][i]?.ingredients,
-            priceS: responseData[key][i]?.priceS,
-            priceM: responseData[key][i]?.priceM,
-            priceL: responseData[key][i]?.priceL,
-          });
+          if (responseData[key][i] !== null) {
+            loadedMenu.push({
+              id: responseData[key][i].id,
+              name: responseData[key][i]?.name,
+              ingredients: responseData[key][i]?.ingredients,
+              priceS: responseData[key][i]?.priceS,
+              priceM: responseData[key][i]?.priceM,
+              priceL: responseData[key][i]?.priceL,
+            })
+          };
 
       }
 
@@ -47,17 +52,19 @@ const Menu = () => {
     });
   }, []);
 
+  const infoClasses = `${classes.info} ${isNightMode && classes.infoNight}`
+
   if (menu.length === 0) {
     return (
       <section>
-        <p className={classes.empty}>Brak pozycji w menu. Aby dodać nowe pozycje przejdź do Panel {">"} Edytuj Menu</p>
+        <p className={infoClasses}>Brak pozycji w menu. Aby dodać nowe pozycje przejdź do Panel {">"} Edytuj Menu</p>
       </section>
     )
   }
   if (isLoading) {
     return (
       <section>
-        <div className={classes.loading}>Ładuję menu...</div>
+        <div className={infoClasses}>Ładuję menu...</div>
       </section>
     );
   }

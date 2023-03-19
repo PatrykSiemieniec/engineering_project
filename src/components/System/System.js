@@ -8,13 +8,13 @@ import OnSpot from "./Orders/OnSpot/OnSpot";
 import Takeaway from "./Orders/Takeaway/Takeaway";
 import Footer from "./Footer/Footer";
 import Cart from "./MenuCart/Cart";
-import EditName from "./Edit/EditName";
+import Settings from "./Edit/Settings";
 
 const System = () => {
     const [isShown, setIsShown] = useState(false);
     const [isMenuShown, setIsMenuShown] = useState(false);
     const gridCtx = useContext(GridContext);
-    const { isEditPanelShown } = gridCtx;
+    const { isSettingsShown } = gridCtx;
 
     const openSidebar = () => {
         setIsShown(true);
@@ -36,7 +36,7 @@ const System = () => {
     return (
         <Fragment>
             <div>
-                {isEditPanelShown && <EditName />}
+                {isSettingsShown && <Settings />}
 
                 <div>
                     <div className={classes.sidebar}>

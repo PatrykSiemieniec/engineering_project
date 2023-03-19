@@ -1,64 +1,48 @@
 .box {
-  margin-top: 15px;
-  display: grid;
-  font-size: 25px;
-  grid-template-columns: 40% 15% 25% 10% 10%;
-  grid-template-rows: 20% 20%;
-  grid-template-areas:
-    "name amount price add remove"
-    "size amount price add remove";
-  overflow: auto;
+  margin-top: 2vh;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 20px;
+  font-family: "Nunito Sans", sans-serif;
 }
-
 .name {
-  display: grid;
-  grid-area: name;
-  font-weight: bold;
 }
 .size {
-  display: grid;
-  grid-area: size;
-  margin-top: 20px;
 }
 .amount {
-  display: grid;
-  grid-area: amount;
-  align-content: center;
-  justify-content: center;
-  margin-top: 35px;
 }
 .price {
-  display: grid;
-  grid-area: price;
-  justify-content: center;
-  font-style: italic;
-  font-weight: bold;
-  margin-top: 20px;
 }
+.size {
+}
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.addButton {
+  padding: 0.5em 0.8em;
+}
+.removeButton {
+  padding: 0.5em 0.8em;
+}
+
 .summaryStyles {
   color: black;
 }
 .summaryStylesNight {
   color: white;
 }
-
-.addButton {
-  display: grid;
-  grid-area: add;
-  align-content: center;
-  justify-content: center;
-  width: 50%;
-  margin-left: 30%;
-  color: black;
-}
-.removeButton {
-  display: grid;
-  grid-area: remove;
-  align-content: center;
-  justify-content: center;
-  width: 50%;
-  color: black;
-}
-.size {
-  margin-top: 4vh;
+@media only screen and (max-width: 320px),
+  (max-width: 375px),
+  (max-width: 425px),
+  (max-width: 768px) {
+  .box {
+    flex-direction: column;
+  }
+  .buttons {
+    flex-direction: row;
+  }
 }

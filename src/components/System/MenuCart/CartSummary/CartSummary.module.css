@@ -1,16 +1,25 @@
-.box {
-}
-
 .button {
   width: 200px;
   padding: 6px 24px;
   color: black;
 }
 .totalAmount {
+  width: 100%;
+  justify-content: flex-end;
+  gap: 5px;
+  display: flex;
   font-size: 25px;
 }
 .totalAmountNight {
   color: white;
 }
-.orders {
+
+@media only screen and (max-width: 320px),
+  (max-width: 375px),
+  (max-width: 425px),
+  (max-width: 768px) {
+  .button {
+    margin-top: 2vh;
+    width: 100%;
+  }
 }

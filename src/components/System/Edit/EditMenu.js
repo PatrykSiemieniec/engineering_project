@@ -1,17 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import classes from "./EditMenu.module.css";
 import Modal from "../../../UI/Modal";
 import EditMenuItems from "./EditMenuItems";
+import Button from "../../../UI/Button";
+import axios from "axios";
+import { GridContext } from "../../../store/grid-context";
+import { LanguageContext } from "../../../store/language-context";
+import lang from '../../../translation/lang.json'
+
 const EditMenu = (props) => {
     const [menu, setMenu] = useState([]);
     const [editForm, setEditForm] = useState(false);
+    const [deleted, setDeleted] = useState(false);
+    const [emptyResponse, setEmptyResponse] = useState(false);
     const user = localStorage.getItem("uid");
 
+    const [id, setId] = useState();
     const [name, setName] = useState();
     const [ingredients, setIngredients] = useState();
     const [priceS, setPriceS] = useState();
     const [priceM, setPriceM] = useState();
     const [priceL, setPriceL] = useState();
+    const [menuIdx, setMenuIdx] = useState();
+
+    const { isNightMode } = useContext(GridContext);
+    const paragraphClass = `${classes.day} ${isNightMode && classes.night}`;
+    const formClass = `${classes.form} ${isNightMode && classes.formNight}`;
+
+
+    const { choosenLanguage } = useContext(LanguageContext);
+    const language = lang[choosenLanguage].system.edit.editMenu;
+    console.log(language)
 
     useEffect(() => {
         const fetchMenu = async () => {
@@ -22,39 +41,89 @@ const EditMenu = (props) => {
             if (!response.ok) {
                 throw new Error("Coś poszło nie tak");
             }
+
             const responseData = await response.json();
+
+            if (responseData === null) {
+                setEmptyResponse(true);
+            }
             const loadedMenu = [];
 
             for (const key in responseData) {
                 for (const i in responseData[key])
-                    loadedMenu.push({
-                        id: responseData[key][i].name,
-                        name: responseData[key][i]?.name,
-                        ingredients: responseData[key][i]?.ingredients,
-                        priceS: responseData[key][i]?.priceS,
-                        priceM: responseData[key][i]?.priceM,
-                        priceL: responseData[key][i]?.priceL,
-                    });
+                    if (responseData[key][i] !== null) {
+                        loadedMenu.push({
+                            id: responseData[key][i].id,
+                            index: key,
+                            deleteIndex: i,
+                            name: responseData[key][i]?.name,
+                            ingredients: responseData[key][i]?.ingredients,
+                            priceS: responseData[key][i]?.priceS,
+                            priceM: responseData[key][i]?.priceM,
+                            priceL: responseData[key][i]?.priceL,
+                        });
+                    }
             }
 
             setMenu(loadedMenu);
         };
 
         fetchMenu();
-    }, []);
-
-    const handleDelete = (position) => {
-        console.log(position);
-    };
+    }, [deleted]);
 
     const handleEdit = (position) => {
-        console.log(position.name);
         setEditForm(true);
+        setId(position.id);
         setName(position.name);
         setIngredients(position.ingredients);
         setPriceS(position.priceS);
         setPriceM(position.priceM);
         setPriceL(position.priceL);
+
+        const indexOfEditedMenu = menu.findIndex(
+            (array) => array.id === position.id
+        );
+        setMenuIdx(indexOfEditedMenu);
+    };
+
+    const saveEdit = () => {
+        console.log(menu[menuIdx].name);
+
+        const updatedMenu = [...menu];
+
+        updatedMenu[menuIdx].name = name;
+        updatedMenu[menuIdx].ingredients = ingredients;
+        updatedMenu[menuIdx].priceS = +priceS;
+        updatedMenu[menuIdx].priceM = +priceM;
+        updatedMenu[menuIdx].priceL = +priceL;
+
+        console.log(updatedMenu);
+
+        axios.delete(
+            `https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/${user}/menu.json`
+        );
+
+        const timer = setTimeout(() => {
+            fetch(
+                `https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/${user}/menu.json`,
+                {
+                    method: "POST",
+                    body: JSON.stringify(updatedMenu),
+                }
+            );
+        }, 1000);
+
+        setEditForm(false);
+        return () => clearTimeout(timer);
+    };
+
+    const handleDelete = (position) => {
+        axios
+            .delete(
+                `https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/${user}/menu/${position.index}/${position.deleteIndex}.json`
+            )
+            .then((res) => console.log(res));
+        setDeleted(true);
     };
 
     const menuList = menu.map((menu) => (
@@ -73,39 +142,105 @@ const EditMenu = (props) => {
 
     return (
         <Modal>
-            <button className={classes.button} onClick={props.onClose}>
-                Anuluj
-            </button>
-            <p>Twoje Menu</p>
-            {!editForm && (
-                <table>
-                    <tbody>
-                        <tr>
-                            <th>#</th>
-                            <th>Nazwa</th>
-                            <th className={classes.ingredients}>Składniki</th>
-                            <th>Cena mała sztuka</th>
-                            <th>Cena średnia sztuka</th>
-                            <th>Cena duża sztuka</th>
-                            <th>Usuń</th>
-                        </tr>
-                        {menuList}
-                    </tbody>
-                </table>
-            )}
-            {editForm && (
-                <form className={classes.form}>
-                    <label>NAZWA</label>
-                    <input placeholder={name} required></input>
-                    <label>SKŁADNIKI</label>
-                    <input placeholder={ingredients} required></input>
-                    <label>CENA MAŁA PORCJA</label>
-                    <input type="number" placeholder={`${priceS} zł `}></input>
-                    <label>CENA ŚREDNIA PORCJA</label>
-                    <input type="number" placeholder={`${priceM} zł `}></input>
-                    <label>CENA DUŻA PORCJA</label>
-                    <input type="number" placeholder={`${priceL} zł `}></input>
-                </form>
+            <div className={classes.header}>
+                {!editForm ? (
+                    <Button onClick={props.onClose}>
+                        {language.cancel}
+                    </Button>
+                ) : (
+                    <Button onClick={() => setEditForm(false)}>
+                        {language.back}
+                    </Button>
+                )}
+                {editForm && (
+                    <Button onClick={saveEdit}>
+                        {language.save}
+                    </Button>
+                )}
+            </div>
+
+            {!deleted ? (
+                <>
+                    <p className={paragraphClass}>{language.yourMenu}</p>
+                    {!editForm && (
+                        <div className={classes.box}>
+                            <table className={classes.table}>
+                                <tbody>
+                                    <tr className={classes.headers}>
+                                        <th>#</th>
+                                        <th>{language.tableName}</th>
+                                        <th className={classes.ingredients}>{language.tableIngredients}</th>
+                                        <th>{language.tablePriceS}</th>
+                                        <th>{language.tablePriceM}</th>
+                                        <th>{language.tablePriceL}</th>
+                                        <th>{language.action}</th>
+                                    </tr>
+                                    {!emptyResponse ? (
+                                        menuList
+                                    ) : (
+                                        <tr>
+                                            <th colSpan="7">
+                                                <div className={classes.text}>
+                                                    {language.emptyInfo}
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                    {editForm && (
+                        <form className={formClass}>
+                            <label>ID: {id}</label>
+                            <br />
+                            <label>{language.formName}</label>
+                            <input
+                                type="text"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                placeholder={name}
+                                required
+                            />
+                            <label>{language.formIngredients}</label>
+                            <input
+                                value={ingredients}
+                                onChange={(e) => setIngredients(e.target.value)}
+                                required
+                            ></input>
+                            <label>{language.formPriceS}</label>
+                            <input
+                                type="number"
+                                value={priceS}
+                                onChange={(e) => setPriceS(e.target.value)}
+                            ></input>
+                            <label>{language.formPriceM}</label>
+                            <input
+                                type="number"
+                                value={priceM}
+                                onChange={(e) => setPriceM(e.target.value)}
+                            ></input>
+                            <label>{language.formPriceL}</label>
+                            <input
+                                type="number"
+                                value={priceL}
+                                onChange={(e) => setPriceL(e.target.value)}
+                            ></input>
+                        </form>
+                    )}
+                </>
+            ) : (
+                <div className={classes.deleteContainer}>
+                    <button
+                        className={classes.button}
+                        onClick={() => {
+                            setDeleted(false);
+                        }}
+                    >
+                        {language.backToEdit}
+                    </button>
+                    <p>{language.successMsg}</p>
+                </div>
             )}
         </Modal>
     );

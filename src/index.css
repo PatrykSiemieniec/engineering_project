@@ -1,3 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300&display=swap");
+
+::-webkit-scrollbar {
+  background: #c1c8e4;
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: #514a5e;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(41, 33, 54);
+}
+
 html,
 body {
   height: 100%;

@@ -1,10 +1,25 @@
-.button {
-  padding: 6px 24px;
-  color: black;
+.buttons {
+  display: flex;
+  justify-content: space-between;
 }
 
-.button2 {
-  padding: 6px 24px;
-  float: right;
-  color: black;
+.closeButton {
+  padding: 0.5rem 1rem;
+}
+
+.summaryButton {
+  padding: 0.5rem 1rem;
+}
+
+@media screen and (max-width: 320px),
+  (max-width: 375px),
+  (max-width: 425px),
+  (max-width: 600px) {
+  .buttons {
+    align-items: center;
+    gap: 1rem;
+  }
+  .backButton {
+    width: 100%;
+  }
 }

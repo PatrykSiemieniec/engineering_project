@@ -5,13 +5,20 @@
   align-items: stretch;
   justify-content: center;
 }
-.button {
-  color: black;
-}
 
 @media screen and (max-width: 320px), (max-width: 375px), (max-width: 425px) {
   .form {
     flex-direction: column;
     gap: 5px;
+  }
+  .form select {
+    height: 45px;
+    font-size: 18px;
+  }
+  .form Input {
+    height: 45px;
+  }
+  .form Button {
+    height: 45px;
   }
 }

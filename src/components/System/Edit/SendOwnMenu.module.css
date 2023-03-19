@@ -27,12 +27,16 @@
   align-items: center;
   justify-content: center;
 }
+.box {
+  overflow-x: auto;
+}
 .table {
   margin-top: 4vh;
-  border: 1px solid black;
   width: 100%;
   font-size: 15px;
   font-family: "Nunito Sans", sans-serif;
+  border: 1px solid black;
+  border-collapse: collapse;
 }
 
 .ingredients {
@@ -49,7 +53,7 @@ th:nth-child(2) {
 }
 
 th:nth-child(3) {
-  width: 20vw;
+  width: 15vw;
 }
 th:nth-child(4) {
   width: 10vw;
@@ -58,7 +62,7 @@ th:nth-child(5) {
   width: 10vw;
 }
 th:nth-child(6) {
-  width: 10vw;
+  width: 15vw;
 }
 
 p.day {
@@ -85,16 +89,7 @@ p.night {
   color: white;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
-.button {
-  padding: 0.5em 3em;
-  font-size: medium;
-  border-radius: 6px;
-  border: 0.1em solid black;
-  cursor: pointer;
-  font-family: "Nunito Sans", sans-serif;
-}
 
-.button:hover {
-  background-image: linear-gradient(to bottom right, #b7c9f1, #5680e9);
-  cursor: pointer;
+.headers {
+  font-size: 18px;
 }

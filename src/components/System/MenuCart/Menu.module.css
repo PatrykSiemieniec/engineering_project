@@ -1,8 +1,9 @@
-.loading {
-  color: black;
-}
-.empty {
+.info {
   text-align: center;
-  background-color: whitesmoke;
   font-size: 25px;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.infoNight {
+  color: white;
 }

@@ -1,0 +1,142 @@
+{
+  "pl": {
+    "welcome": {
+      "headerHome": "Strona główna",
+      "headerLogin": "Zaloguj",
+      "headerLogout": "Wyloguj",
+      "mainParagraph": "Poznaj działanie naszego systemu!",
+      "mainInviteRegister": "Zarejestruj się bezpłatnie i zacznij już teraz ułatwiać sobie pracę!",
+      "mainRegisterButton": "Zarejestruj!",
+      "mainRegisteredInfo": "Dziękujemy że korzystasz z naszych usług, życzymy miłego dnia!",
+      "mainInfo": "Obejrzyj poniższy film aby dowiedzieć się jakie korzyści dla twojej gastronomii niesie ze sobą korzystanie z naszego serwisu!"
+    },
+    "login": {
+      "login": "Zaloguj",
+      "register": "Zarejestruj",
+      "email": "Twój E-mail",
+      "password": "Twoje Hasło",
+      "registerInfo": "Utwórz nowe konto",
+      "loginInfo": "Zaloguj się poprzez istniejące konto",
+      "errorMessage": {
+        "invalid": "Nieprawidłowe hasło",
+        "not_found": "Nie znaleziono użytkownika",
+        "exist": "Podany E-mail już istnieje",
+        "weak": "Słabe hasło, powinno się składać z conajmniej 6 znaków"
+      }
+    },
+    "system": {
+      "edit": {
+        "editMenu": {
+          "cancel": "Anuluj",
+          "back": "Cofnij",
+          "save": "Zapisz",
+          "yourMenu": "Twoje Menu",
+          "tableName": "Nazwa",
+          "tableIngredients": "Składniki",
+          "tablePriceS": "Cena mała szt.",
+          "tablePriceM": "Cena średnia szt.",
+          "tablePriceL": "Cena duża szt.",
+          "action": "Akcja",
+          "emptyInfo": "Brak pozycji w menu. Aby dodać nowe pozycje przejdź do Panel > Edytuj Menu",
+          "formName": "NAZWA",
+          "formIngredients": "SKŁADNIKI",
+          "formPriceS": "CENA MAŁA PORCJA",
+          "formPriceM": "CENA ŚREDNIA PORCJA",
+          "formPriceL": "CENA DUŻA PORCJA",
+          "backToEdit": "Powrót do edycji",
+          "successMsg": "Pomyślnie usunięto pozycję z menu!",
+          "addPosition": "DODAJ POZYCJE DO SWOJEGO MENU",
+          "add": "Dodaj do menu",
+          "submitInfo": "Klikając Zapisz wyślesz zamówienia do bazy danych"
+        }
+      },
+      "header": {
+        "panel": "Panel",
+        "add": "Dodaj zamówienie"
+      },
+      "menuCart": {},
+      "orders": {},
+      "sidebar": {
+        "panel": "Panel",
+        "logout": "Wyloguj",
+        "mainPage": "Strona główna",
+        "nightMode": "Tryb nocny",
+        "dayMode": "Tryb dzienny",
+        "settings": "Ustawienia",
+        "delete": "Usuń zamówienia",
+        "add": "Dodaj menu",
+        "edit": "Edytuj menu"
+      }
+    }
+  },
+  "en": {
+    "welcome": {
+      "headerHome": "Home",
+      "headerLogin": "Log in",
+      "headerLogout": "Log out",
+      "mainParagraph": "Check out how our system works!",
+      "mainInviteRegister": "Sign up for free and start making your job easier now!",
+      "mainRegisterButton": "Sign Up!",
+      "mainRegisteredInfo": "Thank you for using our service, have a nice day!",
+      "mainInfo": "Watch the video below to learn about the benefits of using our service for your gastronomy!"
+    },
+    "login": {
+      "login": "Log in",
+      "register": "Sign up",
+      "email": "Your E-mail",
+      "password": "Your Password",
+      "registerInfo": "Create new account",
+      "loginInfo": "Log in with your account",
+      "errorMessage": {
+        "invalid": "Invalid password",
+        "not_found": "User not found",
+        "exist": "The email you entered already exists",
+        "weak": "Weak password, should be at least 6 characters long"
+      }
+    },
+    "system": {
+      "edit": {
+        "editMenu": {
+          "cancel": "Cancel",
+          "back": "Back",
+          "save": "Save",
+          "yourMenu": "Your Menu",
+          "tableName": "Name",
+          "tableIngredients": "Ingredients",
+          "tablePriceS": "Price small pcs",
+          "tablePriceM": "Price medium pcs",
+          "tablePriceL": "Price large pcs",
+          "action": "Action",
+          "emptyInfo": "No items on the menu. To add new items go to Panel > Edit Menu",
+          "formName": "NAME",
+          "formIngredients": "INGREDIENTS",
+          "formPriceS": "PRICE SMALL PCS",
+          "formPriceM": "PRICE MEDIUM PCS",
+          "formPriceL": "PRICE LARGE PCS",
+          "backToEdit": "Back to edit",
+          "successMsg": "Menu item successfully removed!",
+          "addPosition": "ADD POSTION TO YOUR OWN MENU",
+          "add": "Add to menu",
+          "submitInfo": "By clicking 'Save' you will send the orders to the database"
+        }
+      },
+      "header": {
+        "add": "Add order",
+        "panel": "Panel"
+      },
+      "menuCart": {},
+      "orders": {},
+      "sidebar": {
+        "panel": "Panel",
+        "logout": "Log out",
+        "mainPage": "Home",
+        "nightMode": "Night mode",
+        "dayMode": "Day mode",
+        "settings": "Settings",
+        "delete": "Delete orders",
+        "add": "Add menu",
+        "edit": "Edit menu"
+      }
+    }
+  }
+}

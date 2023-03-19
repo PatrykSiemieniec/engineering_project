@@ -11,17 +11,27 @@
 }
 
 .tr th {
-  text-align: left;
+  text-align: center;
+  font-family: "Nunito Sans", sans-serif;
+  padding: 1em;
 }
 
 .thNight {
   color: white;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  border: white;
 }
 
-.delete {
-  width: 100%;
-  background-color: transparent;
-  border: none;
+.button {
+  height: 50px;
+  width: 50px;
+}
+.button:hover {
+  background-image: linear-gradient(to bottom right, #b7c9f1, #5680e9);
   cursor: pointer;
+}
+
+.action {
+  display: flex;
+  gap: 5px;
 }

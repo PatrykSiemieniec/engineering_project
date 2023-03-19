@@ -1,89 +1,33 @@
-select:focus > option:checked {
-  background: #33bdef !important;
+.box {
+  box-sizing: border-box;
+  margin-top: 3vh;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  border-bottom: 0.5px solid black;
+  padding: 0.5rem;
+  gap: 10%;
+  font-family: "Nunito Sans", sans-serif;
 }
-.grid {
-  display: grid;
-  grid-template-columns: 80% 20%;
-  margin-left: 5%;
-  margin-right: 5%;
-  grid-template-areas: "orders button";
-  color: black;
-}
-.gridNight {
-  display: grid;
-  grid-template-columns: 80% 20%;
-  margin-left: 5%;
-  margin-right: 5%;
-  grid-template-areas: "orders button";
+.boxNight {
   color: white;
+  border-bottom: 0.5px solid white;
 }
-.secondBox {
-  margin-left: 40%;
-  margin-top: 40%;
-}
-.button {
-  display: grid;
-  grid-area: button;
-  color: black;
-}
+
 .orders {
-  display: grid;
-  grid-area: orders;
-  border-bottom: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
 }
-.ordersNight {
-  display: grid;
-  grid-area: orders;
-  border-bottom: 1px solid white;
+.name {
+  font-size: 28px;
+  font-weight: bold;
+}
+.ingredients {
+  font-size: 20px;
 }
 
 .price {
-  justify-self: end;
+  align-self: flex-end;
   font-size: 20px;
-}
-.name {
-  margin-top: 5vh;
-  font-size: 30px;
-  font-weight: 700;
-}
-.ingredients {
-  font-size: 18px;
-  font-weight: 100;
-  font-style: italic;
-}
-
-@media screen and (max-width: 320px) {
-  .secondBox {
-    margin-left: 10%;
-  }
-  .grid {
-    margin-left: 0;
-  }
-  .name {
-    font-size: 25px;
-  }
-}
-
-@media screen and (max-width: 375px) {
-  .secondBox {
-    margin-left: 10%;
-  }
-  .grid {
-    margin-left: 0;
-  }
-  .name {
-    font-size: 25px;
-  }
-}
-
-@media screen and (max-width: 425px) {
-  .secondBox {
-    margin-left: 15%;
-  }
-  .grid {
-    margin-left: 0;
-  }
-  .name {
-    font-size: 25px;
-  }
 }

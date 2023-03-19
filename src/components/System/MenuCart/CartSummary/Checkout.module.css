@@ -1,7 +1,7 @@
 .form {
-  margin: 1rem 0;
-  height: 19rem;
+  height: 22rem;
   overflow: auto;
+  font-family: "Nunito Sans", sans-serif;
 }
 .formNight {
   color: white;
@@ -14,7 +14,7 @@
   font-weight: bold;
   margin-bottom: 0.25rem;
   display: block;
-  width: 25rem;
+  width: 15rem;
 }
 
 .control input {
@@ -29,16 +29,6 @@
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
-}
-
-.actions button {
-  font: inherit;
-  color: black;
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-  border-radius: 25px;
-  padding: 0.5rem 2rem;
 }
 
 .actions .submit {
@@ -66,4 +56,24 @@
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+}
+
+@media only screen and (max-width: 320px),
+  (max-width: 375px),
+  (max-width: 425px),
+  (max-width: 768px) {
+  .control input {
+    width: 90%;
+
+    height: 45px;
+  }
+  .orderType select {
+    height: 45px;
+  }
+  .orderType {
+    width: 90%;
+  }
 }
