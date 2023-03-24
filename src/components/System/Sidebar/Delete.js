@@ -3,12 +3,19 @@ import classes from "./Delete.module.css";
 import Modal from "../../../UI/Modal";
 import { GridContext } from "../../../store/grid-context";
 import Button from "../../../UI/Button";
+import { LanguageContext } from "../../../store/language-context";
+import lang from './../../../translation/lang.json'
 
 const Delete = (props) => {
-    const gridCtx = useContext(GridContext);
-    const { isNightMode, handleSelectedType } = gridCtx;
+    const { isNightMode, handleSelectedType } = useContext(GridContext);
+
+    const { choosenLanguage } = useContext(LanguageContext)
+    const language = lang[choosenLanguage].system.edit.delete;
     const [isSubmitted, setIsSubmitted] = useState(false);
+
     const paragraphClass = `${classes.day} ${isNightMode && classes.night}`;
+
+
     const selectRef = useRef();
     let selected;
     const submitHandler = (event) => {
@@ -21,36 +28,36 @@ const Delete = (props) => {
     return (
         <Modal>
             <div>
-                <Button onClick={props.noDelete}>Powrót</Button>
+                <Button onClick={props.noDelete}>{language.back}</Button>
                 <div className={classes.box}>
                     {!isSubmitted && (
                         <>
-                            <p className={paragraphClass}>Które zamówienia chcesz usunąć?</p>
+                            <p className={paragraphClass}>{language.info}</p>
                             <form className={classes.form} onSubmit={submitHandler}>
                                 <select ref={selectRef}>
-                                    <option value="delivery">Na dowóz</option>
-                                    <option value="onspot">Na miejscu</option>
-                                    <option value="takeaway">Na wynos</option>
-                                    <option value="all">Wszystkie</option>
+                                    <option value="delivery">{language.delivery}</option>
+                                    <option value="onspot">{language.onspot}</option>
+                                    <option value="takeaway">{language.takeaway}</option>
+                                    <option value="all">{language.all}</option>
                                 </select>
-                                <Button>Potwierdź</Button>
+                                <Button>{language.confirmButton}</Button>
                             </form>
                         </>
                     )}
                     {isSubmitted && (
                         <>
                             <p className={paragraphClass}>
-                                Czy na pewno chcesz usunąć zamówienia?
+                                {language.confirm}
                             </p>
                             <button className={classes.deleteButton} onClick={props.delete}>
-                                Tak
+                                {language.yes}
                             </button>
 
                             <button
                                 className={classes.noDeleteButton}
                                 onClick={props.noDelete}
                             >
-                                Nie
+                                {language.no}
                             </button>
                         </>
                     )}

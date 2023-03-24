@@ -106,7 +106,6 @@ const arr = [
     "#ffe4b5",
     "#ffb6c1",
     "#ffdead",
-    "#f5b041",
     "#f8d7da",
     "#f4a460",
     "#f0f8ff",
@@ -121,11 +120,9 @@ const arr = [
     "#c0c0c0",
     "#b0c4de",
     "#a9a9a9",
-    "#9acd32",
     "#87cefa",
     "#778899",
-    "#32cd32",
-    "#00ced1",
+
 
 ];
 

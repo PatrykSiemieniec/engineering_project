@@ -60,6 +60,11 @@
   flex-direction: column;
   width: 20rem;
 }
+.orderType select {
+  height: 30px;
+  font-size: 20px;
+  font-family: "Nunito Sans", sans-serif;
+}
 
 @media only screen and (max-width: 320px),
   (max-width: 375px),

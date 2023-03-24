@@ -5,6 +5,11 @@
   align-items: stretch;
   justify-content: center;
 }
+.form select {
+  width: 100px;
+  font-size: 18px;
+  font-family: "Nunito Sans", sans-serif;
+}
 
 @media screen and (max-width: 320px), (max-width: 375px), (max-width: 425px) {
   .form {

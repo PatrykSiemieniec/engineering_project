@@ -1,4 +1,4 @@
-import { useState, useContext, Fragment, useEffect, } from "react";
+import { useState, useContext, Fragment, useEffect } from "react";
 import { GridContext } from "../../store/grid-context";
 import classes from "./System.module.css";
 import Sidebar from "./Sidebar/Sidebar";

@@ -3,6 +3,8 @@ import classes from "./MenuItems.module.css";
 import Button from "../../../UI/Button";
 import { OrderContext } from "../../../store/order-context";
 import { GridContext } from "../../../store/grid-context";
+import { LanguageContext } from "../../../store/language-context";
+import lang from './../../../translation/lang.json'
 import MenuItemsForm from "./MenuItemsForm";
 
 const MenuItems = (props) => {
@@ -11,7 +13,8 @@ const MenuItems = (props) => {
   const gridCtx = useContext(GridContext);
   const { isNightMode } = gridCtx;
 
-
+  const { choosenLanguage } = useContext(LanguageContext)
+  const language = lang[choosenLanguage].system.menuCart;
 
   const addItemToOrderHandler = (amount, size) => {
     let id = "";
@@ -58,7 +61,7 @@ const MenuItems = (props) => {
       </div>
       <div className={classes.secondBox}>
         <Button onClick={inputShownHandler} class={classes.button} display={isInputShown ? 'none' : null}>
-          + Dodaj
+          {language.add}
         </Button>
       </div>
       {isInputShown && (

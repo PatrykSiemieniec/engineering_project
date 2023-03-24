@@ -92,6 +92,19 @@
   border-radius: 13px;
 }
 
+.loginButton {
+  padding: 0.5em 3em;
+  font-size: medium;
+  border-radius: 6px;
+  border: 0.1em solid black;
+  cursor: pointer;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.loginButton:hover {
+  background-image: linear-gradient(to bottom right, #b7c9f1, #5680e9);
+  cursor: pointer;
+}
 @media only screen and (max-width: 320px) {
   .auth {
     max-width: 50vw;

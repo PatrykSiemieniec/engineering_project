@@ -25,6 +25,8 @@ const SendOwnMenu = (props) => {
     let loadedData = [];
     let items = [];
 
+    const URL = process.env.REACT_APP_FIREBASE_URL;
+
     const generateID = () => {
         const characters =
             `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_-+={}[]|:;"'<>,.?/~`;
@@ -90,7 +92,7 @@ const SendOwnMenu = (props) => {
     const handleSendUserMenu = () => {
         const flatArray = data.flat();
         fetch(
-            `https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/${userId}/menu.json`,
+            `${URL}/${userId}/menu.json`,
             {
                 method: "POST",
                 body: JSON.stringify(flatArray),

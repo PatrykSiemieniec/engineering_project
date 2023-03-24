@@ -1,11 +1,16 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import Input from "../../../UI/Input";
 import classes from "./MenuItemsForm.module.css";
 import Button from "../../../UI/Button";
+import { LanguageContext } from "../../../store/language-context";
+import lang from './../../../translation/lang.json'
 const MenuItemsForm = (props) => {
   const [amountIsValid, setAmountIsValid] = useState(true);
   const amountInputRef = useRef();
   const sizeInputRef = useRef();
+
+  const { choosenLanguage } = useContext(LanguageContext)
+  const language = lang[choosenLanguage].system.menuCart;
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -38,12 +43,12 @@ const MenuItemsForm = (props) => {
         }}
       />
       <select ref={sizeInputRef}>
-        <option value="small">Mała</option>
-        <option value="medium">Średnia</option>
-        <option value="large">Duża</option>
+        <option value="small">{language.small}</option>
+        <option value="medium">{language.medium}</option>
+        <option value="large">{language.large}</option>
       </select>
-      <Button class={classes.button} onClick={props.onAdd}>+ Dodaj</Button>
-      {!amountIsValid && <p>Prosze podaj prawidłową wartość</p>}
+      <Button class={classes.button} onClick={props.onAdd}>{language.add}</Button>
+      {!amountIsValid && <p>{language.amountError}</p>}
     </form>
   );
 };

@@ -4,18 +4,23 @@ import Container from "../../../../UI/Container";
 import classes from "./Takeaway.module.css";
 import TakeawayItems from "./TakeawayItems";
 import axios from "axios";
+
+import { LanguageContext } from "./../../../../store/language-context";
+import lang from "./../../../../translation/lang.json";
+
 function Takeaway() {
+  const { choosenLanguage } = useContext(LanguageContext);
+  const language = lang[choosenLanguage].system.orders;
   const gridCtx = useContext(GridContext);
   const { isTakeawayClosed, reload, isNightMode } = gridCtx;
   const [takeawayItems, SetTakeawayItems] = useState("");
   const paragraphClass = `${classes.day} ${isNightMode && classes.night}`;
   const user = localStorage.getItem("uid");
-  const url =
-    "https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/";
+  const URL = process.env.REACT_APP_FIREBASE_URL;
 
-  const getTakeawayItems = () => {
-    axios
-      .get(`${url}/${user}/takeawayOrders.json`)
+  const getTakeawayItems = async () => {
+    await axios
+      .get(`${URL}/${user}/takeawayOrders.json`)
       .then((response) => {
         const items = response.data;
         SetTakeawayItems(items);
@@ -24,10 +29,7 @@ function Takeaway() {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      getTakeawayItems();
-    }, 200);
-    return () => clearTimeout(timer);
+    getTakeawayItems();
   }, [reload]);
 
   const loadedOrdersData = [];
@@ -85,7 +87,7 @@ function Takeaway() {
 
   let content;
   if (items === undefined) {
-    content = <p className={paragraphClass}>Brak zamówień</p>;
+    content = <p className={paragraphClass}>{language.noorders}</p>;
   } else {
     content = items;
   }
@@ -98,7 +100,7 @@ function Takeaway() {
       {!isTakeawayClosed && (
         <div className={takeawayStyles}>
           <div className={titleStyles}>
-            <p className={paragraphClass}>Na wynos</p>
+            <p className={paragraphClass}>{language.takeaway}</p>
           </div>
           <Container class={classes.container}>{content}</Container>
         </div>

@@ -4,18 +4,23 @@ import Container from "../../../../UI/Container";
 import classes from "./OnSpot.module.css";
 import OnSpotItems from "./OnSpotItems";
 import axios from "axios";
+
+import { LanguageContext } from "./../../../../store/language-context";
+import lang from "./../../../../translation/lang.json";
+
 function OnSpot() {
+  const { choosenLanguage } = useContext(LanguageContext);
+  const language = lang[choosenLanguage].system.orders;
   const gridCtx = useContext(GridContext);
   const { isOnSpotClosed, reload, isNightMode } = gridCtx;
   const [onspotItems, setOnspotItems] = useState("");
   const paragraphClass = `${classes.day} ${isNightMode && classes.night}`;
   const user = localStorage.getItem("uid");
-  const url =
-    "https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/";
+  const URL = process.env.REACT_APP_FIREBASE_URL;
 
-  const getOnspotItems = () => {
-    axios
-      .get(`${url}/${user}/onspotOrders.json`)
+  const getOnspotItems = async () => {
+    await axios
+      .get(`${URL}/${user}/onspotOrders.json`)
       .then((response) => {
         const items = response.data;
         setOnspotItems(items);
@@ -24,10 +29,7 @@ function OnSpot() {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      getOnspotItems();
-    }, 500);
-    return () => clearTimeout(timer);
+    getOnspotItems();
   }, [reload]);
 
   const loadedOrdersData = [];
@@ -44,10 +46,9 @@ function OnSpot() {
           done: onspotItems[key]?.orderedItems[i]?.done,
           user: onspotItems[key]?.user,
           totalAmount: onspotItems[key]?.orderedAmount,
-          color: onspotItems[key]?.color
+          color: onspotItems[key]?.color,
         });
       }
-
     }
   }
 
@@ -86,7 +87,7 @@ function OnSpot() {
 
   let content;
   if (items === undefined) {
-    content = <p className={paragraphClass}>Brak zamówień</p>;
+    content = <p className={paragraphClass}>{language.noorders}</p>;
   } else {
     content = items;
   }
@@ -99,7 +100,7 @@ function OnSpot() {
       {!isOnSpotClosed && (
         <div className={onSpotStyles}>
           <div className={titleStyles}>
-            <p className={paragraphClass}>Na miejscu</p>
+            <p className={paragraphClass}>{language.onspot}</p>
           </div>
           <Container class={classes.container}>{content}</Container>
         </div>

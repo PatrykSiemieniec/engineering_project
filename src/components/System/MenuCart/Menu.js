@@ -12,13 +12,16 @@ const Menu = () => {
 
   const user = localStorage.getItem("uid");
 
+  const URL = process.env.REACT_APP_FIREBASE_URL;
+
   useEffect(() => {
     const fetchMenu = async () => {
       setIsLoading(true);
       const response = await fetch(
-        `https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/${user}/menu.json`
+        `${URL}/${user}/menu.json`
       );
 
+      console.log(URL)
       if (!response.ok) {
         throw new Error("Coś poszło nie tak");
       }

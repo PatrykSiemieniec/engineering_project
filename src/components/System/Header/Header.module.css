@@ -2,11 +2,13 @@
   background-image: linear-gradient(to bottom right, #b7c9f1, #5680e9);
   display: grid;
   grid-area: header;
+  min-height: 120px;
 }
 .headerNight {
   background-image: linear-gradient(to bottom, black, rgb(47, 47, 59));
   display: grid;
   grid-area: header;
+  min-height: 120px;
 }
 .menuButton {
   margin-top: 1%;
@@ -20,7 +22,7 @@
   text-align: end;
   margin-right: 10%;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 35px;
   font-family: "Nunito Sans", sans-serif;
 }
 .nameNight {
@@ -29,18 +31,19 @@
   margin-right: 10%;
   color: white;
   font-weight: bold;
-  font-size: 40px;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 35px;
+  font-family: "Nunito Sans", sans-serif;
 }
 
 @media only screen and (max-width: 320px),
   (max-width: 375px),
-  (max-width: 425px),
-  (max-width: 768px) {
-  .header {
-    height: 75px;
-  }
+  (max-width: 600px) {
   .menuButton {
     margin-top: 3%;
+  }
+  .nameNight {
+    text-align: center;
+    margin-top: 5%;
+    margin-right: 0;
   }
 }

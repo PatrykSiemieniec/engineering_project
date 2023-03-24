@@ -7,7 +7,7 @@ import AuthContext from "../../../store/auth-context";
 import { LanguageContext } from "../../../store/language-context";
 
 import { TbSettings, TbTrash, TbUser } from "react-icons/tb";
-import { CgSun, CgMoon, CgLogOut } from "react-icons/cg";
+import { CgLogOut } from "react-icons/cg";
 import { VscChromeClose } from "react-icons/vsc";
 import { TfiBackLeft } from "react-icons/tfi";
 import { AiOutlineEdit } from "react-icons/ai";
@@ -29,18 +29,21 @@ const Sidebar = (props) => {
   const {
     handleSettingsShown,
     handleReload,
-    handleNightMode,
     isNightMode,
     selectedType,
   } = useContext(GridContext);
 
-  const { choosenLanguage } = useContext(LanguageContext);
+  const { choosenLanguage, reloadLanguageHandler } = useContext(LanguageContext);
   const language = lang[choosenLanguage].system.sidebar;
+
+  const { setIsSystemOpen } = useContext(GridContext)
 
   const history = useHistory();
 
   const logoutHandler = () => {
     logout();
+    setIsSystemOpen((prev) => !prev)
+    reloadLanguageHandler((prev) => !prev)
     history.replace("/");
   };
   const backHandler = () => {
@@ -73,20 +76,19 @@ const Sidebar = (props) => {
   };
   const deleteOrdersHandler = async () => {
     const user = localStorage.getItem("uid");
-    const url =
-      "https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/";
+    const URL = process.env.REACT_APP_FIREBASE_URL;
 
     if (selectedType === "delivery") {
-      await axios.delete(`${url}/${user}/deliveryOrders.json`);
+      await axios.delete(`${URL}/${user}/deliveryOrders.json`);
     } else if (selectedType === "onspot") {
-      await axios.delete(`${url}/${user}/onspotOrders.json`);
+      await axios.delete(`${URL}/${user}/onspotOrders.json`);
     } else if (selectedType === "takeaway") {
-      await axios.delete(`${url}/${user}//takeawayOrders.json`);
+      await axios.delete(`${URL}/${user}//takeawayOrders.json`);
     } else if (selectedType === "all") {
       console.log(selectedType);
-      await axios.delete(`${url}/${user}/deliveryOrders.json`);
-      await axios.delete(`${url}/${user}/onspotOrders.json`);
-      await axios.delete(`${url}/${user}//takeawayOrders.json`);
+      await axios.delete(`${URL}/${user}/deliveryOrders.json`);
+      await axios.delete(`${URL}/${user}/onspotOrders.json`);
+      await axios.delete(`${URL}/${user}//takeawayOrders.json`);
     }
     reloadHandler();
   };
@@ -140,34 +142,6 @@ const Sidebar = (props) => {
         <div className={classes.text}>{language.mainPage}</div>
       </button>
 
-      <button
-        className={sidebarButtonClass}
-        onClick={() => {
-          handleNightMode((prev) => !prev);
-        }}
-      >
-        {isNightMode ? (
-          <>
-            {!isNightMode ? (
-              <CgSun style={{ color: "black", fontSize: "20px" }} />
-            ) : (
-              <CgSun style={{ color: "white", fontSize: "20px" }} />
-            )}
-            <br />
-            <div className={classes.text}>{language.dayMode}</div>
-          </>
-        ) : (
-          <>
-            {!isNightMode ? (
-              <CgMoon style={{ color: "black", fontSize: "20px" }} />
-            ) : (
-              <CgMoon style={{ color: "white", fontSize: "20px" }} />
-            )}
-            <br />
-            <div className={classes.text}>{language.nightMode}</div>
-          </>
-        )}
-      </button>
 
       <button
         className={sidebarButtonClass}

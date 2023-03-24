@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import classes from "./EditMenu.module.css";
 import Modal from "../../../UI/Modal";
 import EditMenuItems from "./EditMenuItems";
@@ -6,7 +6,7 @@ import Button from "../../../UI/Button";
 import axios from "axios";
 import { GridContext } from "../../../store/grid-context";
 import { LanguageContext } from "../../../store/language-context";
-import lang from '../../../translation/lang.json'
+import lang from "../../../translation/lang.json";
 
 const EditMenu = (props) => {
     const [menu, setMenu] = useState([]);
@@ -27,16 +27,14 @@ const EditMenu = (props) => {
     const paragraphClass = `${classes.day} ${isNightMode && classes.night}`;
     const formClass = `${classes.form} ${isNightMode && classes.formNight}`;
 
-
     const { choosenLanguage } = useContext(LanguageContext);
     const language = lang[choosenLanguage].system.edit.editMenu;
-    console.log(language)
+
+    const URL = process.env.REACT_APP_FIREBASE_URL;
 
     useEffect(() => {
         const fetchMenu = async () => {
-            const response = await fetch(
-                `https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/${user}/menu.json`
-            );
+            const response = await fetch(`${URL}/${user}/menu.json`);
 
             if (!response.ok) {
                 throw new Error("Coś poszło nie tak");
@@ -86,7 +84,7 @@ const EditMenu = (props) => {
         setMenuIdx(indexOfEditedMenu);
     };
 
-    const saveEdit = () => {
+    const saveEdit = async () => {
         console.log(menu[menuIdx].name);
 
         const updatedMenu = [...menu];
@@ -99,28 +97,21 @@ const EditMenu = (props) => {
 
         console.log(updatedMenu);
 
-        axios.delete(
-            `https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/${user}/menu.json`
-        );
+        await axios.delete(`${URL}/${user}/menu.json`);
 
-        const timer = setTimeout(() => {
-            fetch(
-                `https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/${user}/menu.json`,
-                {
-                    method: "POST",
-                    body: JSON.stringify(updatedMenu),
-                }
-            );
-        }, 1000);
+        await fetch(`${URL}/${user}/menu.json`, {
+            method: "POST",
+            body: JSON.stringify(updatedMenu),
+        });
 
         setEditForm(false);
-        return () => clearTimeout(timer);
+        //return () => clearTimeout(timer);
     };
 
     const handleDelete = (position) => {
         axios
             .delete(
-                `https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/${user}/menu/${position.index}/${position.deleteIndex}.json`
+                `${URL}/${user}/menu/${position.index}/${position.deleteIndex}.json`
             )
             .then((res) => console.log(res));
         setDeleted(true);
@@ -144,19 +135,11 @@ const EditMenu = (props) => {
         <Modal>
             <div className={classes.header}>
                 {!editForm ? (
-                    <Button onClick={props.onClose}>
-                        {language.cancel}
-                    </Button>
+                    <Button onClick={props.onClose}>{language.cancel}</Button>
                 ) : (
-                    <Button onClick={() => setEditForm(false)}>
-                        {language.back}
-                    </Button>
+                    <Button onClick={() => setEditForm(false)}>{language.back}</Button>
                 )}
-                {editForm && (
-                    <Button onClick={saveEdit}>
-                        {language.save}
-                    </Button>
-                )}
+                {editForm && <Button onClick={saveEdit}>{language.save}</Button>}
             </div>
 
             {!deleted ? (
@@ -169,7 +152,9 @@ const EditMenu = (props) => {
                                     <tr className={classes.headers}>
                                         <th>#</th>
                                         <th>{language.tableName}</th>
-                                        <th className={classes.ingredients}>{language.tableIngredients}</th>
+                                        <th className={classes.ingredients}>
+                                            {language.tableIngredients}
+                                        </th>
                                         <th>{language.tablePriceS}</th>
                                         <th>{language.tablePriceM}</th>
                                         <th>{language.tablePriceL}</th>
@@ -180,9 +165,7 @@ const EditMenu = (props) => {
                                     ) : (
                                         <tr>
                                             <th colSpan="7">
-                                                <div className={classes.text}>
-                                                    {language.emptyInfo}
-                                                </div>
+                                                <div className={classes.text}>{language.emptyInfo}</div>
                                             </th>
                                         </tr>
                                     )}

@@ -2,22 +2,26 @@ import React, { useContext } from "react";
 import Button from "../../../../UI/Button";
 import classes from "./CartSummaryItems.module.css";
 import { GridContext } from "../../../../store/grid-context";
-
+import { LanguageContext } from "../../../../store/language-context";
+import lang from './../../../../translation/lang.json'
 const CartSummaryItems = (props) => {
   const gridCtx = useContext(GridContext);
   const { isNightMode } = gridCtx;
-  const amount = props.price * props.amount;
+  const price = props.price * props.amount;
   const summaryStyles = `${classes.summaryStyles} ${isNightMode && classes.summaryStylesNight
     }`;
+
+  const { choosenLanguage } = useContext(LanguageContext)
+  const language = lang[choosenLanguage].system.menuCart;
   return (
     <div className={summaryStyles}>
       <div className={classes.box}>
         <div className={classes.name}>
-          Nazwa:<b>{" "}{props.name}</b>
+          {language.name}<b>{" "}{props.name}</b>
         </div>
-        <div className={classes.size}> Rozmiar:<b>{" "}{props.size}</b></div>
-        <div className={classes.amount}> Ilość: <b>{" "}{props.amount}</b></div>
-        <div className={classes.price}> Cena: <b>{amount} zł</b></div>
+        <div className={classes.size}> {language.size}<b>{" "}{props.size}</b></div>
+        <div className={classes.amount}>{language.amount} <b>{" "}{props.amount}</b></div>
+        <div className={classes.price}> {language.price} <b>{price} zł</b></div>
         <div className={classes.buttons}>
           <Button onClick={props.add} class={classes.addButton}>
             +

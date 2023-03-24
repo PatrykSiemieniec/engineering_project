@@ -1,15 +1,15 @@
 import React, { useContext } from "react";
 import classes from "./Welcome.module.css";
+import { TbUser } from "react-icons/tb";
 import { NavLink } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
-import Button from "../../UI/Button";
-import { TbUser } from "react-icons/tb";
+import { GridContext } from "../../store/grid-context";
 import { LanguageContext } from "../../store/language-context";
-import { ReactComponent as ENG } from "../../assets/eng.svg";
-import { ReactComponent as PL } from "../../assets/pl.svg";
 import lang from "../../translation/lang.json";
 const Welcome = () => {
-    const { choosenLanguage, setChoosenLanguage } = useContext(LanguageContext);
+    const { choosenLanguage, reloadLanguageHandler } = useContext(LanguageContext);
+
+    const { setIsSystemOpen } = useContext(GridContext)
     const authCtx = useContext(AuthContext);
     const logoutHandler = () => {
         authCtx.logout();
@@ -34,6 +34,7 @@ const Welcome = () => {
                                 padding: "10px",
                             }}
                             to="/system"
+                            onClick={() => { setIsSystemOpen(prev => !prev); reloadLanguageHandler(prev => !prev) }}
                         >
                             System
                         </NavLink>
@@ -104,14 +105,7 @@ const Welcome = () => {
                     src="https://www.youtube.com/embed/tgbNymZ7vqY"
                     title="tutorial"
                 ></iframe>
-                <div className={classes.language}>
-                    <div className={classes.langButton} onClick={() => setChoosenLanguage('pl')}>
-                        <PL />
-                    </div>
-                    <div className={classes.langButton} onClick={() => setChoosenLanguage('en')}>
-                        <ENG />
-                    </div>
-                </div>
+
             </div>
         </>
     );

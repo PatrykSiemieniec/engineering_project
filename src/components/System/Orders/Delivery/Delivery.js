@@ -4,19 +4,22 @@ import Container from "../../../../UI/Container";
 import classes from "./Delivery.module.css";
 import DeliveryItems from "./DeliveryItems";
 import axios from "axios";
+import { LanguageContext } from "./../../../../store/language-context";
+import lang from "./../../../../translation/lang.json";
 
 function Delivery() {
+  const { choosenLanguage } = useContext(LanguageContext);
+  const language = lang[choosenLanguage].system.orders;
   const gridCtx = useContext(GridContext);
   const { isDeliveryClosed, reload, isNightMode } = gridCtx;
   const [deliveryItems, setDeliveryItems] = useState("");
   const paragraphClass = `${classes.day} ${isNightMode && classes.night}`;
   const user = localStorage.getItem("uid");
-  const url =
-    "https://engineering-project-89cd8-default-rtdb.europe-west1.firebasedatabase.app/";
+  const URL = process.env.REACT_APP_FIREBASE_URL;
 
-  const getDeliveryItems = () => {
-    axios
-      .get(`${url}/${user}/deliveryOrders.json`)
+  const getDeliveryItems = async () => {
+    await axios
+      .get(`${URL}/${user}/deliveryOrders.json`)
       .then((response) => {
         const items = response.data;
         setDeliveryItems(items);
@@ -25,16 +28,10 @@ function Delivery() {
   };
 
   useEffect(() => {
-
-    const timer = setTimeout(() => {
-      getDeliveryItems()
-    }, 500);
-    return () => clearTimeout(timer);
-
+    getDeliveryItems();
   }, [reload]);
 
   let loadedOrdersData = [];
-
 
   for (const key in deliveryItems) {
     for (const i in deliveryItems[key].orderedItems) {
@@ -49,8 +46,7 @@ function Delivery() {
           done: deliveryItems[key]?.orderedItems[i]?.done,
           user: deliveryItems[key]?.user,
           totalAmount: deliveryItems[key]?.orderedAmount,
-          color: deliveryItems[key]?.color
-
+          color: deliveryItems[key]?.color,
         });
       }
     }
@@ -89,20 +85,21 @@ function Delivery() {
 
   let content;
   if (items === undefined) {
-    content = <p className={paragraphClass}>Brak zamówień</p>;
+    content = <p className={paragraphClass}>{language.noorders}</p>;
   } else {
     content = items;
   }
 
-  const deliveryStyles = `${classes.delivery} ${isNightMode && classes.deliveryNight}`
-  const titleStyles = `${classes.title} ${isNightMode && classes.titleNight}`
+  const deliveryStyles = `${classes.delivery} ${isNightMode && classes.deliveryNight
+    }`;
+  const titleStyles = `${classes.title} ${isNightMode && classes.titleNight}`;
 
   return (
     <>
       {!isDeliveryClosed && (
         <div className={deliveryStyles}>
           <div className={titleStyles}>
-            <p className={paragraphClass}>Na dowóz</p>
+            <p className={paragraphClass}>{language.delivery}</p>
           </div>
           <Container class={classes.container}>{content}</Container>
         </div>

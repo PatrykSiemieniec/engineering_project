@@ -4,6 +4,8 @@ import Menu from "./Menu";
 import classes from "./Cart.module.css";
 import Button from "../../../UI/Button";
 import { OrderContext } from "../../../store/order-context";
+import { LanguageContext } from "../../../store/language-context";
+import lang from './../../../translation/lang.json'
 import CartSummary from "./CartSummary/CartSummary";
 function Cart(props) {
   const orderCtx = useContext(OrderContext);
@@ -11,8 +13,10 @@ function Cart(props) {
   const [isEmpty, setIsEmpty] = useState(true);
   const [isSummaryClicked, setIsSummaryClicked] = useState(false);
 
+  const { choosenLanguage } = useContext(LanguageContext)
+  const language = lang[choosenLanguage].system.menuCart;
+
   const check = items.length > 0;
-  console.log(check);
   useEffect(() => {
     if (check) {
       setIsEmpty(false);
@@ -40,12 +44,12 @@ function Cart(props) {
         )}
         {isSummaryClicked && (
           <Button class={classes.backButton} onClick={closeSummaryHandler}>
-            Wróć do menu
+            {language.back}
           </Button>
         )}
         {!isEmpty && !isSummaryClicked && (
           <Button onClick={openSummaryHandler} class={classes.summaryButton}>
-            Podsumowanie
+            {language.summary}
           </Button>
         )}
       </div>

@@ -1,12 +1,20 @@
-import { useRef, useState, useContext } from "react";
+import { useRef, useState, useContext, useEffect } from "react";
 import classes from "./Checkout.module.css";
 import { GridContext } from "../../../../store/grid-context";
 import { OrderContext } from "../../../../store/order-context";
+import { LanguageContext } from "../../../../store/language-context";
+import lang from "./../../../../translation/lang.json";
 import Button from "../../../../UI/Button";
+import axios from "axios";
 const isEmpty = (value) => value.trim() === "";
 const isNineChars = (value) => value.trim().length === 9;
 
 const Checkout = (props) => {
+  const { choosenLanguage } = useContext(LanguageContext);
+  const language = lang[choosenLanguage].system.menuCart;
+
+  const user = localStorage.getItem("uid");
+  const [response, setResponse] = useState();
   const gridCtx = useContext(GridContext);
   const orderCtx = useContext(OrderContext);
   const { handleReload, handleIsSend, isNightMode } = gridCtx;
@@ -55,7 +63,7 @@ const Checkout = (props) => {
     });
 
     props.onHideCart();
-    handleReload(prev => !prev);
+    handleReload((prev) => !prev);
     orderCtx.clearCart();
   };
 
@@ -66,60 +74,75 @@ const Checkout = (props) => {
   const cityControlClasses = `${classes.control} ${formInputValidity.city ? "" : classes.invalid
     }`;
 
-  const openHour = localStorage.getItem('openHour')
-  const closeHour = localStorage.getItem('closeHour')
+  const URL = process.env.REACT_APP_FIREBASE_URL;
 
-  const formStyles = `${classes.form} ${isNightMode && classes.formNight}`
+  useEffect(() => {
+    const fetchConfig = async () => {
+      await axios
+        .get(
+          `${URL}/${user}/config.json`
+        )
+        .then((response) => setResponse(response));
+    };
+
+    fetchConfig();
+  }, [user]);
+
+  const formStyles = `${classes.form} ${isNightMode && classes.formNight}`;
   return (
     <form className={formStyles} onSubmit={confirmHandler}>
       <div className={classes.orderType}>
-        <label htmlFor="type">Rodzaj zamówienia {' '}</label>
+        <label htmlFor="type">{language.type} </label>
         <select ref={typeSelectRef}>
-          <option value="delivery">Na dowóz</option>
-          <option value="onspot">Na miejscu</option>
-          <option value="takeaway">Na wynos</option>
+          <option value="delivery">{language.delivery}</option>
+          <option value="onspot">{language.onspot}</option>
+          <option value="takeaway">{language.takeaway}</option>
         </select>
       </div>
       <div className={classes.control}>
-        <label htmlFor="time">Podaj godzine wydania zamówienia</label>
-        <input placeholder="minutes" type="time" id="time" ref={timeRef} min={`${openHour}:00`} mmax={`${closeHour}:00`} required />
+        <label htmlFor="time">{language.hour}</label>
+        <input
+          placeholder="minutes"
+          type="time"
+          id="time"
+          ref={timeRef}
+          min={`${response?.data?.openHour}:00`}
+          max={`${response?.data?.closeHour}:00`}
+          required
+        />
       </div>
       <div className={streetControlClasses}>
-        <label htmlFor="street">Ulica</label>
+        <label htmlFor="street">{language.street}</label>
         <input
           placeholder="Lotnicza 9/33"
           type="text"
           id="street"
           ref={streetInputRef}
         />
-        {!formInputValidity.street && <h5>Prosze podaj poprawna ulice!</h5>}
+        {!formInputValidity.street && <h5>{language.streetError}</h5>}
       </div>
       <div className={cityControlClasses}>
-        <label htmlFor="city">Miasto</label>
+        <label htmlFor="city">{language.city}</label>
         <input
           placeholder="Skarżysko-Kamienna"
           type="text"
           id="city"
           ref={cityInputRef}
         />
-        {!formInputValidity.city && <h5>Prosze podaj poprawne miasto!</h5>}
+        {!formInputValidity.city && <h5>{language.cityError}</h5>}
       </div>
       <div className={numberControlClasses}>
-        <label htmlFor="number">Numer</label>
+        <label htmlFor="number">{language.number}</label>
         <input
           placeholder="123123123"
           type="text"
           id="number"
           ref={numberInputRef}
         />
-        {!formInputValidity.number && (
-          <h5>Prosze podaj poprawny numer telefonu!</h5>
-        )}
+        {!formInputValidity.number && <h5>{language.numberError}</h5>}
       </div>
       <div className={classes.actions}>
-        <Button onClick={handleIsSend}>
-          Wyślij
-        </Button>
+        <Button onClick={handleIsSend}>{language.submit}</Button>
       </div>
     </form>
   );

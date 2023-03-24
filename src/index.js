@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "./store/auth-context";
 import { LanguageContextProvider } from "./store/language-context";
 
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <LanguageContextProvider>

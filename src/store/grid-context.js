@@ -1,37 +1,44 @@
-import React, { useState, createContext } from "react";
-
+import React, { useState, createContext, useEffect } from "react";
+import axios from "axios";
 export const GridContext = createContext({
   isEditPanelShown: false,
-  name: "NAZWA",
   isSend: false,
   reload: null,
   isNightMode: null,
   selectedType: null,
+  themeReload: false,
+  isSystemOpen: false,
+  nameReload: false,
   setIsEditPanelShown: (condition) => { },
-  setName: (name) => { },
   setIsSend: (condition) => { },
   setReload: (condition) => { },
   setIsNightMode: (condition) => { },
-  setSelectedType: (type) => { }
+  setSelectedType: (type) => { },
+  setThemeReload: (condition) => { },
+  setIsSystemOpen: (condition) => { },
+  setNameReload: (condition) => { }
 });
 
 export const GridContextProvider = ({ children }) => {
+
+  const URL = process.env.REACT_APP_FIREBASE_URL;
+
   const [isSettingsShown, setIsSettingsShown] = useState(false);
   const [isSend, setIsSend] = useState(false);
-  const [name, setName] = useState("NAZWA");
+
   const [reload, setReload] = useState(false);
+  const [themeReload, setThemeReload] = useState(false);
+  const [isSystemOpen, setIsSystemOpen] = useState(false);
+  const [nameReload, setNameReload] = useState(false)
+
   const [isNightMode, setIsNightMode] = useState(false);
-  const [selectedType, setSelectedType] = useState('')
+  const [selectedType, setSelectedType] = useState("");
 
   const handleSettingsShown = (condition) => {
     setIsSettingsShown(condition);
   };
   const handleIsSend = (condition) => {
-    setIsSend(condition => !condition);
-  };
-  const handleName = (name) => {
-    setName(name);
-    window.localStorage.setItem('name', name);
+    setIsSend((condition) => !condition);
   };
   const handleReload = (condition) => {
     setReload(condition);
@@ -41,21 +48,46 @@ export const GridContextProvider = ({ children }) => {
   };
   const handleSelectedType = (type) => {
     setSelectedType(type);
-  }
+  };
+  const themeReloadHandler = (condition) => {
+    setThemeReload(condition);
+  };
   const contextValue = {
     isSettingsShown,
     isSend,
-    name,
     reload,
     isNightMode,
     selectedType,
+    themeReload,
+    isSystemOpen,
+    nameReload,
     handleSettingsShown,
     handleIsSend,
-    handleName,
     handleReload,
     handleNightMode,
     handleSelectedType,
+    themeReloadHandler,
+    setIsSystemOpen,
+    setNameReload
   };
+
+  const user = localStorage.getItem("uid");
+  useEffect(() => {
+    const fetchConfig = async () => {
+
+      const response = await axios.get(
+        `${URL}/${user}/config.json`
+      );
+
+      if (response?.data?.theme === "day") {
+        setIsNightMode(false)
+      } else {
+        setIsNightMode(true)
+      }
+
+    };
+    fetchConfig();
+  }, [user, themeReload, isSystemOpen]);
 
   return (
     <GridContext.Provider value={contextValue}>{children}</GridContext.Provider>

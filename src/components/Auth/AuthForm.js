@@ -28,13 +28,17 @@ const AuthForm = () => {
         const enteredEmail = emailInputRef.current.value;
         const enteredPassword = passwordInputRef.current.value;
 
+        const authApiKey = process.env.REACT_APP_AUTH_API_KEY;
+        const SIGNIN_URL = process.env.REACT_APP_SIGNIN_URL;
+        const SIGNUP_URL = process.env.REACT_APP_SIGNUP_URL;
+
         let url;
         if (isLogin) {
-            url =
-                "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDHaM6eKKL1315urq3uyxPB3mw8f_lr5Vg";
+            url = `${SIGNIN_URL}${authApiKey}`
+                ;
         } else {
-            url =
-                "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDHaM6eKKL1315urq3uyxPB3mw8f_lr5Vg";
+            url = `${SIGNUP_URL}${authApiKey}`
+
         }
         fetch(url, {
             method: "POST",
@@ -110,7 +114,7 @@ const AuthForm = () => {
                         />
                     </div>
                     <div className={classes.actions}>
-                        <Button>{isLogin ? language.login : language.register}</Button>
+                        <button className={classes.loginButton}>{isLogin ? language.login : language.register}</button>
                         <button
                             type="button"
                             className={classes.toggle}

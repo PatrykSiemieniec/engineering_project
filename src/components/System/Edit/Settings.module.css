@@ -1,8 +1,20 @@
 .flex {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 15px;
   padding: 15px;
+}
+.header {
+  position: sticky;
+  top: -1rem;
+  height: 60px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+}
+.headerNight {
+  background-color: transparent;
 }
 .settings {
   width: 100%;
@@ -63,7 +75,51 @@ p.night {
   font-weight: 900;
   font-family: "Nunito Sans", sans-serif;
 }
+.language {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.language select {
+  height: 40px;
+  width: 100px;
+  font-size: 18px;
+  font-family: "Nunito Sans", sans-serif;
+}
+.language form {
+  display: flex;
+  gap: 1rem;
+}
+.theme {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.theme select {
+  height: 40px;
+  width: 150px;
+  font-size: 18px;
+  font-family: "Nunito Sans", sans-serif;
+}
+.theme form {
+  display: flex;
+  gap: 1rem;
+}
 
+.messageNight {
+  color: greenyellow;
+  font-size: 18px;
+  font-family: "Nunito Sans", sans-serif;
+}
+.message {
+  color: green;
+  font-size: 18px;
+  font-family: "Nunito Sans", sans-serif;
+}
 @media only screen and (max-width: 320px),
   (max-width: 375px),
   (max-width: 425px),
@@ -75,5 +131,19 @@ p.night {
   .changePasswordForm {
     width: 80%;
     margin-left: 10%;
+  }
+  .header {
+    background-color: white;
+  }
+  .headerNight {
+    background-color: rgb(47, 47, 59);
+  }
+  .theme form {
+    flex-direction: column;
+    align-items: center;
+  }
+  .language form {
+    flex-direction: column;
+    align-items: center;
   }
 }
